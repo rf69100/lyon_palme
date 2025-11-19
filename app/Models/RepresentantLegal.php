@@ -35,13 +35,28 @@ class RepresentantLegal extends Model
         'peut_recuperer',
         'autorise_sortie',
         'autorise_transport',
+        'nom_recherche',
+        'prenom_recherche',
+        'nom_complet_recherche',
     ];
 
     /**
      * Attributs sensibles qui doivent être chiffrés
-     * Conformément au RGPD et aux bonnes pratiques de sécurité
+     * Conformément au RGPD Article 4
+     *
+     * DONNÉES DIRECTEMENT IDENTIFIANTES :
+     * - nom, prenom, email
+     *
+     * DONNÉES INDIRECTEMENT IDENTIFIANTES :
+     * - telephone, mobile, adresse
      */
     protected $encryptable = [
+        // Directement identifiantes
+        'nom',
+        'prenom',
+        'email',
+
+        // Indirectement identifiantes
         'telephone',
         'mobile',
         'numero_rue',
@@ -128,5 +143,32 @@ class RepresentantLegal extends Model
     public function autoriseTransport(): bool
     {
         return $this->autorise_transport === true;
+    }
+
+    /**
+     * Recherche par nom (utilise le hash pour performance)
+     */
+    public static function rechercherParNom(string $nom)
+    {
+        $nomHash = hash('sha256', mb_strtolower($nom));
+        return static::where('nom_recherche', $nomHash)->get();
+    }
+
+    /**
+     * Recherche par prénom (utilise le hash pour performance)
+     */
+    public static function rechercherParPrenom(string $prenom)
+    {
+        $prenomHash = hash('sha256', mb_strtolower($prenom));
+        return static::where('prenom_recherche', $prenomHash)->get();
+    }
+
+    /**
+     * Recherche par nom complet (utilise le hash pour performance)
+     */
+    public static function rechercherParNomComplet(string $nom, string $prenom)
+    {
+        $nomCompletHash = hash('sha256', mb_strtolower($nom . ' ' . $prenom));
+        return static::where('nom_complet_recherche', $nomCompletHash)->get();
     }
 }

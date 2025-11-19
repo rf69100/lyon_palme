@@ -39,13 +39,29 @@ class Adherent extends Model
         'statut',
         'archive_le',
         'est_mineur',
+        'nom_recherche',
+        'prenom_recherche',
+        'nom_complet_recherche',
     ];
 
     /**
      * Attributs sensibles qui doivent être chiffrés
-     * Conformément au RGPD et aux bonnes pratiques de sécurité
+     * Conformément au RGPD Article 4 et Article 9
+     *
+     * DONNÉES DIRECTEMENT IDENTIFIANTES (Art. 4) :
+     * - nom, prenom, email
+     *
+     * DONNÉES INDIRECTEMENT IDENTIFIANTES (Art. 4) :
+     * - date_naissance, telephone, mobile, adresse, contacts urgence
      */
     protected $encryptable = [
+        // Directement identifiantes
+        'nom',
+        'prenom',
+        'email',
+
+        // Indirectement identifiantes
+        'date_naissance',
         'telephone',
         'mobile',
         'numero_rue',
@@ -59,7 +75,8 @@ class Adherent extends Model
     ];
 
     protected $casts = [
-        'date_naissance' => 'date',
+        // NOTE: date_naissance est chiffré, donc ne peut pas être casté en 'date'
+        // Le déchiffrement se fait avant, puis on peut parser manuellement si besoin
         'archive_le' => 'datetime',
         'est_mineur' => 'boolean',
     ];
@@ -180,5 +197,42 @@ class Adherent extends Model
             'statut' => 'actif',
             'archive_le' => null,
         ]);
+    }
+
+    /**
+     * Recherche par nom (utilise le hash pour performance)
+     *
+     * @param string $nom Le nom à rechercher (exactement)
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function rechercherParNom(string $nom)
+    {
+        $nomHash = hash('sha256', mb_strtolower($nom));
+        return static::where('nom_recherche', $nomHash)->get();
+    }
+
+    /**
+     * Recherche par prénom (utilise le hash pour performance)
+     *
+     * @param string $prenom Le prénom à rechercher (exactement)
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function rechercherParPrenom(string $prenom)
+    {
+        $prenomHash = hash('sha256', mb_strtolower($prenom));
+        return static::where('prenom_recherche', $prenomHash)->get();
+    }
+
+    /**
+     * Recherche par nom complet (utilise le hash pour performance)
+     *
+     * @param string $nom Le nom
+     * @param string $prenom Le prénom
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function rechercherParNomComplet(string $nom, string $prenom)
+    {
+        $nomCompletHash = hash('sha256', mb_strtolower($nom . ' ' . $prenom));
+        return static::where('nom_complet_recherche', $nomCompletHash)->get();
     }
 }

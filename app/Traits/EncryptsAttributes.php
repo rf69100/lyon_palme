@@ -47,19 +47,76 @@ trait EncryptsAttributes
     }
 
     /**
+     * Stockage temporaire des valeurs en clair pour générer les hashes
+     */
+    protected $clearTextValues = [];
+
+    /**
      * Chiffre les attributs lors de la sauvegarde dans la base de données
      */
     public function setAttribute($key, $value)
     {
+        $originalValue = $value;
+
         // Si l'attribut doit être chiffré et a une valeur non nulle
         if ($this->shouldEncrypt($key) && !is_null($value)) {
+            // Convertir les objets DateTime en string avant chiffrement
+            if ($value instanceof \DateTimeInterface) {
+                $value = $value->format('Y-m-d H:i:s');
+                $originalValue = $value;
+            }
+
             // Ne chiffrer que si la valeur n'est pas déjà chiffrée
             if (!$this->isEncrypted($value)) {
-                $value = Crypt::encryptString($value);
+                // Stocker la valeur en clair pour les hashes
+                $this->clearTextValues[$key] = $originalValue;
+
+                // Générer les champs de recherche AVANT le chiffrement
+                $this->generateSearchFields($key, $originalValue);
+
+                $value = Crypt::encryptString((string) $value);
             }
         }
 
         return parent::setAttribute($key, $value);
+    }
+
+    /**
+     * Génère automatiquement les champs de recherche hashés
+     * pour permettre la recherche sans déchiffrer
+     */
+    protected function generateSearchFields(string $key, $value): void
+    {
+        if (is_null($value) || $value === '') {
+            return;
+        }
+
+        // Pour le nom
+        if ($key === 'nom') {
+            $this->attributes['nom_recherche'] = hash('sha256', mb_strtolower($value));
+            $this->updateNomCompletRecherche();
+        }
+
+        // Pour le prénom
+        if ($key === 'prenom') {
+            $this->attributes['prenom_recherche'] = hash('sha256', mb_strtolower($value));
+            $this->updateNomCompletRecherche();
+        }
+    }
+
+    /**
+     * Met à jour le hash du nom complet (nom + prénom)
+     */
+    protected function updateNomCompletRecherche(): void
+    {
+        // Utiliser les valeurs en clair stockées temporairement
+        $nom = $this->clearTextValues['nom'] ?? null;
+        $prenom = $this->clearTextValues['prenom'] ?? null;
+
+        if ($nom && $prenom) {
+            $nomComplet = mb_strtolower($nom . ' ' . $prenom);
+            $this->attributes['nom_complet_recherche'] = hash('sha256', $nomComplet);
+        }
     }
 
     /**

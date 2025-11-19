@@ -4,9 +4,9 @@ use App\Models\Adherent;
 use App\Models\RepresentantLegal;
 use Illuminate\Support\Facades\Crypt;
 
-describe('Chiffrement des données personnelles - Adherent', function () {
+describe('Chiffrement RGPD complet - Adherent', function () {
 
-    test('les données sensibles sont automatiquement chiffrées lors de la création', function () {
+    test('TOUTES les données personnelles sont chiffrées (RGPD Art. 4)', function () {
         $adherent = new Adherent([
             'civilite' => 'M.',
             'prenom' => 'Jean',
@@ -25,7 +25,12 @@ describe('Chiffrement des données personnelles - Adherent', function () {
             'statut' => 'actif',
         ]);
 
-        // Accéder aux attributs - ils doivent être en clair
+        // DONNÉES DIRECTEMENT IDENTIFIANTES - doivent être chiffrées
+        expect($adherent->nom)->toBe('Dupont');
+        expect($adherent->prenom)->toBe('Jean');
+        expect($adherent->email)->toBe('jean.dupont@example.com');
+
+        // DONNÉES INDIRECTEMENT IDENTIFIANTES - doivent être chiffrées
         expect($adherent->telephone)->toBe('0123456789');
         expect($adherent->mobile)->toBe('0612345678');
         expect($adherent->rue)->toBe('Rue de la Paix');
@@ -33,10 +38,9 @@ describe('Chiffrement des données personnelles - Adherent', function () {
         expect($adherent->ville)->toBe('Lyon');
         expect($adherent->contact_urgence_nom)->toBe('Marie Dupont');
 
-        // Les données non sensibles ne doivent pas être chiffrées
-        expect($adherent->prenom)->toBe('Jean');
-        expect($adherent->nom)->toBe('Dupont');
-        expect($adherent->email)->toBe('jean.dupont@example.com');
+        // Les données NON sensibles restent en clair
+        expect($adherent->pays)->toBe('France');
+        expect($adherent->statut)->toBe('actif');
     });
 
     test('les données chiffrées peuvent être lues en clair', function () {
@@ -97,14 +101,18 @@ describe('Chiffrement des données personnelles - Adherent', function () {
             'nom' => 'Dupont',
             'email' => 'jean@example.com',
             'pays' => 'France',
+            'civilite' => 'M.',
         ]);
 
-        // Ces champs doivent rester en clair même dans les attributs bruts
+        // Les champs SENSIBLES doivent être chiffrés dans les attributs bruts
         $raw = $adherent->getAttributes();
-        expect($raw['prenom'])->toBe('Jean');
-        expect($raw['nom'])->toBe('Dupont');
-        expect($raw['email'])->toBe('jean@example.com');
+        expect($raw['prenom'])->toStartWith('eyJpdiI6'); // Chiffré
+        expect($raw['nom'])->toStartWith('eyJpdiI6'); // Chiffré
+        expect($raw['email'])->toStartWith('eyJpdiI6'); // Chiffré
+
+        // Les champs NON sensibles restent en clair
         expect($raw['pays'])->toBe('France');
+        expect($raw['civilite'])->toBe('M.');
     });
 });
 
