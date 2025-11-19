@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Utilisateur extends Model
+class Utilisateur extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $table = 'utilisateurs';
 
@@ -24,10 +25,31 @@ class Utilisateur extends Model
 
     protected $hidden = [
         'mot_de_passe',
+        'jeton_souvenir',
     ];
 
-    protected $casts = [
-        'email_verifie_le' => 'datetime',
-        'doit_changer_mdp' => 'boolean',
-    ];
+    protected function casts(): array
+    {
+        return [
+            'email_verifie_le' => 'datetime',
+            'doit_changer_mdp' => 'boolean',
+            'mot_de_passe' => 'hashed',
+        ];
+    }
+
+    /**
+     * Get the password attribute name for authentication.
+     */
+    public function getAuthPasswordName(): string
+    {
+        return 'mot_de_passe';
+    }
+
+    /**
+     * Get the remember token column name.
+     */
+    public function getRememberTokenName(): ?string
+    {
+        return 'jeton_souvenir';
+    }
 }

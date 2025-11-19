@@ -6,7 +6,7 @@
     <title>Lyon Palme - Gestion de Club</title>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
-    <style>
+    <!-- <style>
         * {
             margin: 0;
             padding: 0;
@@ -184,7 +184,7 @@
             font-family: 'Courier New', monospace;
             color: #e83e8c;
         }
-    </style>
+    </style> -->
 </head>
 <body>
     <div class="container">
