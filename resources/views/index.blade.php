@@ -192,18 +192,6 @@
         <header>
             <h1>🏊 Lyon Palme</h1>
             <p class="subtitle">Système de Gestion de Club de Plongée & Nage avec Palmes</p>
-
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">100</span>
-                    <span class="stat-label">Adhérents</span>
-                </div>
-
-                <div class="stat">
-                    <span class="stat-number">163+</span>
-                    <span class="stat-label">Certifications</span>
-                </div>
-            </div>
         </header>
 
         <!-- À propos -->
