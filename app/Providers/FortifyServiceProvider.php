@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
-use Inertia\Inertia;
 use Laravel\Fortify\Actions\RedirectIfTwoFactorAuthenticatable;
 use Laravel\Fortify\Fortify;
 
@@ -37,36 +36,6 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::updateUserPasswordsUsing(UpdateUserPassword::class);
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
         Fortify::redirectUserForTwoFactorAuthenticationUsing(RedirectIfTwoFactorAuthenticatable::class);
-
-        // Enregistrer les vues Inertia pour les formulaires d'authentification
-        Fortify::loginView(function () {
-            return Inertia::render('Auth/Login', [
-                'canResetPassword' => true,
-            ]);
-        });
-
-        Fortify::registerView(function () {
-            return Inertia::render('Auth/Register');
-        });
-
-        Fortify::requestPasswordResetLinkView(function () {
-            return Inertia::render('Auth/ForgotPassword');
-        });
-
-        Fortify::resetPasswordView(function (Request $request) {
-            return Inertia::render('Auth/ResetPassword', [
-                'email' => $request->email,
-                'token' => $request->route('token'),
-            ]);
-        });
-
-        Fortify::verifyEmailView(function () {
-            return Inertia::render('Auth/VerifyEmail');
-        });
-
-        Fortify::twoFactorChallengeView(function () {
-            return Inertia::render('Auth/TwoFactorChallenge');
-        });
 
         // Authentification personnalisée pour le champ "mot_de_passe"
         Fortify::authenticateUsing(function (Request $request) {
