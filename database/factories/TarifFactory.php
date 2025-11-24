@@ -32,6 +32,8 @@ class TarifFactory extends Factory
         $valideDu = fake()->dateTimeBetween('-1 year', 'now');
 
         return [
+            'saison_id' => \App\Models\Saison::factory()->state(['nom' => 'tarif-test-' . uniqid()]),
+            'type_adhesion_id' => \App\Models\TypeAdhesion::factory(),
             'montant' => $montant,
             'description' => 'Cotisation annuelle ' . $typeAdhesion,
             'valide_du' => $valideDu,

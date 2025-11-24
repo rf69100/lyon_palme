@@ -61,6 +61,7 @@ class CompetitionFactory extends Factory
         $statuts = ['a_venir', 'a_venir', 'inscriptions_ouvertes', 'inscriptions_fermees', 'en_cours', 'termine'];
 
         return [
+            'saison_id' => \App\Models\Saison::factory()->state(['nom' => 'comp-test-' . uniqid()]),
             'titre' => $titre,
             'organisation' => 'FFESSM',
             'comite_regional' => $estRegionale ? 'AURA' : fake()->randomElement(['AURA', 'IDF', 'PACA', 'BFC', 'NAQ']),

@@ -39,6 +39,7 @@ class ModaliteCompetitionFactory extends Factory
         ];
 
         return [
+            'competition_id' => \App\Models\Competition::factory(),
             'distance' => $distance,
             'type_equipement' => $typeEquipement,
             'est_relais' => $estRelais,

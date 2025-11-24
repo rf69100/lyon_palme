@@ -31,6 +31,10 @@ class AdhesionFactory extends Factory
         $valideLe = ($statut === 'valide') ? fake()->dateTimeBetween($dateInscription, 'now') : null;
 
         return [
+            'adherent_id' => \App\Models\Adherent::factory(),
+            'saison_id' => \App\Models\Saison::factory()->state(['nom' => 'test-' . uniqid()]),
+            'type_adhesion_id' => \App\Models\TypeAdhesion::factory(),
+            'tarif_id' => \App\Models\Tarif::factory(),
             'montant_attendu' => $montantAttendu,
             'montant_paye' => $montantPaye,
             // 'solde' est une colonne générée automatiquement

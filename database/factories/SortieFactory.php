@@ -69,6 +69,7 @@ class SortieFactory extends Factory
         $temperatureEau = fake()->randomFloat(1, 12, 24);
 
         return [
+            'saison_id' => \App\Models\Saison::factory()->state(['nom' => 'sortie-test-' . uniqid()]),
             'titre' => 'Sortie ' . $site['lieu'],
             'type_sortie' => $typeSortie,
             'date_sortie' => $dateSortie,
@@ -78,6 +79,7 @@ class SortieFactory extends Factory
             'zone_plage' => $site['zone'],
             'niveau_requis' => fake()->randomElement($niveauxRequis),
             'participants_max' => fake()->randomElement([12, 15, 20, 25, null]),
+            'organisateur_adherent_id' => \App\Models\Adherent::factory(),
             'consignes_securite' => 'Bonnet de couleur et bouée de signalisation obligatoires',
             'remarques_complementaires' => fake()->boolean(30) ? fake()->sentence() : null,
             'conditions_meteo' => fake()->randomElement($conditionsMeteo),

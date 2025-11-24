@@ -29,6 +29,9 @@ class InscriptionCompetitionFactory extends Factory
         $tempsPerformance = sprintf('%02d:%02d.%02d', $tempsMinutes, $tempsSecondes, $tempsCentiemes);
 
         return [
+            'competition_id' => \App\Models\Competition::factory(),
+            'adherent_id' => \App\Models\Adherent::factory(),
+            'modalite_competition_id' => \App\Models\ModaliteCompetition::factory(),
             'date_inscription' => $dateInscription,
             'statut' => fake()->randomElement($statuts),
             'moyen_transport' => fake()->randomElement($moyensTransport),
