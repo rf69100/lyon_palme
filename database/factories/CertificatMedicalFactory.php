@@ -36,6 +36,7 @@ class CertificatMedicalFactory extends Factory
         $statuts = ['valide', 'valide', 'valide', 'valide', 'expire', 'en_attente'];
 
         return [
+            'adherent_id' => \App\Models\Adherent::factory(),
             'delivre_le' => $delivreLe,
             'expire_le' => $expireLe,
             'types_pratique' => $typesPratique,

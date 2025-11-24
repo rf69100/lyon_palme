@@ -41,6 +41,7 @@ class RepresentantLegalFactory extends Factory
         $email = strtolower($prenom) . '.' . strtolower($nom) . '@' . fake()->randomElement($domainesEmail);
 
         return [
+            'adherent_mineur_id' => \App\Models\Adherent::factory(),
             'civilite' => $civilite,
             'prenom' => $prenom,
             'nom' => $nom,
