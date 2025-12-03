@@ -7,7 +7,7 @@ Route::get('/', function () {
 });
 
 // Protected routes requiring authentication and email verification
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'audit.trail'])->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');

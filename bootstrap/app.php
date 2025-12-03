@@ -14,7 +14,6 @@ return Application::configure(basePath: dirname(__DIR__))
         // Security Middleware - Applied to all web routes
         $middleware->web(append: [
             \App\Http\Middleware\SecureSessionHeaders::class,
-            \App\Http\Middleware\LogAuditTrail::class,
         ]);
 
         // Middleware aliases for specific routes
@@ -22,6 +21,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'throttle.login' => \App\Http\Middleware\ThrottleLoginAttempts::class,
             'api.abuse' => \App\Http\Middleware\PreventApiAbuse::class,
             'auth.verify' => \App\Http\Middleware\EnforceAuthorization::class,
+            'audit.trail' => \App\Http\Middleware\LogAuditTrail::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
