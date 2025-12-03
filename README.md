@@ -323,13 +323,56 @@ php artisan test
 
 ## Sécurité
 
-- Chiffrement des champs sensibles (téléphones, adresses, contacts d'urgence)
-- Hachage des mots de passe avec BCRYPT (12 rounds)
-- Flag de changement de mot de passe forcé
-- Suivi de vérification d'email
-- Support de chiffrement de session
-- Token "Se souvenir de moi"
-- Conformité RGPD avec suivi des consentements
+### Chiffrement des données (RGPD)
+
+**Données chiffrées par modèle :**
+
+- **Adherent** (10 champs) : téléphone, mobile, adresse complète, contact d'urgence
+- **RepresentantLegal** (7 champs) : téléphone, mobile, adresse complète
+- **Algorithme** : AES-256-CBC avec clé APP_KEY
+- **Trait réutilisable** : `EncryptsAttributes` - chiffrage automatique transparent
+
+### Authentification et Mots de passe
+
+- **Politique CNIL** : 12+ caractères, majuscules, minuscules, chiffres, symboles requis
+- **Hashage** : BCRYPT avec 12+ rounds
+- **Expiration** : Les mots de passe expirent après 90 jours
+- **Service** : `PasswordPolicyService` pour la gestion de l'expiration
+- **Protection brute force** : Rate limiting (5 tentatives/min par email/IP)
+
+### Audit et Traçabilité
+
+- **Table `audit_logs`** : Enregistre toutes les actions critiques
+- **Traçage complet** : Utilisateur, action, IP, User-Agent, timestamp
+- **Middleware** : `LogAuditTrail` - trace les requêtes HTTP sensibles
+- **Non-répudiation** : Impossible de nier une action effectuée
+
+### Protection contre les attaques web
+
+- **SQL Injection** : Requêtes paramétrées (Eloquent ORM), validation des inputs
+- **XSS** : Blade escaping automatique, sanitization des entrées
+- **CSRF** : Token CSRF automatique, validation sur POST/PUT/DELETE
+- **Session hijacking** : Headers de sécurité (X-Frame-Options, X-Content-Type-Options, etc.)
+- **Session sécurisée** : HttpOnly cookies, Secure flag (prod), SameSite configuré
+
+### Contrôle d'accès
+
+- **Authentification Fortify** : Système personnalisé avec modèle Utilisateur
+- **Rôles et permissions** : 11 rôles prédéfinis via Spatie Laravel Permission
+- **Email verification** : Vérification obligatoire avant accès
+- **Middleware d'authentification** : Routes protégées par `auth`, `verified`, `audit.trail`
+
+### Gestion des données sensibles
+
+- **Validation des inputs** : Service `InputSanitizationService` centralisant les règles
+- **Pas de données en logs** : Exclusion des mots de passe, tokens, données chiffrées
+- **Exports sécurisés** : Limitation API (10 exports/heure), données échappées
+- **Conformité RGPD** : Support des consentements, droit à l'oubli
+
+### Sauvegardes
+
+- **Système Spatie Backup** : Automatisé, crypté
+- **Exclusions** : vendor et node_modules exclus
 
 ## Localisation
 
