@@ -33,7 +33,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center gap-3">
-                    <span class="text-2xl">🏊</span>
                     <span class="font-bold text-xl text-slate-900">Lyon Palme</span>
                 </div>
                 <div class="flex gap-3">
@@ -53,7 +52,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="text-center space-y-6">
                 <div class="inline-block px-4 py-2 bg-blue-100 rounded-full text-blue-700 font-medium text-sm">
-                    ✨ Système de Gestion Complet pour Clubs Aquatiques
+                    Système de Gestion Complet pour Clubs Aquatiques
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
                     Gérez votre club de plongée<br />
@@ -65,7 +64,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                     <a href="/dashboard" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-lg transition">
-                        🚀 Accéder au Dashboard
+                        Accéder au Dashboard
                     </a>
                     <a href="#features" class="px-8 py-3 bg-white text-blue-600 rounded-lg border-2 border-blue-600 hover:bg-blue-50 font-bold text-lg transition">
                         Découvrir les fonctionnalités
@@ -103,7 +102,7 @@
     <section id="features" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center space-y-4 mb-16">
             <h2 class="text-4xl font-bold text-slate-900">
-                ⚡ Fonctionnalités Principales
+                Fonctionnalités Principales
             </h2>
             <p class="text-lg text-slate-600 max-w-2xl mx-auto">
                 Tout ce dont vous avez besoin pour gérer efficacement votre club aquatique
@@ -113,7 +112,6 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Feature Cards -->
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">👥</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Gestion des Adhérents</h3>
                 <p class="text-slate-600 text-sm">
                     Profils complets avec distinction mineurs/adultes, représentants légaux,
@@ -122,7 +120,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">💰</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Gestion des Adhésions</h3>
                 <p class="text-slate-600 text-sm">
                     Types d'adhésion multiples, tarification par saison, suivi des paiements
@@ -131,7 +128,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🏥</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Suivi Médical</h3>
                 <p class="text-slate-600 text-sm">
                     Certificats médicaux avec alertes de validité, gestion des aptitudes,
@@ -140,7 +136,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🎖️</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Certifications FFESSM</h3>
                 <p class="text-slate-600 text-sm">
                     Niveaux de plongée (N1-N5, PE-12 à PE-60), apnée (A1-A4),
@@ -149,7 +144,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🏋️</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Entraînements</h3>
                 <p class="text-slate-600 text-sm">
                     Planification des séances, programmes personnalisés,
@@ -158,7 +152,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🏆</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Compétitions</h3>
                 <p class="text-slate-600 text-sm">
                     Organisation complète : modalités, inscriptions, résultats,
@@ -167,7 +160,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🚤</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Sorties Club</h3>
                 <p class="text-slate-600 text-sm">
                     Planification de sorties (Marseille, Annecy, Port-Cros),
@@ -176,7 +168,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🤿</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Matériel</h3>
                 <p class="text-slate-600 text-sm">
                     Inventaire complet (palmes, masques, tubas, combinaisons),
@@ -185,7 +176,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">📄</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Documents</h3>
                 <p class="text-slate-600 text-sm">
                     Stockage sécurisé des documents administratifs,
@@ -194,7 +184,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">🔐</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">RGPD & Sécurité</h3>
                 <p class="text-slate-600 text-sm">
                     Champs sensibles chiffrés, consentements trackés,
@@ -203,7 +192,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">👔</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Rôles & Permissions</h3>
                 <p class="text-slate-600 text-sm">
                     11 rôles (Président, Secrétaire, Trésorier, Moniteur, etc.),
@@ -212,7 +200,6 @@
             </div>
 
             <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <div class="text-3xl mb-3">📊</div>
                 <h3 class="font-bold text-lg text-slate-900 mb-2">Statistiques</h3>
                 <p class="text-slate-600 text-sm">
                     Vue consolidée des adhésions (validée, expirée, en attente),
@@ -225,7 +212,7 @@
     <!-- CTA Section -->
     <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h2 class="text-4xl font-bold">🎉 Prêt à Commencer ?</h2>
+            <h2 class="text-4xl font-bold">Prêt à Commencer ?</h2>
             <p class="text-lg text-blue-100">
                 Accédez au tableau de bord et commencez à gérer votre club dès maintenant.
             </p>
