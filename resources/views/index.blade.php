@@ -127,7 +127,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">👔</div>
                     <div class="feature-title">Rôles & Permissions</div>
-                    <div class="feature-div">
+                    <div class="feature-desc">
                         11 rôles (Président, Secrétaire, Trésorier, Moniteur, etc.),
                         annuaire du bureau avec contacts.
                     </div>
