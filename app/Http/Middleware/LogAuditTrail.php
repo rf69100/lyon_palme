@@ -42,24 +42,35 @@ class LogAuditTrail
         'sanctum*',
     ];
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         // Only process state-changing requests (POST, PUT, PATCH, DELETE)
-        // Skip GET requests entirely to avoid response object issues
+        // Skip GET requests entirely
         if (!in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
             return $next($request);
         }
 
-        // Skip Fortify/authentication routes
+        // Skip excluded routes (Fortify/authentication routes)
         if ($this->isExcludedRoute($request)) {
+            return $next($request);
+        }
+
+        // Skip untracked routes
+        if (!$this->shouldLog($request)) {
             return $next($request);
         }
 
         $response = $next($request);
 
-        // Only log authenticated requests for sensitive operations
-        if (Auth::check() && $this->shouldLog($request)) {
+        // Only log authenticated requests
+        if (Auth::check()) {
             try {
+                // Get status code safely
+                $statusCode = 200;
+                if (method_exists($response, 'getStatusCode')) {
+                    $statusCode = $response->getStatusCode();
+                }
+
                 AuditLog::create([
                     'utilisateur_id' => Auth::id(),
                     'action' => $this->getAction($request),
@@ -68,8 +79,8 @@ class LogAuditTrail
                     'path' => $request->path(),
                     'ip_address' => $request->ip(),
                     'user_agent' => $request->userAgent(),
-                    'success' => $response->getStatusCode() < 400,
-                    'error_message' => $response->getStatusCode() >= 400 ? "HTTP {$response->getStatusCode()}" : null,
+                    'success' => $statusCode < 400,
+                    'error_message' => $statusCode >= 400 ? "HTTP {$statusCode}" : null,
                 ]);
             } catch (\Exception $e) {
                 // Silently fail - don't break the app if audit logging fails
