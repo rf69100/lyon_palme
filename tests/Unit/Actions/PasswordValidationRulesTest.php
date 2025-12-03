@@ -81,11 +81,13 @@ class PasswordValidationRulesTest extends TestCase
     {
         $rules = $this->passwordRules();
 
-        // Laravel Password::default() requiert au minimum:
-        // - 8 caractères
+        // CNIL policy requiert au minimum:
+        // - 12 caractères
         // - au moins une lettre majuscule
+        // - au moins une lettre minuscule
         // - au moins un chiffre
-        $validPassword = 'ValidPassword123';
+        // - au moins un caractère spécial
+        $validPassword = 'ValidPassword123!';
 
         $validator = \Validator::make([
             'password' => $validPassword,

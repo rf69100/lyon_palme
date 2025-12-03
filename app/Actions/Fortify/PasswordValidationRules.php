@@ -13,6 +13,15 @@ trait PasswordValidationRules
      */
     protected function passwordRules(): array
     {
-        return ['required', 'string', Password::default(), 'confirmed'];
+        // CNIL recommendations: min 12 chars, uppercase, lowercase, digits, special chars
+        return [
+            'required',
+            'string',
+            Password::min(12)
+                ->mixedCase()
+                ->numbers()
+                ->symbols(),
+            'confirmed',
+        ];
     }
 }
