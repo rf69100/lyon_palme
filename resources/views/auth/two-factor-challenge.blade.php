@@ -3,76 +3,78 @@
 @section('title', 'Vérification 2FA')
 
 @section('content')
-<div style="width: 100%; max-width: 28rem;">
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.25rem; font-weight: bold; color: #4338ca; margin-bottom: 0.5rem;">🏊 Lyon Palme</h1>
-        <p style="color: #9ca3af;">Authentification à deux facteurs</p>
-    </div>
-
-    <!-- Card -->
-    <div style="background: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1.5rem; text-align: center;">Confirmation requise</h2>
-
-        <form method="POST" action="{{ route('two-factor.login') }}" style="display: grid; gap: 1.5rem;">
-            @csrf
-
-            <!-- Code d'authentification -->
-            <div id="code-section">
-                <label for="code" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Code d'authentification</label>
-                <input
-                    id="code"
-                    type="text"
-                    name="code"
-                    inputmode="numeric"
-                    maxlength="6"
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 2rem; letter-spacing: 0.1em; text-align: center; font-family: monospace;"
-                    placeholder="000000"
-                />
-                @error('code')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <!-- Code de récupération -->
-            <div id="recovery-section" style="display: none;">
-                <label for="recovery_code" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Code de récupération</label>
-                <input
-                    id="recovery_code"
-                    type="text"
-                    name="recovery_code"
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem; font-family: monospace;"
-                    placeholder="XXXXXXXX-XXXXXXXX"
-                />
-                @error('recovery_code')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <!-- Bouton submit -->
-            <button
-                type="submit"
-                style="width: 100%; background: #4338ca; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none;"
-            >
-                Vérifier
-            </button>
-        </form>
-
-        <!-- Toggle Recovery -->
-        <div style="margin-top: 1.5rem; text-align: center;">
-            <button
-                type="button"
-                onclick="toggleRecovery()"
-                style="font-size: 0.875rem; color: #4338ca; text-decoration: none; font-weight: 500; background: none; border: none; cursor: pointer;"
-            >
-                <span id="toggle-text">Utiliser un code de récupération</span>
-            </button>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <p class="text-slate-600">Authentification à deux facteurs</p>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: #9ca3af;">
-        <p>Lyon Palme © 2025 - Gestion de Club</p>
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">Confirmation requise</h2>
+
+            <form method="POST" action="{{ route('two-factor.login') }}" class="space-y-5">
+                @csrf
+
+                <!-- Code d'authentification -->
+                <div id="code-section">
+                    <label for="code" class="block text-sm font-medium text-slate-700 mb-2">Code d'authentification</label>
+                    <input
+                        id="code"
+                        type="text"
+                        name="code"
+                        inputmode="numeric"
+                        maxlength="6"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg text-3xl tracking-widest text-center font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        placeholder="000000"
+                    />
+                    @error('code')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Code de récupération -->
+                <div id="recovery-section" class="hidden">
+                    <label for="recovery_code" class="block text-sm font-medium text-slate-700 mb-2">Code de récupération</label>
+                    <input
+                        id="recovery_code"
+                        type="text"
+                        name="recovery_code"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="XXXXXXXX-XXXXXXXX"
+                    />
+                    @error('recovery_code')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Bouton submit -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                >
+                    Vérifier
+                </button>
+            </form>
+
+            <!-- Toggle Recovery -->
+            <div class="mt-4 text-center">
+                <button
+                    type="button"
+                    onclick="toggleRecovery()"
+                    class="text-sm text-blue-600 hover:text-blue-700 font-medium bg-none border-none cursor-pointer"
+                >
+                    <span id="toggle-text">Utiliser un code de récupération</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-sm text-slate-600">
+            <p>Lyon Palme © 2025 - Gestion de Club</p>
+        </div>
     </div>
 </div>
 
@@ -82,13 +84,13 @@ function toggleRecovery() {
     const recoverySection = document.getElementById('recovery-section');
     const toggleText = document.getElementById('toggle-text');
 
-    if (codeSection.style.display === 'none') {
-        codeSection.style.display = 'block';
-        recoverySection.style.display = 'none';
+    if (codeSection.classList.contains('hidden')) {
+        codeSection.classList.remove('hidden');
+        recoverySection.classList.add('hidden');
         toggleText.textContent = 'Utiliser un code de récupération';
     } else {
-        codeSection.style.display = 'none';
-        recoverySection.style.display = 'block';
+        codeSection.classList.add('hidden');
+        recoverySection.classList.remove('hidden');
         toggleText.textContent = 'Utiliser un code d\'authentification';
     }
 }

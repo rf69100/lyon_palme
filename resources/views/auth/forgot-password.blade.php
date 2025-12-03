@@ -3,61 +3,63 @@
 @section('title', 'Mot de passe oublié')
 
 @section('content')
-<div style="width: 100%; max-width: 28rem;">
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.25rem; font-weight: bold; color: #4338ca; margin-bottom: 0.5rem;">🏊 Lyon Palme</h1>
-        <p style="color: #9ca3af;">Réinitialiser votre mot de passe</p>
-    </div>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <p class="text-slate-600">Réinitialiser votre mot de passe</p>
+        </div>
 
-    <!-- Card -->
-    <div style="background: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1rem; text-align: center;">Mot de passe oublié ?</h2>
-        <p style="color: #6b7280; font-size: 0.875rem; margin-bottom: 1.5rem; text-align: center;">
-            Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
-        </p>
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-4 text-center">Mot de passe oublié ?</h2>
+            <p class="text-slate-600 text-sm mb-6 text-center">
+                Entrez votre adresse email et nous vous enverrons un lien pour réinitialiser votre mot de passe.
+            </p>
 
-        @if (session('status'))
-            <div style="margin-bottom: 1rem; padding: 0.75rem; background: #f0fdf4; border: 1px solid #86efac; border-radius: 0.375rem; font-size: 0.875rem; color: #166534;">
-                {{ session('status') }}
-            </div>
-        @endif
+            @if (session('status'))
+                <div class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-sm text-green-800">
+                    {{ session('status') }}
+                </div>
+            @endif
 
-        <form method="POST" action="{{ route('password.email') }}" style="display: grid; gap: 1.5rem;">
-            @csrf
+            <form method="POST" action="{{ route('password.email') }}" class="space-y-5">
+                @csrf
 
-            <!-- Email -->
-            <div>
-                <label for="email" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="votre@email.com"
-                />
-                @error('email')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="votre@email.com"
+                    />
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Bouton submit -->
-            <button
-                type="submit"
-                style="width: 100%; background: #4338ca; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none;"
-            >
-                Envoyer le lien
-            </button>
-        </form>
-    </div>
+                <!-- Bouton submit -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                >
+                    Envoyer le lien
+                </button>
+            </form>
+        </div>
 
-    <!-- Footer -->
-    <div style="margin-top: 2rem; text-align: center;">
-        <a href="{{ route('login') }}" style="font-size: 0.875rem; color: #4338ca; text-decoration: none; font-weight: 500;">
-            Retour à la connexion
-        </a>
+        <!-- Footer -->
+        <div class="mt-8 text-center text-sm text-slate-600">
+            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-semibold">
+                Retour à la connexion
+            </a>
+        </div>
     </div>
 </div>
 @endsection
