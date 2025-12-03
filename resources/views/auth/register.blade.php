@@ -3,97 +3,102 @@
 @section('title', 'Inscription')
 
 @section('content')
-<div style="width: 100%; max-width: 28rem;">
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.25rem; font-weight: bold; color: #4338ca; margin-bottom: 0.5rem;">🏊 Lyon Palme</h1>
-        <p style="color: #9ca3af;">Créer votre compte</p>
-    </div>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <p class="text-slate-600">Créer votre compte</p>
+        </div>
 
-    <!-- Card -->
-    <div style="background: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1.5rem; text-align: center;">S'inscrire</h2>
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">S'inscrire</h2>
 
-        <form method="POST" action="{{ route('register') }}" style="display: grid; gap: 1.25rem;">
-            @csrf
+            <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                @csrf
 
-            <!-- Nom -->
-            <div>
-                <label for="nom" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Nom complet</label>
-                <input
-                    id="nom"
-                    type="text"
-                    name="nom"
-                    value="{{ old('nom') }}"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="Votre nom complet"
-                />
-                @error('nom')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Nom -->
+                <div>
+                    <label for="nom" class="block text-sm font-medium text-slate-700 mb-2">Nom complet</label>
+                    <input
+                        id="nom"
+                        type="text"
+                        name="nom"
+                        value="{{ old('nom') }}"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="Votre nom complet"
+                    />
+                    @error('nom')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Email -->
-            <div>
-                <label for="email" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="votre@email.com"
-                />
-                @error('email')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="votre@email.com"
+                    />
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Mot de passe -->
-            <div>
-                <label for="password" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Mot de passe</label>
-                <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="Au moins 8 caractères"
-                />
-                @error('password')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
+                <!-- Mot de passe -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-700 mb-2">Mot de passe</label>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="Au moins 8 caractères"
+                    />
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Confirmation mot de passe -->
-            <div>
-                <label for="password_confirmation" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Confirmer le mot de passe</label>
-                <input
-                    id="password_confirmation"
-                    type="password"
-                    name="password_confirmation"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="Confirmez votre mot de passe"
-                />
-            </div>
+                <!-- Confirmation mot de passe -->
+                <div>
+                    <label for="password_confirmation" class="block text-sm font-medium text-slate-700 mb-2">Confirmer le mot de passe</label>
+                    <input
+                        id="password_confirmation"
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="Confirmez votre mot de passe"
+                    />
+                    @error('password_confirmation')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Bouton submit -->
-            <button
-                type="submit"
-                style="width: 100%; background: #4338ca; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none;"
-            >
-                S'inscrire
-            </button>
-        </form>
-    </div>
+                <!-- Bouton submit -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                >
+                    S'inscrire
+                </button>
+            </form>
+        </div>
 
-    <!-- Footer -->
-    <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: #9ca3af;">
-        Déjà inscrit ?
-        <a href="{{ route('login') }}" style="color: #4338ca; text-decoration: none; font-weight: 500;">Se connecter</a>
+        <!-- Footer -->
+        <div class="mt-8 text-center text-sm text-slate-600">
+            Déjà inscrit ?
+            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-semibold">Se connecter</a>
+        </div>
     </div>
 </div>
 @endsection

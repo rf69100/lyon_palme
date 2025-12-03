@@ -3,85 +3,88 @@
 @section('title', 'Connexion')
 
 @section('content')
-<div style="width: 100%; max-width: 28rem;">
-    <!-- Header -->
-    <div style="text-align: center; margin-bottom: 2rem;">
-        <h1 style="font-size: 2.25rem; font-weight: bold; color: #4338ca; margin-bottom: 0.5rem;">🏊 Lyon Palme</h1>
-        <p style="color: #9ca3af;">Connexion à votre compte</p>
-    </div>
-
-    <!-- Card -->
-    <div style="background: white; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); padding: 2rem;">
-        <h2 style="font-size: 1.5rem; font-weight: bold; color: #111827; margin-bottom: 1.5rem; text-align: center;">Se connecter</h2>
-
-        @if ($errors->any())
-            <div style="margin-bottom: 1rem; padding: 0.75rem; background: #fef2f2; border: 1px solid #fecaca; border-radius: 0.375rem; font-size: 0.875rem; color: #991b1b;">
-                Identifiants invalides
-            </div>
-        @endif
-
-        <form method="POST" action="{{ route('login') }}" style="display: grid; gap: 1.5rem;">
-            @csrf
-
-            <!-- Email -->
-            <div>
-                <label for="email" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Email</label>
-                <input
-                    id="email"
-                    type="email"
-                    name="email"
-                    value="{{ old('email') }}"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                    placeholder="votre@email.com"
-                />
-                @error('email')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <!-- Mot de passe -->
-            <div>
-                <label for="password" style="display: block; font-size: 0.875rem; font-weight: 500; color: #374151; margin-bottom: 0.5rem;">Mot de passe</label>
-                <input
-                    id="password"
-                    type="password"
-                    name="password"
-                    required
-                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid #d1d5db; border-radius: 0.5rem; font-size: 1rem;"
-                />
-                @error('password')
-                    <div style="margin-top: 0.25rem; font-size: 0.875rem; color: #dc2626;">{{ $message }}</div>
-                @enderror
-            </div>
-
-            <!-- Se souvenir de moi -->
-            <div style="display: flex; align-items: center;">
-                <input id="remember" type="checkbox" name="remember" style="margin-right: 0.5rem;" />
-                <label for="remember" style="font-size: 0.875rem; color: #374151;">Se souvenir de moi</label>
-            </div>
-
-            <!-- Bouton submit -->
-            <button
-                type="submit"
-                style="width: 100%; background: #4338ca; color: white; padding: 0.75rem 1rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none;"
-            >
-                Se connecter
-            </button>
-        </form>
-
-        <!-- Mot de passe oublié -->
-        <div style="margin-top: 1.5rem; text-align: center;">
-            <a href="{{ route('password.request') }}" style="font-size: 0.875rem; color: #4338ca; text-decoration: none; font-weight: 500;">
-                Mot de passe oublié ?
-            </a>
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12">
+    <div class="w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <p class="text-slate-600">Connexion à votre compte</p>
         </div>
-    </div>
 
-    <!-- Footer -->
-    <div style="margin-top: 2rem; text-align: center; font-size: 0.875rem; color: #9ca3af;">
-        Pas encore de compte ?
-        <a href="{{ route('register') }}" style="color: #4338ca; text-decoration: none; font-weight: 500;">S'inscrire</a>
+        <!-- Card -->
+        <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 text-center">Se connecter</h2>
+
+            @if ($errors->any())
+                <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-sm text-red-800">
+                    <p class="font-medium">Erreur d'authentification</p>
+                    <p>Vérifiez vos identifiants et réessayez.</p>
+                </div>
+            @endif
+
+            <form method="POST" action="{{ route('login') }}" class="space-y-5">
+                @csrf
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-slate-700 mb-2">Email</label>
+                    <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        placeholder="votre@email.com"
+                    />
+                    @error('email')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Mot de passe -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-slate-700 mb-2">Mot de passe</label>
+                    <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        required
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                    />
+                    @error('password')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Se souvenir de moi -->
+                <div class="flex items-center">
+                    <input id="remember" type="checkbox" name="remember" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                    <label for="remember" class="ml-2 text-sm text-slate-700">Se souvenir de moi</label>
+                </div>
+
+                <!-- Bouton submit -->
+                <button
+                    type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                >
+                    Se connecter
+                </button>
+            </form>
+
+            <!-- Mot de passe oublié -->
+            <div class="mt-4 text-center">
+                <a href="{{ route('password.request') }}" class="text-sm text-blue-600 hover:text-blue-700 font-medium">
+                    Mot de passe oublié ?
+                </a>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-8 text-center text-sm text-slate-600">
+            Pas encore de compte ?
+            <a href="{{ route('register') }}" class="text-blue-600 hover:text-blue-700 font-semibold">S'inscrire</a>
+        </div>
     </div>
 </div>
 @endsection
