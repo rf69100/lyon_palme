@@ -3,40 +3,69 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div style="background: white; border-radius: 0.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); padding: 2rem;">
-    <h2 style="font-size: 1.875rem; font-weight: bold; color: #111827; margin-bottom: 1rem;">Bienvenue au Dashboard</h2>
-    <p style="color: #6b7280; margin-bottom: 1.5rem;">
-        Vous êtes maintenant connecté à l'application de gestion Lyon Palme.
-    </p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Header -->
+    <div class="mb-8">
+        <h2 class="text-4xl font-bold text-slate-900 mb-2">Bienvenue au Dashboard</h2>
+        <p class="text-slate-600">Vous êtes maintenant connecté à l'application de gestion Lyon Palme.</p>
+    </div>
 
     <!-- Stats Cards -->
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-        <!-- Adhérents -->
-        <div style="background: #eff6ff; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
-            <div style="font-size: 2.25rem; font-weight: bold; color: #2563eb; margin-bottom: 0.5rem;">100</div>
-            <p style="color: #4b5563; font-weight: 500;">Adhérents</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <!-- Adhérents Card -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-slate-600 text-sm font-medium">Adhérents</p>
+                    <p class="text-4xl font-bold text-slate-900 mt-2">100</p>
+                </div>
+                <div class="text-blue-500 text-3xl">👥</div>
+            </div>
+            <p class="text-slate-500 text-xs mt-4">Membres inscrits</p>
         </div>
 
-        <!-- Sorties planifiées -->
-        <div style="background: #f0fdf4; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #22c55e;">
-            <div style="font-size: 2.25rem; font-weight: bold; color: #16a34a; margin-bottom: 0.5rem;">25</div>
-            <p style="color: #4b5563; font-weight: 500;">Sorties planifiées</p>
+        <!-- Sorties planifiées Card -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-slate-600 text-sm font-medium">Sorties planifiées</p>
+                    <p class="text-4xl font-bold text-slate-900 mt-2">25</p>
+                </div>
+                <div class="text-green-500 text-3xl">🏊</div>
+            </div>
+            <p class="text-slate-500 text-xs mt-4">Activités à venir</p>
         </div>
 
-        <!-- Compétitions -->
-        <div style="background: #faf5ff; padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #a855f7;">
-            <div style="font-size: 2.25rem; font-weight: bold; color: #9333ea; margin-bottom: 0.5rem;">12</div>
-            <p style="color: #4b5563; font-weight: 500;">Compétitions</p>
+        <!-- Compétitions Card -->
+        <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
+            <div class="flex justify-between items-start">
+                <div>
+                    <p class="text-slate-600 text-sm font-medium">Compétitions</p>
+                    <p class="text-4xl font-bold text-slate-900 mt-2">12</p>
+                </div>
+                <div class="text-purple-500 text-3xl">🏆</div>
+            </div>
+            <p class="text-slate-500 text-xs mt-4">Événements prévus</p>
         </div>
     </div>
 
     <!-- Status Box -->
-    <div style="background: #fffbeb; border: 1px solid #fcd34d; border-radius: 0.5rem; padding: 1rem;">
-        <p style="font-size: 0.875rem; color: #92400e;">
-            ✓ Authentification Fortify activée<br />
-            ✓ Chiffrement RGPD en place<br />
-            ✓ Prêt pour la production
-        </p>
+    <div class="bg-green-50 border border-green-200 rounded-xl p-6">
+        <h3 class="text-lg font-bold text-green-900 mb-3">✓ Système opérationnel</h3>
+        <ul class="space-y-2 text-sm text-green-800">
+            <li class="flex items-center gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>Authentification Fortify activée</span>
+            </li>
+            <li class="flex items-center gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>Chiffrement RGPD en place</span>
+            </li>
+            <li class="flex items-center gap-2">
+                <span class="text-green-600 font-bold">✓</span>
+                <span>Prêt pour la production</span>
+            </li>
+        </ul>
     </div>
 </div>
 @endsection

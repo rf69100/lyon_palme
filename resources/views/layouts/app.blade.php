@@ -6,64 +6,41 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - Lyon Palme</title>
     @vite(['resources/css/app.css'])
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html, body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6;
-        }
-        nav {
-            background: white;
-            padding: 1rem 2rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        nav .container {
-            max-width: 1280px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        nav h1 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4338ca;
-        }
-        nav form button {
-            background: #dc2626;
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        nav form button:hover {
-            background: #b91c1c;
-        }
-        main {
-            max-width: 1280px;
-            margin: 3rem auto;
-            padding: 0 1rem;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
 </head>
-<body>
-    <nav>
-        <div class="container">
-            <h1>🏊 Lyon Palme</h1>
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit">Déconnexion</button>
-            </form>
+<body class="font-sans text-slate-900 antialiased">
+    <!-- Navigation Bar -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">🏊</span>
+                    <h1 class="font-bold text-xl text-slate-900">Lyon Palme</h1>
+                </div>
+
+                <!-- Nav Actions -->
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('dashboard') }}" class="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition duration-200 rounded-lg hover:bg-slate-50">
+                        Dashboard
+                    </a>
+                    <a href="/" class="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition duration-200 rounded-lg hover:bg-slate-50">
+                        Accueil
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="inline">
+                        @csrf
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition duration-200">
+                            Déconnexion
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </nav>
 
-    <main>
+    <!-- Main Content -->
+    <main class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
         @yield('content')
     </main>
 </body>
