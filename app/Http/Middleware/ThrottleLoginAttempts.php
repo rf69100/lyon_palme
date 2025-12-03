@@ -16,7 +16,7 @@ class ThrottleLoginAttempts
 
     public function __construct(private RateLimiter $limiter) {}
 
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         if (!$this->isLoginRequest($request)) {
             return $next($request);
@@ -44,7 +44,7 @@ class ThrottleLoginAttempts
         $response = $next($request);
 
         // If login successful, reset the throttle counter
-        if ($response->getStatusCode() < 300) {
+        if (method_exists($response, 'getStatusCode') && $response->getStatusCode() < 300) {
             $this->limiter->reset($key);
         }
 
