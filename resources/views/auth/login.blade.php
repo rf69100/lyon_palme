@@ -3,7 +3,12 @@
 @section('title', 'Connexion')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12">
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12 relative">
+    <!-- Bouton Retour à l'accueil -->
+    <a href="/" class="absolute bottom-8 right-8 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 font-medium transition duration-200 text-sm">
+        ← Accueil
+    </a>
+
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="text-center mb-8">
