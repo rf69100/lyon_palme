@@ -16,24 +16,30 @@ class LogAuditTrail
             'utilisateurs/*',
             'adherents/*',
             'adhesions/*',
-            'profile',
-            'password',
         ],
         'POST' => [
-            'login',
-            'logout',
-            'register',
             'utilisateurs',
             'adherents',
             'adhesions',
-            'password/reset',
-            'password/confirm',
         ],
         'DELETE' => [
             'utilisateurs/*',
             'adherents/*',
             'adhesions/*',
         ],
+    ];
+
+    // Routes to exclude from logging (authentication/Fortify routes)
+    private array $excludedRoutes = [
+        'login',
+        'logout',
+        'register',
+        'password/reset',
+        'password/confirm',
+        'profile',
+        'password',
+        'two-factor*',
+        'sanctum*',
     ];
 
     public function handle(Request $request, Closure $next): Response
@@ -67,6 +73,13 @@ class LogAuditTrail
     {
         $method = $request->method();
         $path = $request->path();
+
+        // Skip excluded routes (Fortify/authentication routes)
+        foreach ($this->excludedRoutes as $excludedRoute) {
+            if ($this->matchRoute($path, $excludedRoute)) {
+                return false;
+            }
+        }
 
         if (!isset($this->trackedRoutes[$method])) {
             return false;
