@@ -44,6 +44,17 @@ class LogAuditTrail
 
     public function handle(Request $request, Closure $next): Response
     {
+        // Only process state-changing requests (POST, PUT, PATCH, DELETE)
+        // Skip GET requests entirely to avoid response object issues
+        if (!in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
+            return $next($request);
+        }
+
+        // Skip Fortify/authentication routes
+        if ($this->isExcludedRoute($request)) {
+            return $next($request);
+        }
+
         $response = $next($request);
 
         // Only log authenticated requests for sensitive operations
@@ -69,22 +80,28 @@ class LogAuditTrail
         return $response;
     }
 
+    private function isExcludedRoute(Request $request): bool
+    {
+        $path = $request->path();
+        foreach ($this->excludedRoutes as $excludedRoute) {
+            if ($this->matchRoute($path, $excludedRoute)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private function shouldLog(Request $request): bool
     {
         $method = $request->method();
         $path = $request->path();
 
-        // Skip excluded routes (Fortify/authentication routes)
-        foreach ($this->excludedRoutes as $excludedRoute) {
-            if ($this->matchRoute($path, $excludedRoute)) {
-                return false;
-            }
-        }
-
+        // Check if this method has tracked routes
         if (!isset($this->trackedRoutes[$method])) {
             return false;
         }
 
+        // Check if path matches any tracked route
         foreach ($this->trackedRoutes[$method] as $route) {
             if ($this->matchRoute($path, $route)) {
                 return true;
