@@ -12,7 +12,7 @@
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <h1 class="text-4xl font-bold text-slate-900 mb-2">Lyon Palme</h1>
             <p class="text-slate-600">Créer votre compte</p>
         </div>
 
