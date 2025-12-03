@@ -19,7 +19,7 @@ class RoutesTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertViewIs('index');
     }
 
     /**
@@ -82,9 +82,9 @@ class RoutesTest extends TestCase
         $fortifyConfig = config('fortify');
         $this->assertIsArray($fortifyConfig);
 
-        // Vérifier que la page welcome est accessible (route publique)
+        // Vérifier que la page index est accessible (route publique)
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertViewIs('index');
     }
 }

@@ -11,7 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Security Middleware - Applied to all web routes
+        $middleware->web(append: [
+            \App\Http\Middleware\SecureSessionHeaders::class,
+            \App\Http\Middleware\LogAuditTrail::class,
+        ]);
+
+        // Middleware aliases for specific routes
+        $middleware->alias([
+            'throttle.login' => \App\Http\Middleware\ThrottleLoginAttempts::class,
+            'api.abuse' => \App\Http\Middleware\PreventApiAbuse::class,
+            'auth.verify' => \App\Http\Middleware\EnforceAuthorization::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

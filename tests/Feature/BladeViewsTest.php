@@ -8,14 +8,14 @@ use App\Models\Utilisateur;
 class BladeViewsTest extends TestCase
 {
     /**
-     * Test 1: Vérifier que la vue welcome se charge
+     * Test 1: Vérifier que la vue index se charge
      * @test
      */
     public function test_welcome_view_loads()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertViewIs('index');
     }
 
     /**
@@ -72,7 +72,7 @@ class BladeViewsTest extends TestCase
     {
         $response = $this->get('/');
         $response->assertStatus(200);
-        $response->assertViewIs('welcome');
+        $response->assertViewIs('index');
     }
 
     /**
