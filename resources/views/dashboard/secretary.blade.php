@@ -3,7 +3,7 @@
 @section('title', 'Dashboard Secrétaire - Lyon Palme')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-12 px-4">
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-8 px-4">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-8">
@@ -14,7 +14,7 @@
         <!-- Primary Statistics Row -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Total Members Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Adhérents actifs</p>
@@ -26,7 +26,7 @@
             </div>
 
             <!-- Adhesions Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Adhésions actives</p>
@@ -38,7 +38,7 @@
             </div>
 
             <!-- Payments Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Paiements en attente</p>
@@ -50,7 +50,7 @@
             </div>
 
             <!-- Activities Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Activités planifiées</p>
@@ -65,19 +65,19 @@
         <!-- Secondary Statistics Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <!-- Archived Members Card -->
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
                 <p class="text-slate-600 text-sm font-medium mb-2">Adhérents archivés</p>
                 <p class="text-3xl font-bold text-slate-900">{{ $totalArchived }}</p>
             </div>
 
             <!-- Minors Card -->
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
                 <p class="text-slate-600 text-sm font-medium mb-2">Mineurs (avec responsables légaux)</p>
                 <p class="text-3xl font-bold text-slate-900">{{ $totalMinors }}</p>
             </div>
 
             <!-- Expired Adhesions Card -->
-            <div class="bg-white rounded-lg shadow-md p-4">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200">
                 <p class="text-slate-600 text-sm font-medium mb-2">Adhésions expirées</p>
                 <p class="text-3xl font-bold text-red-600">{{ $expiredAdhesions }}</p>
             </div>
@@ -88,7 +88,7 @@
             <div class="lg:col-span-2 space-y-6">
                 <!-- Expiring Adhesions Alert -->
                 @if($expiringAdhesions->isNotEmpty())
-                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
                         <h2 class="text-lg font-bold text-yellow-900 mb-4">
                             ⚠️ Adhésions expirant dans les 30 prochains jours
                         </h2>
@@ -118,13 +118,13 @@
                         </div>
                     </div>
                 @else
-                    <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <div class="bg-green-50 border border-green-200 rounded-xl p-6">
                         <p class="text-green-900 font-semibold">✓ Aucune adhésion n'expire prochainement</p>
                     </div>
                 @endif
 
                 <!-- Recent Members -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Nouveaux adhérents (10 derniers)</h2>
                         <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
@@ -173,7 +173,7 @@
             <!-- Admin Tools Sidebar -->
             <div class="space-y-6">
                 <!-- Quick Actions -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
                         <a href="#add-member" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
@@ -195,7 +195,7 @@
                 </div>
 
                 <!-- System Status -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Santé du système</h3>
                     <div class="space-y-3">
                         <div class="flex items-center justify-between">
@@ -218,7 +218,7 @@
                 </div>
 
                 <!-- Key Metrics -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
                     <h3 class="text-lg font-bold text-blue-900 mb-4">📊 Métriques clés</h3>
                     <div class="space-y-3 text-sm">
                         <div class="flex justify-between">
@@ -243,7 +243,7 @@
                 </div>
 
                 <!-- Help & Documentation -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">? Aide & Documentation</h3>
                     <div class="space-y-2 text-sm">
                         <a href="#" class="block text-blue-600 hover:text-blue-700 font-semibold">

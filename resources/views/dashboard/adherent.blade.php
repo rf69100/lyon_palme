@@ -3,7 +3,7 @@
 @section('title', 'Mon Dashboard - Lyon Palme')
 
 @section('content')
-<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-12 px-4">
+<div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-8 px-4">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
         <div class="mb-8">
@@ -27,7 +27,7 @@
         <!-- Statistics Cards Row -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <!-- Adhesions Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-blue-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Adhésions</p>
@@ -39,39 +39,39 @@
             </div>
 
             <!-- Activities Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-green-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Activités</p>
                         <p class="text-3xl font-bold text-slate-900 mt-2">{{ $stats['activitesParticipees'] ?? 0 }}</p>
                     </div>
-                    <div class="text-green-500 text-2xl">🏊</div>
+                    <div class="text-blue-500 text-2xl">🏊</div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Sorties auxquelles vous avez participé</p>
             </div>
 
             <!-- Certifications Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-purple-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Certifications</p>
                         <p class="text-3xl font-bold text-slate-900 mt-2">{{ $stats['certificationsCount'] ?? 0 }}</p>
                     </div>
-                    <div class="text-purple-500 text-2xl">📜</div>
+                    <div class="text-blue-500 text-2xl">📜</div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Niveaux et diplômes</p>
             </div>
 
             <!-- Profile Card -->
-            <div class="bg-white rounded-lg shadow-md p-6 border-l-4 border-orange-500">
+            <div class="bg-white rounded-xl shadow-lg p-6 border border-slate-200 hover:shadow-xl transition">
                 <div class="flex justify-between items-start">
                     <div>
                         <p class="text-slate-600 text-sm font-medium">Profil</p>
                         <p class="text-slate-900 text-lg font-bold mt-2">Complet</p>
                     </div>
-                    <div class="text-orange-500 text-2xl">👤</div>
+                    <div class="text-blue-500 text-2xl">👤</div>
                 </div>
-                <a href="#edit-profile" class="text-orange-500 text-xs font-semibold mt-4 inline-block hover:text-orange-600">
+                <a href="#edit-profile" class="text-blue-600 text-xs font-semibold mt-4 inline-block hover:text-blue-700">
                     Modifier →
                 </a>
             </div>
@@ -81,7 +81,7 @@
             <!-- Main Content Area -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- Adhesions Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Mes Adhésions</h2>
                         <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
@@ -125,7 +125,7 @@
                 </div>
 
                 <!-- Upcoming Outings Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Sorties à venir</h2>
                         <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
@@ -157,7 +157,7 @@
                 </div>
 
                 <!-- Upcoming Competitions Section -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Compétitions à venir</h2>
                         <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
@@ -192,7 +192,7 @@
             <!-- Sidebar -->
             <div class="space-y-6">
                 <!-- Quick Actions -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
                         <a href="#edit-profile" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
@@ -201,14 +201,14 @@
                         <a href="#change-password" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
                             Changer mon mot de passe
                         </a>
-                        <a href="#contact-support" class="block w-full bg-slate-200 text-slate-900 text-center py-2 rounded-lg font-semibold hover:bg-slate-300 transition">
+                        <a href="#contact-support" class="block w-full bg-slate-100 text-slate-900 text-center py-2 rounded-lg font-semibold hover:bg-slate-200 transition border border-slate-200">
                             Contacter le support
                         </a>
                     </div>
                 </div>
 
                 <!-- Important Info Card -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
                     <h3 class="text-lg font-bold text-blue-900 mb-3">💡 À savoir</h3>
                     <ul class="space-y-2 text-sm text-blue-800">
                         <li class="flex items-start">
@@ -227,7 +227,7 @@
                 </div>
 
                 <!-- Contact Info -->
-                <div class="bg-white rounded-lg shadow-md p-6">
+                <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">📞 Contact</h3>
                     <div class="space-y-3 text-sm">
                         <div>
