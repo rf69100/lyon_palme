@@ -47,11 +47,15 @@ class RoutesTest extends TestCase
         $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertStatus(200);
-        $response->assertViewIs('dashboard');
+        // Dashboard can be dashboard.adherent or dashboard.secretary depending on roles
+        $this->assertTrue(
+            in_array($response->original->getName(), ['dashboard.adherent', 'dashboard.secretary']),
+            'Dashboard should display role-based view'
+        );
     }
 
     /**
-     * Test 4: Vérifier que la route '/dashboard' affiche 'dashboard' view pour un utilisateur authentifié et vérifié
+     * Test 4: Vérifier que la route '/dashboard' affiche une vue de dashboard pour un utilisateur authentifié et vérifié
      * @test
      */
     public function test_dashboard_route_returns_dashboard_view_for_authenticated_verified_user()
@@ -63,7 +67,11 @@ class RoutesTest extends TestCase
         $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertStatus(200);
-        $response->assertViewIs('dashboard');
+        // Dashboard can be dashboard.adherent or dashboard.secretary depending on roles
+        $this->assertTrue(
+            in_array($response->original->getName(), ['dashboard.adherent', 'dashboard.secretary']),
+            'Dashboard should display role-based view'
+        );
     }
 
     /**

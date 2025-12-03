@@ -30,7 +30,11 @@ class BladeViewsTest extends TestCase
 
         $response = $this->actingAs($user)->get('/dashboard');
         $response->assertStatus(200);
-        $response->assertViewIs('dashboard');
+        // Dashboard can be dashboard.adherent or dashboard.secretary depending on roles
+        $this->assertTrue(
+            in_array($response->original->getName(), ['dashboard.adherent', 'dashboard.secretary']),
+            'Dashboard should display role-based view'
+        );
     }
 
     /**
@@ -171,11 +175,11 @@ class BladeViewsTest extends TestCase
     }
 
     /**
-     * Test 15: Vérifier que la vue welcome existe
+     * Test 15: Vérifier que la vue index existe
      * @test
      */
     public function test_welcome_view_file_exists()
     {
-        $this->assertFileExists(resource_path('views/welcome.blade.php'));
+        $this->assertFileExists(resource_path('views/index.blade.php'));
     }
 }
