@@ -1,12 +1,18 @@
-# Lyon Palme - Système de Gestion de Club de Natation
+# Lyon Palme - Plateforme de Gestion Interne
 
-> Application Laravel de gestion complète pour le club de palmage de Lyon, affilié à la FFESSM (Fédération Française d'Études et de Sports Sous-Marins) - Comité régional AURA.
+> **Application privée et exclusive** développée pour la gestion interne du club Lyon Palme, club de palmage et de plongée affilié à la FFESSM (Fédération Française d'Études et de Sports Sous-Marins) - Comité régional AURA.
+
+## ⚠️ Important
+
+**Cette application est spécifiquement conçue pour le club Lyon Palme uniquement.** Elle n'est pas destinée à être utilisée par d'autres clubs ou organismes. Toutes les fonctionnalités, configurations et données sont adaptées aux besoins spécifiques de notre club.
 
 ## À propos
 
-Lyon Palme est une plateforme de gestion complète développée pour gérer l'ensemble des activités d'un club de natation et de palmage. L'application couvre tous les aspects de la gestion d'un club sportif : adhésions, entraînements, compétitions, matériel, finances et conformité RGPD.
+Lyon Palme est la plateforme de gestion interne complète du club Lyon Palme basé à Vénissieux. L'application couvre tous les aspects de la gestion de notre club sportif : adhésions, entraînements, compétitions, matériel, finances et conformité RGPD.
 
 **Piscine d'entraînement principale :** Centre Nautique de Vénissieux
+**Affiliation :** FFESSM - Comité Régional AURA
+**Type :** Club de palmage, nage avec palmes et plongée
 
 ## Fonctionnalités principales
 

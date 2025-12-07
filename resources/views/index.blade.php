@@ -52,16 +52,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="text-center space-y-6">
                 <div class="inline-block px-4 py-2 bg-blue-100 rounded-full text-blue-700 font-medium text-sm">
-                    Système de Gestion Complet pour Clubs Aquatiques
+                    Club Lyon Palme - FFESSM Comité Régional AURA
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
-                    Gérez votre club de plongée<br />
-                    <span class="gradient-text">avec simplicité et sécurité</span>
+                    Bienvenue au club<br />
+                    <span class="gradient-text">Lyon Palme</span>
                 </h1>
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
-                    Lyon Palme est une plateforme complète pour gérer adhérents, adhésions,
-                    entraînements, compétitions et bien plus, tout en respectant les normes de sécurité CNIL & RGPD.
-                </p>
+                    Plateforme de gestion interne du club Lyon Palme pour la gestion des adhérents, adhésions et plus encore.
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
                     <a href="/dashboard" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-lg transition">
                         Accéder au Dashboard
@@ -69,30 +67,6 @@
                     <a href="#features" class="px-8 py-3 bg-white text-blue-600 rounded-lg border-2 border-blue-600 hover:bg-blue-50 font-bold text-lg transition">
                         Découvrir les fonctionnalités
                     </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="bg-white/50 backdrop-blur-sm border-y border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-blue-600">100</div>
-                    <div class="text-sm text-slate-600 mt-2">Adhérents</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-blue-600">163</div>
-                    <div class="text-sm text-slate-600 mt-2">Certifications</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-blue-600">25</div>
-                    <div class="text-sm text-slate-600 mt-2">Sorties</div>
-                </div>
-                <div class="text-center">
-                    <div class="text-3xl font-bold text-blue-600">100%</div>
-                    <div class="text-sm text-slate-600 mt-2">Sécurisé</div>
                 </div>
             </div>
         </div>
@@ -140,38 +114,6 @@
                 <p class="text-slate-600 text-sm">
                     Niveaux de plongée (N1-N5, PE-12 à PE-60), apnée (A1-A4),
                     nage avec palmes (NP1-NP4), moniteurs (E1-E4, MF1-MF2).
-                </p>
-            </div>
-
-            <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 mb-2">Entraînements</h3>
-                <p class="text-slate-600 text-sm">
-                    Planification des séances, programmes personnalisés,
-                    affectation des entraîneurs, suivi de la présence.
-                </p>
-            </div>
-
-            <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 mb-2">Compétitions</h3>
-                <p class="text-slate-600 text-sm">
-                    Organisation complète : modalités, inscriptions, résultats,
-                    classements par catégorie d'âge et discipline.
-                </p>
-            </div>
-
-            <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 mb-2">Sorties Club</h3>
-                <p class="text-slate-600 text-sm">
-                    Planification de sorties (Marseille, Annecy, Port-Cros),
-                    inscriptions, coûts, niveau requis, places limitées.
-                </p>
-            </div>
-
-            <div class="card-hover bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-                <h3 class="font-bold text-lg text-slate-900 mb-2">Matériel</h3>
-                <p class="text-slate-600 text-sm">
-                    Inventaire complet (palmes, masques, tubas, combinaisons),
-                    prêts aux membres, suivi d'état, maintenance.
                 </p>
             </div>
 
@@ -229,31 +171,32 @@
                 <div>
                     <h3 class="font-bold text-white mb-4">Lyon Palme</h3>
                     <p class="text-sm text-slate-400">
-                        Gestion complète pour clubs aquatiques
+                        Club de palmage et plongée - FFESSM AURA<br>
+                        Centre Nautique de Saint-Fons<br>
+                        20 Rue des Frères Lumière, 69190 Saint-Fons<br>
                     </p>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Produit</h4>
                     <ul class="space-y-2 text-sm">
                         <li><a href="#features" class="hover:text-white">Fonctionnalités</a></li>
-                        <li><a href="#" class="hover:text-white">Documentation</a></li>
-                        <li><a href="#" class="hover:text-white">Support</a></li>
+                        <li><a href="/documentation" class="hover:text-white">Documentation</a></li>
+                        <li><a href="/support" class="hover:text-white">Support</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Sécurité</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white">RGPD Compliant</a></li>
-                        <li><a href="#" class="hover:text-white">CNIL Policy</a></li>
-                        <li><a href="#" class="hover:text-white">Chiffrement E2E</a></li>
+                        <li><a href="/rgpd" class="hover:text-white">RGPD</a></li>
+                        <li><a href="/cnil" class="hover:text-white">Politique CNIL</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Légal</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="#" class="hover:text-white">Politique de confidentialité</a></li>
-                        <li><a href="#" class="hover:text-white">Conditions d'utilisation</a></li>
-                        <li><a href="#" class="hover:text-white">Cookies</a></li>
+                        <li><a href="/confidentialite" class="hover:text-white">Politique de confidentialité</a></li>
+                        <li><a href="/conditions" class="hover:text-white">Conditions d'utilisation</a></li>
+                        <li><a href="/cookies" class="hover:text-white">Cookies</a></li>
                     </ul>
                 </div>
             </div>
@@ -263,7 +206,7 @@
                         © 2024 Lyon Palme. Tous droits réservés.
                     </p>
                     <p class="text-sm text-slate-400 mt-4 sm:mt-0">
-                        Développé avec ❤️ par Claude Code - Laravel 12 & MariaDB
+                        Développé avec Laravel 12 & MariaDB
                     </p>
                 </div>
             </div>
