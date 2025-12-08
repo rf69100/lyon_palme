@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Conditions d'utilisation - Lyon Palme')
+@section('title', 'Conditions d\'utilisation - Lyon Palme')
 
 @section('content')
 
@@ -8,7 +8,7 @@
   <div class="bg-gradient-to-b from-slate-900 to-slate-950 py-20">
     <div class="container mx-auto px-6">
       <div class="text-center">
-        <h1 class="text-5xl font-bold text-white mb-6">Conditions Générales d'utilisations</h1>
+        <h1 class="text-5xl font-bold text-white mb-6">Conditions Générales d'Utilisation</h1>
         <p class="text-xl text-slate-300 max-w-3xl mx-auto">
           Règles d'utilisation de la plateforme Lyon Palme
         </p>
