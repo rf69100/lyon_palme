@@ -16,6 +16,10 @@ Route::get('/support', function () {
     return view('pages.support');
 })->name('support');
 
+Route::get('/about', function () {
+    return view('pages.about');
+})->name('about');
+
 Route::get('/rgpd', function () {
     return view('pages.rgpd');
 })->name('rgpd');

@@ -5,9 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title') - Lyon Palme</title>
-    @vite(['resources/css/app.css'])
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+    @stack('styles')
 </head>
 <body class="font-sans text-slate-900 antialiased">
     <!-- Navigation Bar -->
@@ -16,21 +22,16 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <span class="text-2xl">🏊</span>
-                    <h1 class="font-bold text-xl text-slate-900">Lyon Palme</h1>
+                    <a href="/">
+                        <img src="/LyonPalme.png" alt="Lyon Palme" class="h-12">
+                    </a>
                 </div>
 
                 <!-- Nav Actions -->
                 <div class="flex items-center gap-4">
-                    <a href="{{ route('dashboard') }}" class="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition duration-200 rounded-lg hover:bg-slate-50">
-                        Dashboard
-                    </a>
-                    <a href="/" class="px-4 py-2 text-slate-700 hover:text-slate-900 font-medium transition duration-200 rounded-lg hover:bg-slate-50">
-                        Accueil
-                    </a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
-                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition duration-200">
+                        <button type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-medium transition duration-200">
                             Déconnexion
                         </button>
                     </form>
@@ -40,8 +41,10 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100">
+    <main>
         @yield('content')
     </main>
+
+    @stack('scripts')
 </body>
 </html>

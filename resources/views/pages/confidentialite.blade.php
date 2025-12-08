@@ -1,57 +1,18 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Politique de confidentialité - Lyon Palme</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.bunny.net">
-  <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-  </style>
-</head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 min-h-screen">
-  <!-- Navigation -->
-  <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-    <div class="container mx-auto px-6 py-4">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center space-x-3">
-          <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-            </svg>
-          </div>
-          <span class="text-xl font-bold text-slate-900">Lyon Palme</span>
-        </div>
-        <div class="flex items-center space-x-4">
-          <a href="/" class="text-slate-700 hover:text-slate-900 transition-colors">Accueil</a>
-          @auth
-            <a href="/dashboard" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg text-slate-900 transition-colors">
-              Tableau de bord
-            </a>
-          @else
-            <a href="/login" class="text-slate-700 hover:text-slate-900 transition-colors">Connexion</a>
-            <a href="/register" class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg text-slate-900 transition-colors">
-              Inscription
-            </a>
-          @endauth
-        </div>
-      </div>
-    </div>
-  </nav>
+@extends('layouts.public')
+
+@section('title', 'Politique de confidentialité - Lyon Palme')
+
+@section('content')
 
   <!-- Hero Section -->
   <div class="bg-gradient-to-b from-slate-900 to-slate-950 py-20">
     <div class="container mx-auto px-6">
       <div class="text-center">
-        <h1 class="text-5xl font-bold text-slate-900 mb-6">Politique de confidentialité</h1>
-        <p class="text-xl text-slate-600 max-w-3xl mx-auto">
+        <h1 class="text-5xl font-bold text-white mb-6">Politique de confidentialité</h1>
+        <p class="text-xl text-slate-300 max-w-3xl mx-auto">
           Comment nous collectons, utilisons et protégeons vos données personnelles
         </p>
-        <p class="text-sm text-slate-500 mt-4">Dernière mise à jour : Décembre 2024</p>
+        <p class="text-sm text-slate-300 mt-4">Dernière mise à jour : Décembre 2024</p>
       </div>
     </div>
   </div>
@@ -86,7 +47,7 @@
             </div>
             <div>
               <h3 class="font-semibold text-slate-900 mb-1">Adresse</h3>
-              <p class="text-slate-600">[Adresse complète]<br>69000 Lyon, France</p>
+              <p class="text-slate-600">16 Avenue du Docteur Georges Lévy,<br>69200 Vénissieux,<br>France</p>
             </div>
             <div>
               <h3 class="font-semibold text-slate-900 mb-1">Contact</h3>
@@ -133,10 +94,6 @@
             <ul class="list-disc list-inside text-slate-600 space-y-2">
               <li>Numéro de licence FFN</li>
               <li>Certificat médical</li>
-              <li>Groupe et niveau de pratique</li>
-              <li>Présences aux entraînements</li>
-              <li>Résultats en compétition</li>
-              <li>Performances chronométriques</li>
             </ul>
           </div>
 
@@ -146,11 +103,7 @@
               <li>Informations de facturation</li>
               <li>Historique des paiements et cotisations</li>
               <li>Mode de règlement</li>
-              <li>IBAN (pour prélèvements SEPA)</li>
             </ul>
-            <p class="text-slate-500 text-sm mt-3">
-              Note : Les données bancaires pour paiement par carte sont traitées directement par notre prestataire de paiement certifié PCI-DSS. Nous ne stockons jamais vos numéros de carte bancaire.
-            </p>
           </div>
 
           <div class="bg-white/80 backdrop-blur-sm border border-slate-200 rounded-xl p-6">
@@ -278,7 +231,7 @@
             <div>
               <h3 class="font-semibold text-slate-900 mb-2">Prestataires de services</h3>
               <p class="text-slate-600 text-sm">
-                Hébergeur (serveurs en France), prestataire de paiement (certifié PCI-DSS), service d'emailing (conforme RGPD).
+                Hébergeur (serveurs en France), service d'emailing (conforme RGPD).
                 Tous nos prestataires sont contractuellement tenus de protéger vos données.
               </p>
             </div>
@@ -488,47 +441,4 @@
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="bg-white/80 backdrop-blur-sm border-t border-slate-200 py-12">
-    <div class="container mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-        <div>
-          <h3 class="font-bold text-slate-900 mb-4">Lyon Palme</h3>
-          <p class="text-sm text-slate-600">
-            Club de palmage et plongée - FFESSM AURA<br>
-            Centre Nautique de Saint-Fons<br>
-            20 Rue des Frères Lumière, 69190 Saint-Fons
-          </p>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-900 mb-4">Produit</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/#fonctionnalites" class="hover:text-slate-900">Fonctionnalités</a></li>
-            <li><a href="/documentation" class="hover:text-slate-900">Documentation</a></li>
-            <li><a href="/support" class="hover:text-slate-900">Support</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-900 mb-4">Sécurité</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/rgpd" class="hover:text-slate-900">RGPD</a></li>
-            <li><a href="/cnil" class="hover:text-slate-900">Politique CNIL</a></li>
-            <li><a href="/chiffrement" class="hover:text-slate-900">Chiffrement E2E</a></li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-bold text-slate-900 mb-4">Légal</h4>
-          <ul class="space-y-2 text-sm">
-            <li><a href="/confidentialite" class="hover:text-slate-900">Politique de confidentialité</a></li>
-            <li><a href="/conditions" class="hover:text-slate-900">Conditions d'utilisation</a></li>
-            <li><a href="/cookies" class="hover:text-slate-900">Cookies</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="border-t border-slate-200 pt-8 text-center text-sm text-slate-600">
-        <p>&copy; 2024 Lyon Palme. Tous droits réservés.</p>
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+@endsection

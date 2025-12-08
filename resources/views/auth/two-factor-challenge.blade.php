@@ -7,7 +7,7 @@
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <img src="/LyonPalme.png" alt="Lyon Palme" class="h-16 mx-auto mb-4">
             <p class="text-slate-600">Authentification à deux facteurs</p>
         </div>
 
@@ -27,7 +27,7 @@
                         name="code"
                         inputmode="numeric"
                         maxlength="6"
-                        class="w-full px-4 py-3 border border-slate-300 rounded-lg text-3xl tracking-widest text-center font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        class="w-full px-4 py-3 border border-slate-300 rounded-lg text-3xl tracking-widest text-center font-mono focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                         placeholder="000000"
                     />
                     @error('code')
@@ -42,7 +42,7 @@
                         id="recovery_code"
                         type="text"
                         name="recovery_code"
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg font-mono focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="XXXXXXXX-XXXXXXXX"
                     />
                     @error('recovery_code')
@@ -53,7 +53,7 @@
                 <!-- Bouton submit -->
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                    class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-cyan-600 transition duration-200 mt-6"
                 >
                     Vérifier
                 </button>
@@ -64,7 +64,7 @@
                 <button
                     type="button"
                     onclick="toggleRecovery()"
-                    class="text-sm text-blue-600 hover:text-blue-700 font-medium bg-none border-none cursor-pointer"
+                    class="text-sm text-purple-600 hover:text-purple-700 font-medium bg-none border-none cursor-pointer"
                 >
                     <span id="toggle-text">Utiliser un code de récupération</span>
                 </button>

@@ -12,7 +12,7 @@
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-slate-900 mb-2">Lyon Palme</h1>
+            <img src="/LyonPalme.png" alt="Lyon Palme" class="h-16 mx-auto mb-4">
             <p class="text-slate-600">Créer votre compte</p>
         </div>
 
@@ -32,7 +32,7 @@
                         name="nom"
                         value="{{ old('nom') }}"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="Votre nom complet"
                     />
                     @error('nom')
@@ -49,7 +49,7 @@
                         name="email"
                         value="{{ old('email') }}"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="votre@email.com"
                     />
                     @error('email')
@@ -65,7 +65,7 @@
                         type="password"
                         name="password"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="Au moins 8 caractères"
                     />
                     @error('password')
@@ -81,7 +81,7 @@
                         type="password"
                         name="password_confirmation"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="Confirmez votre mot de passe"
                     />
                     @error('password_confirmation')
@@ -98,11 +98,11 @@
                             type="checkbox"
                             name="accept_privacy"
                             required
-                            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                            class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-slate-300 rounded"
                         />
                         <label for="accept_privacy" class="ml-3 text-sm text-slate-700">
                             J'ai lu et j'accepte la
-                            <a href="/confidentialite" target="_blank" class="text-blue-600 hover:text-blue-700 underline">politique de confidentialité</a>
+                            <a href="/confidentialite" target="_blank" class="text-purple-600 hover:text-purple-700 underline">politique de confidentialité</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -117,11 +117,11 @@
                             type="checkbox"
                             name="accept_terms"
                             required
-                            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                            class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-slate-300 rounded"
                         />
                         <label for="accept_terms" class="ml-3 text-sm text-slate-700">
                             J'accepte les
-                            <a href="/conditions" target="_blank" class="text-blue-600 hover:text-blue-700 underline">conditions générales d'utilisation</a>
+                            <a href="/conditions" target="_blank" class="text-purple-600 hover:text-purple-700 underline">conditions générales d'utilisation</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -136,11 +136,11 @@
                             type="checkbox"
                             name="accept_data_processing"
                             required
-                            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                            class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-slate-300 rounded"
                         />
                         <label for="accept_data_processing" class="ml-3 text-sm text-slate-700">
                             J'autorise le traitement de mes données personnelles conformément au
-                            <a href="/rgpd" target="_blank" class="text-blue-600 hover:text-blue-700 underline">RGPD</a>
+                            <a href="/rgpd" target="_blank" class="text-purple-600 hover:text-purple-700 underline">RGPD</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -154,7 +154,7 @@
                             id="accept_communications"
                             type="checkbox"
                             name="accept_communications"
-                            class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-300 rounded"
+                            class="mt-1 h-4 w-4 text-purple-600 focus:ring-purple-500 border-slate-300 rounded"
                         />
                         <label for="accept_communications" class="ml-3 text-sm text-slate-700">
                             J'accepte de recevoir des communications du club Lyon Palme (informations, événements, actualités)
@@ -171,7 +171,7 @@
                 <!-- Bouton submit -->
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                    class="w-full bg-purple-600 text-white py-2 rounded-lg font-semibold hover:bg-purple-700 transition duration-200 mt-6"
                 >
                     S'inscrire
                 </button>
@@ -181,7 +181,7 @@
         <!-- Footer -->
         <div class="mt-8 text-center text-sm text-slate-600">
             Déjà inscrit ?
-            <a href="{{ route('login') }}" class="text-blue-600 hover:text-blue-700 font-semibold">Se connecter</a>
+            <a href="{{ route('login') }}" class="text-purple-600 hover:text-purple-700 font-semibold">Se connecter</a>
         </div>
     </div>
 </div>

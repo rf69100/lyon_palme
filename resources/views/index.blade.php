@@ -1,57 +1,31 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Lyon Palme - Gestion de Club</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .card-hover {
-            transition: all 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-    </style>
-</head>
-<body class="bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 min-h-screen">
-    <!-- Navigation -->
-    <nav class="bg-white/80 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center gap-3">
-                    <span class="font-bold text-xl text-slate-900">Lyon Palme</span>
-                </div>
-                <div class="flex gap-3">
-                    <a href="/login" class="px-6 py-2 text-slate-700 hover:text-slate-900 font-medium">
-                        Connexion
-                    </a>
-                    <a href="/register" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium">
-                        S'inscrire
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+@extends('layouts.public')
 
+@section('title', 'Lyon Palme - Gestion de Club')
+
+@push('styles')
+<style>
+    .gradient-text {
+        background: linear-gradient(135deg, #5DD9D2 0%, #5B4B8A 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    .card-hover {
+        transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+</style>
+@endpush
+
+@section('content')
     <!-- Hero Section -->
     <section class="relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
             <div class="text-center space-y-6">
-                <div class="inline-block px-4 py-2 bg-blue-100 rounded-full text-blue-700 font-medium text-sm">
+                <div class="inline-block px-4 py-2 bg-purple-100 rounded-full text-purple-700 font-medium text-sm">
                     Club Lyon Palme - FFESSM Comité Régional AURA
                 </div>
                 <h1 class="text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
@@ -61,10 +35,10 @@
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Plateforme de gestion interne du club Lyon Palme pour la gestion des adhérents, adhésions et plus encore.
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                    <a href="/dashboard" class="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-bold text-lg transition">
-                        Accéder au Dashboard
+                    <a href="/about" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-bold text-lg transition">
+                        À Propos
                     </a>
-                    <a href="#features" class="px-8 py-3 bg-white text-blue-600 rounded-lg border-2 border-blue-600 hover:bg-blue-50 font-bold text-lg transition">
+                    <a href="#features" class="px-8 py-3 bg-white text-purple-600 rounded-lg border-2 border-purple-600 hover:bg-purple-50 font-bold text-lg transition">
                         Découvrir les fonctionnalités
                     </a>
                 </div>
@@ -152,78 +126,30 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-16">
+    <section class="bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
             <h2 class="text-4xl font-bold">Prêt à Commencer ?</h2>
-            <p class="text-lg text-blue-100">
-                Accédez au tableau de bord et commencez à gérer votre club dès maintenant.
+            <p class="text-lg text-purple-100">
+                Créez votre compte dès aujourd'hui et simplifiez votre gestion avec Lyon Palme.
             </p>
-            <a href="/dashboard" class="inline-block px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 font-bold text-lg transition">
-                → Accéder au Dashboard
+            <a href="/dashboard" class="inline-block px-8 py-4 bg-white text-purple-600 rounded-lg hover:bg-purple-50 font-bold text-lg transition">
+                Je créer mon compte
             </a>
         </div>
     </section>
+@endsection
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-300 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="font-bold text-white mb-4">Lyon Palme</h3>
-                    <p class="text-sm text-slate-400">
-                        Club de palmage et plongée - FFESSM AURA<br>
-                        Centre Nautique de Saint-Fons<br>
-                        20 Rue des Frères Lumière, 69190 Saint-Fons<br>
-                    </p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white mb-4">Produit</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="#features" class="hover:text-white">Fonctionnalités</a></li>
-                        <li><a href="/documentation" class="hover:text-white">Documentation</a></li>
-                        <li><a href="/support" class="hover:text-white">Support</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white mb-4">Sécurité</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="/rgpd" class="hover:text-white">RGPD</a></li>
-                        <li><a href="/cnil" class="hover:text-white">Politique CNIL</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-white mb-4">Légal</h4>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="/confidentialite" class="hover:text-white">Politique de confidentialité</a></li>
-                        <li><a href="/conditions" class="hover:text-white">Conditions d'utilisation</a></li>
-                        <li><a href="/cookies" class="hover:text-white">Cookies</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-slate-800 pt-8">
-                <div class="flex flex-col sm:flex-row justify-between items-center">
-                    <p class="text-sm text-slate-400">
-                        © 2024 Lyon Palme. Tous droits réservés.
-                    </p>
-                    <p class="text-sm text-slate-400 mt-4 sm:mt-0">
-                        Développé avec Laravel 12 & MariaDB
-                    </p>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        // Smooth scroll for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
+@push('scripts')
+<script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
         });
-    </script>
-</body>
-</html>
+    });
+</script>
+@endpush

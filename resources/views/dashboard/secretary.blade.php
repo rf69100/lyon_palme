@@ -20,7 +20,7 @@
                         <p class="text-slate-600 text-sm font-medium">Adhérents actifs</p>
                         <p class="text-4xl font-bold text-slate-900 mt-2">{{ $totalMembers }}</p>
                     </div>
-                    <div class="text-blue-500 text-3xl">👥</div>
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg></div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Membres actifs du club</p>
             </div>
@@ -32,7 +32,7 @@
                         <p class="text-slate-600 text-sm font-medium">Adhésions actives</p>
                         <p class="text-4xl font-bold text-slate-900 mt-2">{{ $activeAdhesions }}</p>
                     </div>
-                    <div class="text-green-500 text-3xl">📋</div>
+                    <div class="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Adhésions valides</p>
             </div>
@@ -44,7 +44,7 @@
                         <p class="text-slate-600 text-sm font-medium">Paiements en attente</p>
                         <p class="text-4xl font-bold text-slate-900 mt-2">{{ $pendingPayments }}</p>
                     </div>
-                    <div class="text-purple-500 text-3xl">💳</div>
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg></div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">À suivre</p>
             </div>
@@ -119,7 +119,7 @@
                     </div>
                 @else
                     <div class="bg-green-50 border border-green-200 rounded-xl p-6">
-                        <p class="text-green-900 font-semibold">✓ Aucune adhésion n'expire prochainement</p>
+                        <p class="text-green-900 font-semibold">Aucune adhésion n'expire prochainement</p>
                     </div>
                 @endif
 
@@ -127,7 +127,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Nouveaux adhérents (10 derniers)</h2>
-                        <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
+                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($recentMembers->isEmpty())
@@ -176,7 +176,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
-                        <a href="#add-member" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        <a href="#add-member" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
                             + Ajouter un adhérent
                         </a>
                         <a href="#manage-adhesions" class="block w-full bg-green-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-green-700 transition">
@@ -218,24 +218,24 @@
                 </div>
 
                 <!-- Key Metrics -->
-                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                    <h3 class="text-lg font-bold text-blue-900 mb-4">📊 Métriques clés</h3>
+                <div class="bg-purple-50 border border-purple-200 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-purple-900 mb-4">📊 Métriques clés</h3>
                     <div class="space-y-3 text-sm">
                         <div class="flex justify-between">
-                            <span class="text-blue-800">Taux d'adhésion</span>
-                            <span class="font-bold text-blue-900">
+                            <span class="text-purple-800">Taux d'adhésion</span>
+                            <span class="font-bold text-purple-900">
                                 {{ $totalMembers > 0 ? round(($activeAdhesions / $totalMembers) * 100) : 0 }}%
                             </span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-blue-800">Mineurs / Total</span>
-                            <span class="font-bold text-blue-900">
+                            <span class="text-purple-800">Mineurs / Total</span>
+                            <span class="font-bold text-purple-900">
                                 {{ $totalMembers > 0 ? round(($totalMinors / $totalMembers) * 100) : 0 }}%
                             </span>
                         </div>
                         <div class="flex justify-between">
-                            <span class="text-blue-800">Paiements à jour</span>
-                            <span class="font-bold text-blue-900">
+                            <span class="text-purple-800">Paiements à jour</span>
+                            <span class="font-bold text-purple-900">
                                 {{ $totalPayments > 0 ? round((($totalPayments - $pendingPayments) / $totalPayments) * 100) : 0 }}%
                             </span>
                         </div>
@@ -246,13 +246,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">? Aide & Documentation</h3>
                     <div class="space-y-2 text-sm">
-                        <a href="#" class="block text-blue-600 hover:text-blue-700 font-semibold">
+                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
                             → Guide de gestion
                         </a>
-                        <a href="#" class="block text-blue-600 hover:text-blue-700 font-semibold">
+                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
                             → FAQ secrétaire
                         </a>
-                        <a href="#" class="block text-blue-600 hover:text-blue-700 font-semibold">
+                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
                             → Contacter l'admin
                         </a>
                     </div>

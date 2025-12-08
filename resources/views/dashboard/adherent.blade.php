@@ -3,6 +3,7 @@
 @section('title', 'Mon Dashboard - Lyon Palme')
 
 @section('content')
+
 <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 py-8 px-4">
     <div class="max-w-7xl mx-auto">
         <!-- Header -->
@@ -14,8 +15,11 @@
         <!-- Status Badge -->
         <div class="mb-6">
             @if($stats['statut'] === 'actif')
-                <span class="inline-block bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold text-sm">
-                    ✓ Membre actif
+                <span class="inline-flex items-center gap-2 bg-green-100 text-green-800 px-4 py-2 rounded-lg font-semibold text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                    Membre actif
                 </span>
             @else
                 <span class="inline-block bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold text-sm">
@@ -33,7 +37,11 @@
                         <p class="text-slate-600 text-sm font-medium">Adhésions</p>
                         <p class="text-3xl font-bold text-slate-900 mt-2">{{ $stats['totalAdhesions'] ?? 0 }}</p>
                     </div>
-                    <div class="text-blue-500 text-2xl">📋</div>
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Memberships actifs et passés</p>
             </div>
@@ -45,7 +53,11 @@
                         <p class="text-slate-600 text-sm font-medium">Activités</p>
                         <p class="text-3xl font-bold text-slate-900 mt-2">{{ $stats['activitesParticipees'] ?? 0 }}</p>
                     </div>
-                    <div class="text-blue-500 text-2xl">🏊</div>
+                    <div class="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Sorties auxquelles vous avez participé</p>
             </div>
@@ -57,7 +69,11 @@
                         <p class="text-slate-600 text-sm font-medium">Certifications</p>
                         <p class="text-3xl font-bold text-slate-900 mt-2">{{ $stats['certificationsCount'] ?? 0 }}</p>
                     </div>
-                    <div class="text-blue-500 text-2xl">📜</div>
+                    <div class="w-12 h-12 bg-purple-500/10 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                        </svg>
+                    </div>
                 </div>
                 <p class="text-slate-500 text-xs mt-4">Niveaux et diplômes</p>
             </div>
@@ -69,9 +85,13 @@
                         <p class="text-slate-600 text-sm font-medium">Profil</p>
                         <p class="text-slate-900 text-lg font-bold mt-2">Complet</p>
                     </div>
-                    <div class="text-blue-500 text-2xl">👤</div>
+                    <div class="w-12 h-12 bg-cyan-500/10 rounded-full flex items-center justify-center">
+                        <svg class="w-6 h-6 text-cyan-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                    </div>
                 </div>
-                <a href="#edit-profile" class="text-blue-600 text-xs font-semibold mt-4 inline-block hover:text-blue-700">
+                <a href="#edit-profile" class="text-purple-600 text-xs font-semibold mt-4 inline-block hover:text-purple-700">
                     Modifier →
                 </a>
             </div>
@@ -84,13 +104,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Mes Adhésions</h2>
-                        <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
+                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($adhesions->isEmpty())
                         <div class="text-center py-8">
                             <p class="text-slate-600 mb-4">Aucune adhésion enregistrée</p>
-                            <a href="#subscribe" class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700">
+                            <a href="#subscribe" class="inline-block bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700">
                                 S'adhérer maintenant
                             </a>
                         </div>
@@ -128,7 +148,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Sorties à venir</h2>
-                        <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
+                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($upcomingOutings->isEmpty())
@@ -144,10 +164,10 @@
                                             {{ $inscription->sortie->titre ?? 'Sortie' }}
                                         </p>
                                         <p class="text-sm text-slate-600">
-                                            📅 {{ $inscription->sortie->date_debut?->format('d/m/Y') ?? 'Date non définie' }}
+                                            {{ $inscription->sortie->date_debut?->format('d/m/Y') ?? 'Date non définie' }}
                                         </p>
                                     </div>
-                                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-purple-100 text-purple-800">
                                         Inscrit
                                     </span>
                                 </div>
@@ -160,7 +180,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Compétitions à venir</h2>
-                        <a href="#view-all" class="text-blue-600 text-sm font-semibold hover:text-blue-700">Voir tout →</a>
+                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($upcomingCompetitions->isEmpty())
@@ -195,7 +215,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
-                        <a href="#edit-profile" class="block w-full bg-blue-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        <a href="#edit-profile" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
                             Modifier mon profil
                         </a>
                         <a href="#change-password" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
@@ -208,19 +228,30 @@
                 </div>
 
                 <!-- Important Info Card -->
-                <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                    <h3 class="text-lg font-bold text-blue-900 mb-3">💡 À savoir</h3>
-                    <ul class="space-y-2 text-sm text-blue-800">
-                        <li class="flex items-start">
-                            <span class="mr-2">✓</span>
+                <div class="bg-purple-50 border border-purple-200 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-purple-900 mb-3 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        À savoir
+                    </h3>
+                    <ul class="space-y-2 text-sm text-purple-800">
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
                             <span>Vérifiez votre adhésion pour participer aux activités</span>
                         </li>
-                        <li class="flex items-start">
-                            <span class="mr-2">✓</span>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
                             <span>Mettez à jour votre profil régulièrement</span>
                         </li>
-                        <li class="flex items-start">
-                            <span class="mr-2">✓</span>
+                        <li class="flex items-start gap-2">
+                            <svg class="w-4 h-4 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
                             <span>Consultez les certifications requises</span>
                         </li>
                     </ul>
@@ -228,7 +259,7 @@
 
                 <!-- Contact Info -->
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">📞 Contact</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-4"> Contact</h3>
                     <div class="space-y-3 text-sm">
                         <div>
                             <p class="text-slate-600 mb-1">Email</p>

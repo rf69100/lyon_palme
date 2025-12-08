@@ -7,7 +7,7 @@
     <div class="w-full max-w-md">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-slate-900 mb-2">🏊 Lyon Palme</h1>
+            <img src="/LyonPalme.png" alt="Lyon Palme" class="h-16 mx-auto mb-4">
             <p class="text-slate-600">Réinitialiser votre mot de passe</p>
         </div>
 
@@ -40,7 +40,7 @@
                         type="password"
                         name="password"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="Au moins 8 caractères"
                     />
                     @error('password')
@@ -56,7 +56,7 @@
                         type="password"
                         name="password_confirmation"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-900 placeholder-slate-400"
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 placeholder-slate-400"
                         placeholder="Confirmez votre mot de passe"
                     />
                     @error('password_confirmation')
@@ -67,7 +67,7 @@
                 <!-- Bouton submit -->
                 <button
                     type="submit"
-                    class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition duration-200 mt-6"
+                    class="w-full bg-gradient-to-r from-purple-600 to-cyan-500 text-white py-2 rounded-lg font-semibold hover:from-purple-700 hover:to-cyan-600 transition duration-200 mt-6"
                 >
                     Réinitialiser le mot de passe
                 </button>
