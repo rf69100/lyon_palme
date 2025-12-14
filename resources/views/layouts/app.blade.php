@@ -22,7 +22,7 @@
             <div class="flex justify-between items-center h-16">
                 <!-- Logo -->
                 <div class="flex items-center gap-2">
-                    <a href="/">
+                    <a href="{{ url('/') }}">
                         <img src="/LyonPalme.png" alt="Lyon Palme" class="h-12">
                     </a>
                 </div>

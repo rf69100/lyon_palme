@@ -334,7 +334,7 @@
           </p>
           <div class="space-y-2 text-slate-700">
             <p>Email : <a href="mailto:dpo@lyonpalme.fr" class="text-blue-400 hover:text-blue-300">dpo@lyonpalme.fr</a></p>
-            <p>Support : <a href="/support" class="text-blue-400 hover:text-blue-300">Page de support</a></p>
+            <p>Support : <a href="{{ route('support') }}" class="text-blue-400 hover:text-blue-300">Page de support</a></p>
           </div>
         </div>
       </section>

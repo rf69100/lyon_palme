@@ -203,7 +203,7 @@
           <p class="text-slate-600 mb-6">
             En utilisant la plateforme, vous acceptez notre Politique de Confidentialité et le traitement de vos données personnelles conformément à celle-ci.
           </p>
-          <a href="/confidentialite" class="px-6 py-4 flex items-center justify-center bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-medium">
+          <a href="{{ route('confidentialite') }}" class="px-6 py-4 flex items-center justify-center bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-medium">
             Consulter la Politique de Confidentialité
           </a>
         </div>
@@ -303,7 +303,7 @@
           </p>
           <div class="space-y-2 text-slate-700">
             <p>Email : <a href="mailto:contact@lyonpalme.fr" class="text-blue-400 hover:text-blue-300">contact@lyonpalme.fr</a></p>
-            <p>Support : <a href="/support" class="text-blue-400 hover:text-blue-300">Page de support</a></p>
+            <p>Support : <a href="{{ route('support') }}" class="text-blue-400 hover:text-blue-300">Page de support</a></p>
             <p>Adresse : Lyon Palme, 16 Avenue du Docteur Georges Lévy, 69200 Vénissieux</p>
           </div>
         </div>

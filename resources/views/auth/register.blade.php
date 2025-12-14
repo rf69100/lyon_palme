@@ -5,7 +5,7 @@
 @section('content')
 <div class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 flex items-center justify-center px-4 py-12 relative">
     <!-- Bouton Retour à l'accueil -->
-    <a href="/" class="absolute bottom-8 right-8 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 font-medium transition duration-200 text-sm">
+    <a href="{{ url('/') }}" class="absolute bottom-8 right-8 px-4 py-2 bg-slate-600 text-white rounded-lg hover:bg-slate-700 font-medium transition duration-200 text-sm">
         ← Accueil
     </a>
 
@@ -102,7 +102,7 @@
                         />
                         <label for="accept_privacy" class="ml-3 text-sm text-slate-700">
                             J'ai lu et j'accepte la
-                            <a href="/confidentialite" target="_blank" class="text-purple-600 hover:text-purple-700 underline">politique de confidentialité</a>
+                            <a href="{{ route('confidentialite') }}" target="_blank" class="text-purple-600 hover:text-purple-700 underline">politique de confidentialité</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -121,7 +121,7 @@
                         />
                         <label for="accept_terms" class="ml-3 text-sm text-slate-700">
                             J'accepte les
-                            <a href="/conditions" target="_blank" class="text-purple-600 hover:text-purple-700 underline">conditions générales d'utilisation</a>
+                            <a href="{{ route('conditions') }}" target="_blank" class="text-purple-600 hover:text-purple-700 underline">conditions générales d'utilisation</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>
@@ -140,7 +140,7 @@
                         />
                         <label for="accept_data_processing" class="ml-3 text-sm text-slate-700">
                             J'autorise le traitement de mes données personnelles conformément au
-                            <a href="/rgpd" target="_blank" class="text-purple-600 hover:text-purple-700 underline">RGPD</a>
+                            <a href="{{ route('rgpd') }}" target="_blank" class="text-purple-600 hover:text-purple-700 underline">RGPD</a>
                             <span class="text-red-600">*</span>
                         </label>
                     </div>

@@ -35,7 +35,7 @@
                 <p class="text-xl text-slate-600 max-w-2xl mx-auto">
                     Plateforme de gestion interne du club Lyon Palme pour la gestion des adhérents, adhésions et plus encore.
                 <div class="flex flex-col sm:flex-row gap-4 justify-center pt-8">
-                    <a href="/about" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-bold text-lg transition">
+                    <a href="{{ route('about') }}" class="px-8 py-3 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-bold text-lg transition">
                         À Propos
                     </a>
                     <a href="#features" class="px-8 py-3 bg-white text-purple-600 rounded-lg border-2 border-purple-600 hover:bg-purple-50 font-bold text-lg transition">
@@ -132,7 +132,7 @@
             <p class="text-lg text-purple-100">
                 Créez votre compte dès aujourd'hui et simplifiez votre gestion avec Lyon Palme.
             </p>
-            <a href="/dashboard" class="inline-block px-8 py-4 bg-white text-purple-600 rounded-lg hover:bg-purple-50 font-bold text-lg transition">
+            <a href="{{ route('register') }}" class="inline-block px-8 py-4 bg-white text-purple-600 rounded-lg hover:bg-purple-50 font-bold text-lg transition">
                 Je créer mon compte
             </a>
         </div>

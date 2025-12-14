@@ -204,10 +204,10 @@
           pour partager votre passion des activités subaquatiques.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/register" class="px-8 py-3 bg-white text-purple-600 rounded-lg hover:bg-purple-50 font-bold transition">
+          <a href="{{ route('register') }}" class="px-8 py-3 bg-white text-purple-600 rounded-lg hover:bg-purple-50 font-bold transition">
             S'inscrire
           </a>
-          <a href="/support" class="px-8 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-400 font-bold transition border-2 border-white">
+          <a href="{{ route('support') }}" class="px-8 py-3 bg-purple-500 text-white rounded-lg hover:bg-purple-400 font-bold transition border-2 border-white">
             Nous Contacter
           </a>
         </div>

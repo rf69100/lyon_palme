@@ -12,24 +12,24 @@
                 <div>
                     <h4 class="font-bold text-white mb-4">Produit</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/#features" class="hover:text-white">Fonctionnalités</a></li>
-                        <li><a href="/about" class="hover:text-white">À Propos</a></li>
-                        <li><a href="/support" class="hover:text-white">Support</a></li>
+                        <li><a href="{{ url('/') }}#features" class="hover:text-white">Fonctionnalités</a></li>
+                        <li><a href="{{ route('about') }}" class="hover:text-white">À Propos</a></li>
+                        <li><a href="{{ route('support') }}" class="hover:text-white">Support</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Sécurité</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/rgpd" class="hover:text-white">RGPD</a></li>
-                        <li><a href="/cnil" class="hover:text-white">Politique CNIL</a></li>
+                        <li><a href="{{ route('rgpd') }}" class="hover:text-white">RGPD</a></li>
+                        <li><a href="{{ route('cnil') }}" class="hover:text-white">Politique CNIL</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-white mb-4">Légal</h4>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/confidentialite" class="hover:text-white">Politique de confidentialité</a></li>
-                        <li><a href="/conditions" class="hover:text-white">Conditions d'utilisation</a></li>
-                        <li><a href="/cookies" class="hover:text-white">Cookies</a></li>
+                        <li><a href="{{ route('confidentialite') }}" class="hover:text-white">Politique de confidentialité</a></li>
+                        <li><a href="{{ route('conditions') }}" class="hover:text-white">Conditions d'utilisation</a></li>
+                        <li><a href="{{ route('cookies') }}" class="hover:text-white">Cookies</a></li>
                     </ul>
                 </div>
             </div>
