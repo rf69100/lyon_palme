@@ -91,7 +91,7 @@
                         </svg>
                     </div>
                 </div>
-                <a href="#edit-profile" class="text-purple-600 text-xs font-semibold mt-4 inline-block hover:text-purple-700">
+                <a href="{{ route('profile.edit') }}" class="text-purple-600 text-xs font-semibold mt-4 inline-block hover:text-purple-700">
                     Modifier →
                 </a>
             </div>
@@ -215,13 +215,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
-                        <a href="#edit-profile" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        <a href="{{ route('profile.edit') }}" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
                             Modifier mon profil
                         </a>
-                        <a href="#change-password" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
+                        <a href="{{ route('password.edit') }}" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
                             Changer mon mot de passe
                         </a>
-                        <a href="#contact-support" class="block w-full bg-slate-100 text-slate-900 text-center py-2 rounded-lg font-semibold hover:bg-slate-200 transition border border-slate-200">
+                        <a href="{{ route('support.index') }}" class="block w-full bg-slate-100 text-slate-900 text-center py-2 rounded-lg font-semibold hover:bg-slate-200 transition border border-slate-200">
                             Contacter le support
                         </a>
                     </div>
