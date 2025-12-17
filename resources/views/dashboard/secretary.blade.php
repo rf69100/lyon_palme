@@ -244,15 +244,15 @@
 
                 <!-- Help & Documentation -->
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4">? Aide & Documentation</h3>
-                    <div class="space-y-2 text-sm">
-                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">❓ Aide & Documentation</h3>
+                    <div class="space-y-3">
+                        <a href="{{ route('help.guide') }}" class="block text-purple-600 hover:text-purple-700 font-semibold transition">
                             → Guide de gestion
                         </a>
-                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
+                        <a href="{{ route('help.faq') }}" class="block text-purple-600 hover:text-purple-700 font-semibold transition">
                             → FAQ secrétaire
                         </a>
-                        <a href="#" class="block text-purple-600 hover:text-purple-700 font-semibold">
+                        <a href="{{ route('help.contact') }}" class="block text-purple-600 hover:text-purple-700 font-semibold transition">
                             → Contacter l'admin
                         </a>
                     </div>

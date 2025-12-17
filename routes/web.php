@@ -1,10 +1,12 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdherentController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\PasswordController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupportController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
@@ -58,5 +60,15 @@ Route::middleware(['auth', 'verified', 'audit.trail'])->group(function () {
     // Support
     Route::get('/support/contact', [SupportController::class, 'index'])->name('support.index');
     Route::post('/support/contact', [SupportController::class, 'store'])->name('support.store');
-});
 
+    // Help & Documentation
+    Route::get('/aide/guide-gestion', [HelpController::class, 'guideGestion'])->name('help.guide');
+    Route::get('/aide/faq', [HelpController::class, 'faq'])->name('help.faq');
+    Route::get('/aide/contact-admin', [HelpController::class, 'contactAdmin'])->name('help.contact');
+
+    // Admin routes - Gestion des adhérents
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('adherents', AdherentController::class);
+        Route::post('adherents/{adherent}/restore', [AdherentController::class, 'restore'])->name('adherents.restore');
+    });
+});

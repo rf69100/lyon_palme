@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Adherent;
 use App\Models\Adhesion;
-use App\Models\Paiement;
-use App\Models\InscriptionSortie;
 use App\Models\InscriptionCompetition;
+use App\Models\InscriptionSortie;
+use App\Models\Paiement;
+use App\Models\Role;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -21,11 +22,12 @@ class DashboardController extends Controller
         // Get adherent associated with this user
         $adherent = Adherent::where('utilisateur_id', $user->id)->first();
 
-        // TODO: Integrate with role system once AdherentRole model is created
-        // For now, all users see the adherent dashboard
-        // Future: Check if user has secretary/admin role from adherent_roles table
+        // Check if adherent has administrative role (secretary, president, or treasurer)
+        if ($adherent && $adherent->estAdministrateur()) {
+            return $this->secretaryDashboard($adherent);
+        }
 
-        // Display adherent dashboard
+        // Display adherent dashboard by default (even if adherent is null)
         return $this->adherentDashboard($adherent);
     }
 
@@ -55,7 +57,7 @@ class DashboardController extends Controller
                     ->get();
                 $stats['totalAdhesions'] = $adhesions->count();
             } catch (\Exception $e) {
-                \Log::error('Error loading adhesions: ' . $e->getMessage());
+                \Log::error('Error loading adhesions: '.$e->getMessage());
                 $adhesions = collect([]);
             }
 
@@ -67,7 +69,7 @@ class DashboardController extends Controller
                     ->get();
                 $stats['activitesParticipees'] = $upcomingOutings->count();
             } catch (\Exception $e) {
-                \Log::error('Error loading outings: ' . $e->getMessage());
+                \Log::error('Error loading outings: '.$e->getMessage());
                 $upcomingOutings = collect([]);
             }
 
@@ -78,7 +80,7 @@ class DashboardController extends Controller
                     ->take(5)
                     ->get();
             } catch (\Exception $e) {
-                \Log::error('Error loading competitions: ' . $e->getMessage());
+                \Log::error('Error loading competitions: '.$e->getMessage());
                 $upcomingCompetitions = collect([]);
             }
         }
@@ -95,7 +97,7 @@ class DashboardController extends Controller
     /**
      * Display secretary's administrative dashboard
      */
-    private function secretaryDashboard(): View
+    private function secretaryDashboard(Adherent $adherent): View
     {
         // Total members count
         $totalMembers = Adherent::actif()->count();
@@ -104,8 +106,12 @@ class DashboardController extends Controller
 
         // Adhesions statistics
         $totalAdhesions = Adhesion::count();
-        $activeAdhesions = Adhesion::whereDate('date_fin', '>=', now())->count();
-        $expiredAdhesions = Adhesion::whereDate('date_fin', '<', now())->count();
+        $activeAdhesions = Adhesion::whereHas('saison', function ($query) {
+            $query->whereDate('date_fin', '>=', now());
+        })->count();
+        $expiredAdhesions = Adhesion::whereHas('saison', function ($query) {
+            $query->whereDate('date_fin', '<', now());
+        })->count();
 
         // Recent members
         $recentMembers = Adherent::actif()
@@ -114,13 +120,15 @@ class DashboardController extends Controller
             ->get();
 
         // Adhesions expiring soon (next 30 days)
-        $expiringAdhesions = Adhesion::whereBetween('date_fin', [
-            now(),
-            now()->addDays(30)
-        ])->with('adherent', 'typeAdhesion')
-            ->orderBy('date_fin', 'asc')
-            ->take(10)
-            ->get();
+        $expiringAdhesions = Adhesion::whereHas('saison', function ($query) {
+            $query->whereBetween('date_fin', [
+                now(),
+                now()->addDays(30),
+            ]);
+        })->with('adherent', 'typeAdhesion', 'saison')
+            ->get()
+            ->sortBy(fn ($adhesion) => $adhesion->saison->date_fin)
+            ->take(10);
 
         // Payment statistics
         $totalPayments = Paiement::count();
@@ -131,6 +139,7 @@ class DashboardController extends Controller
         $totalCompetitions = \App\Models\Competition::count();
 
         return view('dashboard.secretary', [
+            'adherent' => $adherent,
             'totalMembers' => $totalMembers,
             'totalArchived' => $totalArchived,
             'totalMinors' => $totalMinors,

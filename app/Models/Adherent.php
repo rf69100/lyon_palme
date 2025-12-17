@@ -10,11 +10,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Adherent extends Model
 {
-    use HasFactory, EncryptsAttributes;
+    use EncryptsAttributes, HasFactory;
 
     protected $table = 'adherents';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [
@@ -94,7 +95,7 @@ class Adherent extends Model
      */
     public function representantsLegaux(): HasMany
     {
-        return $this->hasMany(RepresentantLegal::class);
+        return $this->hasMany(RepresentantLegal::class, 'adherent_mineur_id');
     }
 
     /**
@@ -103,6 +104,62 @@ class Adherent extends Model
     public function adhesions(): HasMany
     {
         return $this->hasMany(Adhesion::class);
+    }
+
+    /**
+     * Relation avec les rôles de l'adhérent
+     */
+    public function adherentRoles(): HasMany
+    {
+        return $this->hasMany(AdherentRole::class);
+    }
+
+    /**
+     * Relation many-to-many avec les rôles
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'adherent_roles')
+            ->withPivot('saison_id', 'attribue_le', 'revoque_le', 'est_actif')
+            ->withTimestamps();
+    }
+
+    /**
+     * Récupère les rôles actifs de l'adhérent
+     */
+    public function rolesActifs()
+    {
+        return $this->roles()
+            ->wherePivot('est_actif', true)
+            ->wherePivotNull('revoque_le');
+    }
+
+    /**
+     * Vérifie si l'adhérent a un rôle spécifique actif
+     */
+    public function hasRole(string $roleName): bool
+    {
+        return $this->rolesActifs()
+            ->where('nom', $roleName)
+            ->exists();
+    }
+
+    /**
+     * Vérifie si l'adhérent a au moins un des rôles spécifiés
+     */
+    public function hasAnyRole(array $roleNames): bool
+    {
+        return $this->rolesActifs()
+            ->whereIn('nom', $roleNames)
+            ->exists();
+    }
+
+    /**
+     * Vérifie si l'adhérent a un rôle administratif
+     */
+    public function estAdministrateur(): bool
+    {
+        return $this->hasAnyRole([Role::SECRETAIRE, Role::PRESIDENT, Role::TRESORIER]);
     }
 
     /**
@@ -146,7 +203,7 @@ class Adherent extends Model
             $this->numero_rue,
             $this->rue,
             $this->complement_adresse,
-            $this->code_postal . ' ' . $this->ville,
+            $this->code_postal.' '.$this->ville,
             $this->pays !== 'France' ? $this->pays : null,
         ]);
 
@@ -158,7 +215,7 @@ class Adherent extends Model
      */
     public function getNomCompletAttribute(): string
     {
-        return trim($this->civilite . ' ' . $this->prenom . ' ' . $this->nom);
+        return trim($this->civilite.' '.$this->prenom.' '.$this->nom);
     }
 
     /**
@@ -202,37 +259,40 @@ class Adherent extends Model
     /**
      * Recherche par nom (utilise le hash pour performance)
      *
-     * @param string $nom Le nom à rechercher (exactement)
+     * @param  string  $nom  Le nom à rechercher (exactement)
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function rechercherParNom(string $nom)
     {
         $nomHash = hash('sha256', mb_strtolower($nom));
+
         return static::where('nom_recherche', $nomHash)->get();
     }
 
     /**
      * Recherche par prénom (utilise le hash pour performance)
      *
-     * @param string $prenom Le prénom à rechercher (exactement)
+     * @param  string  $prenom  Le prénom à rechercher (exactement)
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function rechercherParPrenom(string $prenom)
     {
         $prenomHash = hash('sha256', mb_strtolower($prenom));
+
         return static::where('prenom_recherche', $prenomHash)->get();
     }
 
     /**
      * Recherche par nom complet (utilise le hash pour performance)
      *
-     * @param string $nom Le nom
-     * @param string $prenom Le prénom
+     * @param  string  $nom  Le nom
+     * @param  string  $prenom  Le prénom
      * @return \Illuminate\Database\Eloquent\Collection
      */
     public static function rechercherParNomComplet(string $nom, string $prenom)
     {
-        $nomCompletHash = hash('sha256', mb_strtolower($nom . ' ' . $prenom));
+        $nomCompletHash = hash('sha256', mb_strtolower($nom.' '.$prenom));
+
         return static::where('nom_complet_recherche', $nomCompletHash)->get();
     }
 }

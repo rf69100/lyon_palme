@@ -28,7 +28,10 @@ class DatabaseSeeder extends Seeder
             UtilisateurSeeder::class,
             TarifSeeder::class,
 
-            // 3. Données de test (décommenter pour générer des données complètes)
+            // 3. Association des rôles aux utilisateurs administratifs
+            AdherentRoleSeeder::class,
+
+            // 4. Données de test (décommenter pour générer des données complètes)
             TestDataSeeder::class,
         ]);
 

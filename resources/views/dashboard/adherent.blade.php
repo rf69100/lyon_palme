@@ -259,7 +259,7 @@
 
                 <!-- Contact Info -->
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
-                    <h3 class="text-lg font-bold text-slate-900 mb-4"> Contact</h3>
+                    <h3 class="text-lg font-bold text-slate-900 mb-4">📞 Contact</h3>
                     <div class="space-y-3 text-sm">
                         <div>
                             <p class="text-slate-600 mb-1">Email</p>

@@ -29,7 +29,8 @@
                         name="email"
                         value="{{ $request->email }}"
                         required
-                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900"
+                        readonly
+                        class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent text-slate-900 bg-slate-50"
                     />
                 </div>
 
