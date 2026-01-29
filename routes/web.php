@@ -1,9 +1,11 @@
 <?php
 
 use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\AdhesionController;
 use App\Http\Controllers\CertificatMedicalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HelpController;
+use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SupportController;
@@ -75,5 +77,13 @@ Route::middleware(['auth', 'verified', 'audit.trail'])->group(function () {
         // Certificats médicaux (US10)
         Route::get('certificats-medicaux', [CertificatMedicalController::class, 'index'])->name('certificats.index');
         Route::get('certificats-medicaux/export', [CertificatMedicalController::class, 'export'])->name('certificats.export');
+
+        // Cotisations (US11)
+        Route::get('cotisations', [AdhesionController::class, 'index'])->name('cotisations.index');
+        Route::get('cotisations/export', [AdhesionController::class, 'export'])->name('cotisations.export');
+
+        // Paiements (US11)
+        Route::get('adhesions/{adhesion}/paiements/create', [PaiementController::class, 'create'])->name('paiements.create');
+        Route::post('adhesions/{adhesion}/paiements', [PaiementController::class, 'store'])->name('paiements.store');
     });
 });
