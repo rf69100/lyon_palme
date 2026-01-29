@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdherentController;
+use App\Http\Controllers\CertificatMedicalController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HelpController;
 use App\Http\Controllers\PasswordController;
@@ -70,5 +71,9 @@ Route::middleware(['auth', 'verified', 'audit.trail'])->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('adherents', AdherentController::class);
         Route::post('adherents/{adherent}/restore', [AdherentController::class, 'restore'])->name('adherents.restore');
+
+        // Certificats médicaux (US10)
+        Route::get('certificats-medicaux', [CertificatMedicalController::class, 'index'])->name('certificats.index');
+        Route::get('certificats-medicaux/export', [CertificatMedicalController::class, 'export'])->name('certificats.export');
     });
 });
