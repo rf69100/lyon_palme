@@ -1,0 +1,70 @@
+services:
+  # ─────────────────────────────────────────────
+  # Application Laravel (PHP-FPM)
+  # ─────────────────────────────────────────────
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+    image: lyon_palme_app:latest
+    container_name: lyon_palme_app
+    restart: unless-stopped
+    env_file: .env.production
+    volumes:
+      - storage_data:/var/www/html/storage/app
+      - logs_data:/var/www/html/storage/logs
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - app_network
+
+  # ─────────────────────────────────────────────
+  # Nginx — port 8080 (Apache2 occupe le 80)
+  # ─────────────────────────────────────────────
+  nginx:
+    image: nginx:1.27-alpine
+    container_name: lyon_palme_nginx
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./public:/var/www/html/public:ro
+    depends_on:
+      - app
+    networks:
+      - app_network
+
+  # ─────────────────────────────────────────────
+  # MariaDB
+  # ─────────────────────────────────────────────
+  db:
+    image: mariadb:11.4
+    container_name: lyon_palme_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    env_file: .env.production
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - app_network
+
+volumes:
+  db_data:
+  storage_data:
+  logs_data:
+
+networks:
+  app_network:
+    driver: bridge
