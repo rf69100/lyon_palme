@@ -19,6 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Strip /lyonpalme prefix pour fonctionner en sous-chemin nginx
+        $uri = $this->app['request']->server->get('REQUEST_URI', '/');
+        $stripped = preg_replace('#^/lyonpalme#', '', $uri) ?: '/';
+        $this->app['request']->server->set('REQUEST_URI', $stripped);
     }
 }
