@@ -19,9 +19,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Strip /lyonpalme prefix pour fonctionner en sous-chemin nginx
+        // Préfixe /lyonpalme : strip pour le routing, mais URL::forceRootUrl pour la génération
+        \Illuminate\Support\Facades\URL::forceRootUrl('https://www.ryanfonseca.fr');
+    
         $uri = $this->app['request']->server->get('REQUEST_URI', '/');
         $stripped = preg_replace('#^/lyonpalme#', '', $uri) ?: '/';
         $this->app['request']->server->set('REQUEST_URI', $stripped);
+    
+        // Préfixer toutes les routes générées avec /lyonpalme
+        $this->app['request']->server->set('SCRIPT_NAME', '/lyonpalme/index.php');
     }
 }

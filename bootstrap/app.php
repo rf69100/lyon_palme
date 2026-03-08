@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             \App\Http\Middleware\SecureSessionHeaders::class,
         ]);
+        $middleware->prepend(\App\Http\Middleware\ForceSubpathUrl::class);
 
         // Middleware aliases for specific routes
         $middleware->alias([
