@@ -17,7 +17,7 @@ RUN npm run build
 # ─────────────────────────────────────────────
 # Stage 2 : Image PHP / Laravel finale
 # ─────────────────────────────────────────────
-FROM php:8.2-fpm-alpine AS app
+FROM php:8.4-fpm-alpine AS app
 
 # --- Dépendances système ---
 RUN apk add --no-cache \
