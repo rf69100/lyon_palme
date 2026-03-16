@@ -1,0 +1,75 @@
+@startuml LyonPalme - Administrateur
+
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam backgroundColor #FAFAFA
+
+actor "Administrateur" as Admin
+participant "Application\n(Laravel)" as App
+participant "Middleware\n(Auth + Audit)" as MW
+participant "Base de données" as DB
+participant "AuditLog" as AUDIT
+
+== Connexion & Dashboard Admin ==
+Admin -> App : Saisit ses identifiants
+App -> DB : Vérifie le rôle administrateur
+App -> AUDIT : Enregistre la connexion
+App -> DB : Charge les stats globales\n(adhérents, cotisations, paiements)
+App -> Admin : Dashboard administrateur\n(statistiques, alertes, membres récents)
+
+== Gestion des Adhérents ==
+Admin -> App : Consulte /admin/adherents\n(filtres : nom, statut, type)
+App -> MW : Vérifie le rôle admin
+MW -> DB : Requête filtrée + pagination
+App -> Admin : Liste des adhérents
+
+Admin -> App : Crée un nouvel adhérent\n(formulaire)
+App -> App : Validation des données
+App -> DB : Sauvegarde l'adhérent
+App -> AUDIT : Enregistre la création
+App -> Admin : Confirmation + fiche adhérent
+
+Admin -> App : Modifie un adhérent existant
+App -> App : Validation des données
+App -> DB : Met à jour les informations
+App -> AUDIT : Enregistre la modification\n(ancienne et nouvelle valeur)
+App -> Admin : Confirmation
+
+Admin -> App : Archive un adhérent
+App -> DB : Passe le statut à "archivé"\n(aucune suppression définitive)
+App -> AUDIT : Enregistre l'archivage
+App -> Admin : Confirmation
+
+Admin -> App : Réactive un adhérent archivé
+App -> DB : Passe le statut à "actif"
+App -> AUDIT : Enregistre la réactivation
+App -> Admin : Confirmation
+
+== Gestion des Cotisations ==
+Admin -> App : Consulte /admin/cotisations\n(filtres : saison, statut paiement, type)
+App -> MW : Vérifie le rôle admin
+MW -> DB : Requête filtrée + pagination\n(impayés en premier)
+App -> Admin : Liste des cotisations
+
+== Enregistrement d'un Paiement ==
+Admin -> App : Ouvre le formulaire de paiement\npour une adhésion
+App -> DB : Charge l'adhésion\n(adhérent, saison, tarif)
+App -> Admin : Formulaire avec modes de paiement
+
+Admin -> App : Soumet le paiement\n(montant, moyen, date)
+App -> App : Validation des données
+App -> DB : Crée le paiement\n+ met à jour le montant payé
+App -> AUDIT : Enregistre le paiement
+App -> Admin : Confirmation
+
+== Certificats Médicaux ==
+Admin -> App : Consulte /admin/certificats-medicaux\n(filtre : valide / expiré / bientôt expiré)
+App -> DB : Requête filtrée + calcul des statuts\n(jours restants, questionnaire requis)
+App -> Admin : Liste avec alertes visuelles
+
+== Exports Excel ==
+Admin -> App : Demande un export\n(cotisations ou certificats médicaux)
+App -> DB : Récupère les données filtrées
+App -> Admin : Téléchargement du fichier .xlsx
+
+@enduml

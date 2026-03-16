@@ -1,0 +1,60 @@
+@startuml LyonPalme - Adhérent
+
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 10
+skinparam backgroundColor #FAFAFA
+
+actor "Adhérent" as User
+participant "Application\n(Laravel)" as App
+participant "Middleware\n(Auth + Audit)" as MW
+participant "Base de données" as DB
+participant "AuditLog" as AUDIT
+
+== Inscription ==
+User -> App : Remplit le formulaire\n(nom, email, mot de passe)
+App -> DB : Crée le compte utilisateur\n(mot de passe hashé)
+App -> User : Redirection vers le dashboard
+
+== Connexion ==
+User -> App : Saisit ses identifiants
+App -> DB : Vérifie les identifiants
+alt Succès
+    App -> AUDIT : Enregistre la connexion
+    App -> User : Accès au dashboard
+else Échec
+    App -> AUDIT : Enregistre la tentative échouée
+    App -> User : Message d'erreur
+end
+
+== Dashboard Personnel ==
+User -> App : Accède à /dashboard
+App -> MW : Vérifie l'authentification
+MW -> DB : Charge les données personnelles\n(adhésions, sorties, compétitions)
+DB -> App : Données personnelles
+App -> User : Affiche le dashboard adhérent\n(statut, activités, inscriptions)
+
+== Consultation du Profil ==
+User -> App : Accède à /profile
+App -> DB : Récupère les infos du compte
+App -> User : Affiche le formulaire de profil
+
+== Modification du Profil ==
+User -> App : Modifie son nom / email
+App -> App : Validation des données
+App -> DB : Met à jour les informations
+App -> User : Confirmation de mise à jour
+
+== Changement de Mot de Passe ==
+User -> App : Accède à /password/change
+User -> App : Soumet\n(ancien + nouveau mot de passe)
+App -> App : Vérifie l'ancien mot de passe\nValide le nouveau
+App -> DB : Sauvegarde le nouveau mot de passe hashé
+App -> User : Confirmation
+
+== Déconnexion ==
+User -> App : Clique sur "Se déconnecter"
+App -> AUDIT : Enregistre la déconnexion
+App -> DB : Invalide la session
+App -> User : Redirection vers l'accueil
+
+@enduml
