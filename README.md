@@ -8,99 +8,47 @@
 
 ## À propos
 
-Lyon Palme est la plateforme de gestion interne complète du club Lyon Palme basé à Vénissieux. L'application couvre tous les aspects de la gestion de notre club sportif : adhésions, entraînements, compétitions, matériel, finances et conformité RGPD.
+Lyon Palme est la plateforme de gestion interne du club Lyon Palme basé à Vénissieux. Développée dans le cadre d'un projet BTS SIO, l'application couvre le **backlog US1–US18** : sécurité/RGPD, gestion des adhérents par le secrétariat (adhésions, paiements, certificats médicaux) et espace self-service pour les nageurs.
 
 **Piscine d'entraînement principale :** Centre Nautique de Vénissieux
 **Affiliation :** FFESSM - Comité Régional AURA
 **Type :** Club de palmage, nage avec palmes et plongée
 
-## Fonctionnalités principales
+## Périmètre livré (US1–US18)
 
-### Gestion des adhérents
-- Inscription des membres (adultes et mineurs)
-- Gestion des représentants légaux pour les mineurs
-- Chiffrement des données personnelles sensibles (téléphone, adresse)
-- Photos de profil avec bibliothèque média
-- Contacts d'urgence
-- Suivi du statut des membres (actif/archivé)
+> ⚠️ **Hors-scope.** Les modules planning / séances d'entraînement / sorties / compétitions / matériel **ne font pas partie du livrable**. Leurs tables et modèles existent dans le schéma mais ne sont pas exposés dans l'application.
 
-### Gestion des adhésions et finances
-- Adhésions basées sur les saisons
-- Types d'adhésion multiples (Adulte, Junior, Étudiant, Enfant)
-- Système de tarification dynamique
-- Suivi des paiements (espèces, chèque, virement, carte, Hello Asso)
-- Calcul automatique du solde (montant attendu - montant payé)
-- Génération de numéros de reçus
-- Suivi du statut des paiements
+### Sécurité & RGPD (US1–US3)
+- Politique de mot de passe CNIL (12+ caractères, complexité, expiration 90 jours)
+- Piste d'audit complète (`audit_logs`) sur chaque action sensible
+- Chiffrement des champs sensibles au repos (AES-256) via le trait `EncryptsAttributes`
+- Gestion des consentements RGPD (traçabilité IP / user-agent, révocation)
 
-### Gestion médicale et certifications
-- Gestion des certificats médicaux avec suivi d'expiration
-- Support pour médecins fédéraux
-- Suivi des questionnaires de santé
-- Documentation des restrictions médicales
-- Suivi des certifications (niveaux de plongée, qualifications natation)
-- Système de versioning des documents
+### Espace Secrétaire / Administration (US4–US11)
+- Authentification (Fortify) et changement de mot de passe
+- CRUD complet des adhérents : rôles, représentant légal pour les mineurs, consentements RGPD
+- Upload / téléchargement des certificats médicaux (PDF)
+- Archivage et restauration des adhérents (soft delete)
+- Tableau de bord des certificats médicaux (US10) avec export Excel
+- Cotisations & paiements (US11) : adhésions par saison, types d'adhésion, suivi des paiements (espèces, chèque, virement, carte, Hello Asso), solde calculé automatiquement, export Excel
 
-### Gestion des entraînements
-- Planification des séances d'entraînement
-- Création et gestion de programmes d'entraînement
-- Affectation des entraîneurs aux séances
-- Détails des bassins (25m par défaut)
-- Limites de participants et niveaux requis
-- Suivi des annulations
-
-### Événements et activités
-- Gestion des sorties/excursions
-- Suivi des conditions météo et température de l'eau
-- Instructions de sécurité
-- Points de rendez-vous et localisation
-- Affectation des organisateurs
-- Inscription des participants
-
-### Gestion des compétitions
-- Compétitions régionales et nationales
-- Intégration FFESSM
-- Modalités/catégories de compétition
-- Dates limites d'inscription
-- Suivi des hébergements
-- Limites de participants
-- Résultats de compétition
-
-### Gestion du matériel
-- Système d'inventaire complet
-- Types d'équipement (palmes, masques, tubas, combinaisons, etc.)
-- Système de prêt/emprunt
-- Suivi des retours et de l'état
-- Suivi des tailles/marques
-- Historique d'achat et prix
-
-### Conformité RGPD
-- Système de gestion des consentements
-- Traçabilité IP et user agent
-- Support de la révocation
-- Contrôles de confidentialité (package soved/laravel-gdpr)
+### Espace Nageur / Adhérent (US12–US18)
+- Connexion (Fortify) ; compte créé par le secrétariat (mot de passe initial = date de naissance `AAAAMMJJ`)
+- Mot de passe oublié / réinitialisation (Fortify)
+- Profil self-service (`/mon-profil`)
+- Opt-in trombinoscope / annuaire et listings publics (`/trombinoscope`, `/annuaire`)
 
 ### Contrôle d'accès
-- Système d'authentification utilisateur personnalisé
-- Système basé sur 11 rôles prédéfinis :
-  - Président
-  - Vice-président
-  - Secrétaire & Secrétaire adjoint
-  - Trésorier
-  - Coach & Entraîneur
-  - Responsable planning
-  - Responsable matériel
-  - Responsable communication
-  - Adhérent
-- Paramètres de visibilité de l'annuaire par rôle
-- Intégration Spatie Laravel Permission
+- Modèle utilisateur personnalisé `Utilisateur` (authentification Fortify sur mesure)
+- Rôles via Spatie Laravel Permission, portés par l'**adhérent** : `secretaire`, `president`, `tresorier` (= administrateurs) et `adherent`
+- Routes protégées par les middlewares `auth`, `verified`, `audit.trail`
 
 ## Prérequis
 
-- PHP >= 8.2
+- PHP >= 8.4
 - Composer
 - Node.js & NPM
-- MariaDB/MySQL
+- MariaDB (connexion `mariadb`, base `lyonpalme`)
 - Extensions PHP requises :
   - BCMath
   - Ctype
@@ -190,15 +138,21 @@ DB_PASSWORD=votre_mot_de_passe
 Pour remplir la base de données avec des données de test :
 
 ```bash
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
-Cela générera :
-- 100 adhérents
-- Séances d'entraînement
-- Compétitions
-- Sorties
-- Et bien plus...
+Cela génère un jeu de données connu (~100 adhérents, adhésions, paiements, certificats médicaux) ainsi que les comptes de test.
+
+### Comptes de test
+
+Mot de passe `password` pour tous (liste complète dans `COMPTES_TEST.md`) :
+
+| Email | Rôle |
+| --- | --- |
+| `admin@lyonpalme.fr` | Administration |
+| `president@lyonpalme.fr` | Président |
+| `secretaire@lyonpalme.fr` | Secrétaire |
+| `tresorier@lyonpalme.fr` | Trésorier |
 
 ## Utilisation
 
@@ -259,26 +213,22 @@ php artisan test
 
 ## Structure de la base de données
 
-### Tables principales
+### Tables du périmètre livré
 
-- **utilisateurs** : Authentification et utilisateurs
-- **adherents** : Membres du club (données chiffrées)
-- **adhesions** : Adhésions avec solde calculé automatiquement
-- **roles & adherent_roles** : Système de rôles
+- **utilisateurs** : Authentification (modèle `Utilisateur`, colonnes `mot_de_passe` / `jeton_souvenir`)
+- **adherents** : Membres du club (données chiffrées + colonnes de hash de recherche)
+- **adhesions** : Adhésions avec solde calculé automatiquement (colonne générée)
+- **roles & adherent_roles** : Système de rôles (Spatie)
 - **saisons** : Saisons sportives
 - **types_adhesion & tarifs** : Types et tarification
 - **paiements** : Historique des paiements
-- **certificats_medicaux** : Certificats médicaux
-- **certifications** : Qualifications plongée/natation
-- **representants_legaux** : Tuteurs légaux des mineurs
-- **seances_entrainement** : Séances d'entraînement
-- **programmes_entrainement** : Programmes
-- **sorties** : Sorties et excursions
-- **competitions** : Compétitions régionales/nationales
-- **inventaire_materiel** : Inventaire d'équipement
-- **prets_materiel** : Système de prêt
+- **certificats_medicaux** : Certificats médicaux (PDF)
+- **representants_legaux** : Tuteurs légaux des mineurs (données chiffrées)
 - **documents** : Stockage polymorphique de fichiers
 - **consentements** : Consentements RGPD
+- **audit_logs** : Piste d'audit des actions sensibles
+
+> Les tables `seances_entrainement`, `programmes_entrainement`, `sorties`, `competitions`, `inventaire_materiel`, `prets_materiel`, `certifications`… existent dans le schéma mais relèvent des **modules hors-scope**.
 
 ### Vues
 
@@ -296,9 +246,9 @@ php artisan test
 
 ### Backend
 
-- **Laravel 12.0** (dernière version)
-- **PHP 8.2+**
-- **MariaDB/MySQL**
+- **Laravel 12** (dernière version)
+- **PHP 8.4+**
+- **MariaDB**
 
 ### Frontend
 
@@ -364,7 +314,7 @@ php artisan test
 ### Contrôle d'accès
 
 - **Authentification Fortify** : Système personnalisé avec modèle Utilisateur
-- **Rôles et permissions** : 11 rôles prédéfinis via Spatie Laravel Permission
+- **Rôles et permissions** : rôles portés par l'adhérent via Spatie Laravel Permission (`secretaire`/`president`/`tresorier` = admin, `adherent`)
 - **Email verification** : Vérification obligatoire avant accès
 - **Middleware d'authentification** : Routes protégées par `auth`, `verified`, `audit.trail`
 
@@ -391,6 +341,19 @@ php artisan test
 - Système Spatie Backup configuré
 - Exclusion automatique de vendor et node_modules
 
+## Déploiement (VPS)
+
+L'application est déployée en production sous le **sous-chemin** `https://www.ryanfonseca.fr/lyonpalme`.
+
+- Le middleware `ForceSubpathUrl` réécrit les URLs générées pour fonctionner derrière ce préfixe.
+- Le déploiement s'effectue via le script `deploy-php.sh` du VPS :
+
+```bash
+sudo ./deploy-php.sh --project "Lyon Palme"
+```
+
+Le script enchaîne : `git pull --rebase`, `composer install --no-dev`, `php artisan migrate --force`, régénération des caches (`route:cache`, `config:cache`, `view:cache`), permissions `storage` / `bootstrap/cache` pour `www-data`, `storage:link`, puis reload nginx et test d'accessibilité HTTP.
+
 ## Tests
 
 Le projet utilise Pest PHP pour les tests :
@@ -399,12 +362,14 @@ Le projet utilise Pest PHP pour les tests :
 # Exécuter tous les tests
 php artisan test
 
-# Ou via composer
-composer test
+# Un seul fichier / nom de test
+php artisan test --filter=AdherentControllerTest
 
-# Tests avec couverture
-php artisan test --coverage
+# Ou via composer (vide le cache de config puis lance la suite)
+composer test
 ```
+
+> ⚠️ **Les tests tournent sur la vraie base MariaDB `lyonpalme`** (`RefreshDatabase` est désactivé). Ils s'appuient sur les données seedées et ne sont pas hermétiques : un `migrate:fresh --seed` restaure un état connu.
 
 ## Scripts Composer
 
