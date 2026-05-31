@@ -13,6 +13,7 @@
         "inertiajs/inertia-laravel": "*",
         "laravel-lang/lang": "*",
         "laravel-lang/publisher": "*",
+        "fakerphp/faker": "^1.23",
         "laravel/fortify": "*",
         "laravel/framework": "^12.0",
         "laravel/scout": "*",
@@ -26,7 +27,6 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "*",
         "barryvdh/laravel-ide-helper": "*",
-        "fakerphp/faker": "^1.23",
         "laravel/boost": "^1.8",
         "laravel/pail": "^1.2.2",
         "laravel/pint": "^1.24",

@@ -30,16 +30,12 @@ class DatabaseSeeder extends Seeder
 
             // 3. Association des rôles aux utilisateurs administratifs
             AdherentRoleSeeder::class,
-        ]);
 
-        // 4. Données de test (faux adhérents) : uniquement hors production et si
-        // FakerPHP est disponible. En prod, composer install --no-dev n'installe
-        // pas Faker, donc les factories ne sont pas exécutables (fake() indéfini).
-        if (! app()->isProduction() && class_exists(\Faker\Factory::class)) {
-            $this->call(TestDataSeeder::class);
-        } else {
-            $this->command->warn('⏭️  TestDataSeeder ignoré (production ou FakerPHP absent).');
-        }
+            // 4. Données de test (faux adhérents, adhésions, paiements…).
+            // Faker est en require (et non require-dev) pour rester disponible
+            // en prod avec composer install --no-dev — projet de formation.
+            TestDataSeeder::class,
+        ]);
 
         $this->command->newLine();
         $this->command->info('✅ Base de données Lyon Palme initialisée avec succès!');
