@@ -2,25 +2,26 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Competition;
 use App\Models\Saison;
+use Tests\TestCase;
 
 class CompetitionTest extends TestCase
 {
     private $saison;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         // Créer une saison réutilisable pour tous les tests
         $this->saison = Saison::factory()->create([
-            'nom' => '2024-2025-comp-' . uniqid(),
+            'nom' => '2024-2025-comp-'.uniqid(),
         ]);
     }
 
     /**
      * Test 1: Vérifier qu'une compétition peut être créée
+     *
      * @test
      */
     public function test_competition_can_be_created()
@@ -37,6 +38,7 @@ class CompetitionTest extends TestCase
 
     /**
      * Test 2: Vérifier que est_regionale est true pour les compétitions régionales
+     *
      * @test
      */
     public function test_competition_regional_flag_is_set()
@@ -53,6 +55,7 @@ class CompetitionTest extends TestCase
 
     /**
      * Test 3: Vérifier que est_nationale est true pour les compétitions nationales
+     *
      * @test
      */
     public function test_competition_national_flag_is_set()
@@ -69,6 +72,7 @@ class CompetitionTest extends TestCase
 
     /**
      * Test 4: Vérifier que necesssite_hebergement peut être true
+     *
      * @test
      */
     public function test_competition_can_require_accommodation()
@@ -83,6 +87,7 @@ class CompetitionTest extends TestCase
 
     /**
      * Test 5: Vérifier que participants_max peut être null
+     *
      * @test
      */
     public function test_competition_max_participants_can_be_null()

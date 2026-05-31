@@ -12,6 +12,7 @@ class ProgrammeEntrainement extends Model
     protected $table = 'programmes_entrainement';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

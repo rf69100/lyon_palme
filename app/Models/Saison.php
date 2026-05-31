@@ -12,6 +12,7 @@ class Saison extends Model
     protected $table = 'saisons';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

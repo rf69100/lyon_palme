@@ -44,7 +44,7 @@ describe('Chiffrement RGPD complet - Adherent', function () {
     });
 
     test('les données chiffrées peuvent être lues en clair', function () {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
         $adherent->telephone = '0123456789';
 
         // La valeur lue doit être en clair
@@ -52,7 +52,7 @@ describe('Chiffrement RGPD complet - Adherent', function () {
     });
 
     test('les données sont stockées chiffrées dans les attributs bruts', function () {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
         $adherent->telephone = '0123456789';
 
         // Accéder aux attributs bruts (chiffrés)
@@ -67,7 +67,7 @@ describe('Chiffrement RGPD complet - Adherent', function () {
     });
 
     test('le trait détecte les valeurs déjà chiffrées', function () {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
         $encrypted = Crypt::encryptString('0123456789');
 
         // Assigner une valeur déjà chiffrée
@@ -201,7 +201,7 @@ describe('Sécurité du chiffrement', function () {
     });
 
     test('les chaînes vides ne sont pas chiffrées en tant que null', function () {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
         $adherent->telephone = '';
 
         // Une chaîne vide ne devrait pas être nulle
@@ -210,7 +210,7 @@ describe('Sécurité du chiffrement', function () {
 
     test('le chiffrement utilise la clé APP_KEY de Laravel', function () {
         // Créer un adhérent avec des données sensibles
-        $adherent = new Adherent();
+        $adherent = new Adherent;
         $adherent->telephone = '0123456789';
 
         // Récupérer la valeur chiffrée
@@ -225,10 +225,10 @@ describe('Sécurité du chiffrement', function () {
     });
 
     test('différentes instances chiffrent différemment (IV unique)', function () {
-        $adherent1 = new Adherent();
+        $adherent1 = new Adherent;
         $adherent1->telephone = '0123456789';
 
-        $adherent2 = new Adherent();
+        $adherent2 = new Adherent;
         $adherent2->telephone = '0123456789';
 
         $encrypted1 = $adherent1->getAttributes()['telephone'];
@@ -245,7 +245,7 @@ describe('Sécurité du chiffrement', function () {
 describe('Compatibilité et résilience', function () {
 
     test('le système gère les anciennes données non chiffrées', function () {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
 
         // Simuler une ancienne donnée non chiffrée en forçant l'attribut brut
         $adherent->setRawAttributes([

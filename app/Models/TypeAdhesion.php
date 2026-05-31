@@ -12,6 +12,7 @@ class TypeAdhesion extends Model
     protected $table = 'types_adhesion';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

@@ -41,7 +41,7 @@ class FileSecurityService
 
         // Check MIME type
         $mimeType = $file->getMimeType();
-        if (!isset(self::ALLOWED_MIME_TYPES[$mimeType])) {
+        if (! isset(self::ALLOWED_MIME_TYPES[$mimeType])) {
             $errors[] = 'File type is not allowed. Allowed types: PDF, JPG, PNG, DOC, DOCX';
         }
 
@@ -52,7 +52,7 @@ class FileSecurityService
         }
 
         // Check actual file content
-        if (!self::isFileContentSafe($file)) {
+        if (! self::isFileContentSafe($file)) {
             $errors[] = 'File content appears to be malicious';
         }
 
@@ -71,7 +71,7 @@ class FileSecurityService
         // PHP files disguised as other types
         $content = file_get_contents($filePath, false, null, 0, 512);
 
-        if (str_contains($content, '<?php') || str_contains($content, '<?' . '?') || str_contains($content, '<%')) {
+        if (str_contains($content, '<?php') || str_contains($content, '<?'.'?') || str_contains($content, '<%')) {
             return false;
         }
 
@@ -90,7 +90,7 @@ class FileSecurityService
     {
         // Sanitize filename
         $originalName = InputSanitizationService::sanitizeFileName($file->getClientOriginalName());
-        $fileName = time() . '_' . uniqid() . '.' . strtolower($file->getClientOriginalExtension());
+        $fileName = time().'_'.uniqid().'.'.strtolower($file->getClientOriginalExtension());
 
         try {
             $storagePath = Storage::disk('local')->putFileAs(
@@ -103,6 +103,7 @@ class FileSecurityService
             return $storagePath;
         } catch (\Exception $e) {
             \Log::error('File upload failed', ['exception' => $e->getMessage()]);
+
             return null;
         }
     }
@@ -112,7 +113,7 @@ class FileSecurityService
      */
     public static function getFile(string $path)
     {
-        if (!str_contains($path, '..')) {
+        if (! str_contains($path, '..')) {
             return Storage::disk('local')->get($path);
         }
 
@@ -124,7 +125,7 @@ class FileSecurityService
      */
     public static function deleteFile(string $path): bool
     {
-        if (!str_contains($path, '..')) {
+        if (! str_contains($path, '..')) {
             return Storage::disk('local')->delete($path);
         }
 

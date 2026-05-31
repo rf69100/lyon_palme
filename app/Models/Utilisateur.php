@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -13,6 +14,7 @@ class Utilisateur extends Authenticatable
     protected $table = 'utilisateurs';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [
@@ -51,5 +53,21 @@ class Utilisateur extends Authenticatable
     public function getRememberTokenName(): ?string
     {
         return 'jeton_souvenir';
+    }
+
+    /**
+     * Adhérent associé à ce compte utilisateur.
+     */
+    public function adherent(): HasOne
+    {
+        return $this->hasOne(Adherent::class, 'utilisateur_id');
+    }
+
+    /**
+     * Détermine si l'utilisateur possède un rôle administratif (secrétaire, président, trésorier).
+     */
+    public function estAdministrateur(): bool
+    {
+        return (bool) $this->adherent?->estAdministrateur();
     }
 }

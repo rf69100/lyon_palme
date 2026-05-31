@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
-
 class InputSanitizationService
 {
     /**
@@ -75,7 +73,7 @@ class InputSanitizationService
     {
         foreach ($patterns as $field => $pattern) {
             if (isset($data[$field])) {
-                if (!preg_match($pattern, $data[$field])) {
+                if (! preg_match($pattern, $data[$field])) {
                     return false;
                 }
             }

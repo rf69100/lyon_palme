@@ -12,6 +12,7 @@ class Document extends Model
     protected $table = 'documents';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

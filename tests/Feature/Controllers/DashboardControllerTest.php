@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Adherent;
-use App\Models\Adhesion;
 use App\Models\Utilisateur;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

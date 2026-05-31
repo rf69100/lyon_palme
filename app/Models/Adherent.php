@@ -34,6 +34,8 @@ class Adherent extends Model
         'ville',
         'pays',
         'chemin_photo',
+        'afficher_trombinoscope',
+        'afficher_annuaire',
         'contact_urgence_nom',
         'contact_urgence_telephone',
         'contact_urgence_lien',
@@ -80,6 +82,8 @@ class Adherent extends Model
         // Le déchiffrement se fait avant, puis on peut parser manuellement si besoin
         'archive_le' => 'datetime',
         'est_mineur' => 'boolean',
+        'afficher_trombinoscope' => 'boolean',
+        'afficher_annuaire' => 'boolean',
     ];
 
     /**
@@ -104,6 +108,22 @@ class Adherent extends Model
     public function adhesions(): HasMany
     {
         return $this->hasMany(Adhesion::class);
+    }
+
+    /**
+     * Relation avec les certificats médicaux
+     */
+    public function certificatsMedicaux(): HasMany
+    {
+        return $this->hasMany(CertificatMedical::class);
+    }
+
+    /**
+     * Relation avec les consentements RGPD
+     */
+    public function consentements(): HasMany
+    {
+        return $this->hasMany(Consentement::class);
     }
 
     /**
@@ -192,6 +212,30 @@ class Adherent extends Model
     public function scopeMajeur($query)
     {
         return $query->where('est_mineur', false);
+    }
+
+    /**
+     * Scope : adhérents actifs ayant choisi d'apparaître dans le trombinoscope
+     */
+    public function scopeVisibleTrombinoscope($query)
+    {
+        return $query->where('statut', 'actif')->where('afficher_trombinoscope', true);
+    }
+
+    /**
+     * Scope : adhérents actifs ayant choisi d'apparaître dans l'annuaire
+     */
+    public function scopeVisibleAnnuaire($query)
+    {
+        return $query->where('statut', 'actif')->where('afficher_annuaire', true);
+    }
+
+    /**
+     * Initiales (pour avatar trombinoscope sans photo)
+     */
+    public function getInitialesAttribute(): string
+    {
+        return strtoupper(mb_substr($this->prenom ?? '', 0, 1).mb_substr($this->nom ?? '', 0, 1));
     }
 
     /**

@@ -2,15 +2,15 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\CertificatMedical;
 use App\Models\Adherent;
-use Carbon\Carbon;
+use App\Models\CertificatMedical;
+use Tests\TestCase;
 
 class CertificatMedicalTest extends TestCase
 {
     /**
      * Test 1: Vérifier qu'un certificat médical peut être créé
+     *
      * @test
      */
     public function test_certificat_medical_can_be_created()
@@ -31,6 +31,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 2: Vérifier que les données de santé sont chiffrées (RGPD Article 9)
+     *
      * @test
      */
     public function test_health_data_is_encrypted_rgpd_article_9()
@@ -51,6 +52,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 3: Vérifier la relation avec Adherent
+     *
      * @test
      */
     public function test_certificat_medical_belongs_to_adherent()
@@ -64,6 +66,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 4: Vérifier que estValide() retourne true pour un certificat valide
+     *
      * @test
      */
     public function test_est_valide_returns_true_for_future_expiry()
@@ -76,6 +79,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 5: Vérifier que estValide() retourne false pour un certificat expiré
+     *
      * @test
      */
     public function test_est_valide_returns_false_for_past_expiry()
@@ -88,6 +92,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 6: Vérifier que expireBientot() détecte les certificats expirant dans 30 jours
+     *
      * @test
      */
     public function test_expire_bientot_detects_certificates_expiring_soon()
@@ -100,6 +105,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 7: Vérifier que le scope 'valide' retourne uniquement les certificats valides
+     *
      * @test
      */
     public function test_scope_valide_returns_only_valid_certificates()
@@ -115,6 +121,7 @@ class CertificatMedicalTest extends TestCase
 
     /**
      * Test 8: Vérifier que le scope 'expire' retourne uniquement les certificats expirés
+     *
      * @test
      */
     public function test_scope_expire_returns_only_expired_certificates()

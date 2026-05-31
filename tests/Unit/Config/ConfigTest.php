@@ -8,6 +8,7 @@ class ConfigTest extends TestCase
 {
     /**
      * Test 1: Vérifier que le fichier de configuration app.php existe
+     *
      * @test
      */
     public function test_app_config_file_exists()
@@ -18,6 +19,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 2: Vérifier que la configuration Fortify existe
+     *
      * @test
      */
     public function test_fortify_config_exists()
@@ -28,6 +30,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 3: Vérifier que la configuration database.php existe
+     *
      * @test
      */
     public function test_database_config_exists()
@@ -38,6 +41,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 4: Vérifier que la configuration auth.php existe
+     *
      * @test
      */
     public function test_auth_config_exists()
@@ -48,6 +52,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 5: Vérifier que la configuration cache.php existe
+     *
      * @test
      */
     public function test_cache_config_exists()
@@ -58,6 +63,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 6: Vérifier que l'application a un APP_KEY
+     *
      * @test
      */
     public function test_app_has_encryption_key()
@@ -72,6 +78,7 @@ class ConfigTest extends TestCase
 
     /**
      * Test 7: Vérifier que la configuration Fortify est chargée
+     *
      * @test
      */
     public function test_fortify_configuration_is_loaded()

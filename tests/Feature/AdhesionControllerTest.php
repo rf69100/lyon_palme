@@ -24,6 +24,8 @@ class AdhesionControllerTest extends TestCase
         $this->utilisateur = Utilisateur::factory()->create([
             'email_verifie_le' => now(),
         ]);
+
+        $this->grantAdminRole($this->utilisateur);
     }
 
     /**

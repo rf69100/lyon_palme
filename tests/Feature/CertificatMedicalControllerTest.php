@@ -4,9 +4,11 @@ namespace Tests\Feature;
 
 use App\Models\Adherent;
 use App\Models\CertificatMedical;
+use App\Models\Document;
 use App\Models\Utilisateur;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class CertificatMedicalControllerTest extends TestCase
@@ -22,6 +24,8 @@ class CertificatMedicalControllerTest extends TestCase
         $this->utilisateur = Utilisateur::factory()->create([
             'email_verifie_le' => now(),
         ]);
+
+        $this->grantAdminRole($this->utilisateur);
     }
 
     /**
@@ -40,6 +44,56 @@ class CertificatMedicalControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('admin.certificats-medicaux.index');
         $response->assertViewHas('certificats');
+    }
+
+    /**
+     * Test que le secrétaire peut télécharger le PDF d'un certificat.
+     */
+    public function test_secretaire_peut_telecharger_certificat(): void
+    {
+        Storage::fake('local');
+        Storage::disk('local')->put('certificats_medicaux/cert.pdf', '%PDF-1.4 fake');
+
+        $adherent = Adherent::factory()->create();
+        $document = Document::create([
+            'type_documentable' => Adherent::class,
+            'id_documentable' => $adherent->id,
+            'type_document' => 'certificat_medical',
+            'nom_fichier_original' => 'certificat.pdf',
+            'nom_fichier_stocke' => 'cert.pdf',
+            'chemin_fichier' => 'certificats_medicaux/cert.pdf',
+            'hash_fichier' => str_repeat('a', 64),
+            'type_mime' => 'application/pdf',
+            'taille_fichier' => 13,
+            'disque_stockage' => 'local',
+        ]);
+        $certificat = CertificatMedical::factory()->create([
+            'adherent_id' => $adherent->id,
+            'document_id' => $document->id,
+        ]);
+
+        $response = $this->actingAs($this->utilisateur)
+            ->get(route('admin.certificats.download', $certificat));
+
+        $response->assertStatus(200);
+        $response->assertDownload('certificat.pdf');
+    }
+
+    /**
+     * Test que le téléchargement d'un certificat sans document renvoie 404.
+     */
+    public function test_telechargement_certificat_sans_document_renvoie_404(): void
+    {
+        $adherent = Adherent::factory()->create();
+        $certificat = CertificatMedical::factory()->create([
+            'adherent_id' => $adherent->id,
+            'document_id' => null,
+        ]);
+
+        $response = $this->actingAs($this->utilisateur)
+            ->get(route('admin.certificats.download', $certificat));
+
+        $response->assertStatus(404);
     }
 
     /**

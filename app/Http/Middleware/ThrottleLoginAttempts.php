@@ -6,19 +6,19 @@ use App\Services\AuditService;
 use Closure;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class ThrottleLoginAttempts
 {
     // 5 login attempts per minute per IP address
     private const MAX_LOGIN_ATTEMPTS = 5;
+
     private const LOGIN_WINDOW_MINUTES = 1;
 
     public function __construct(private RateLimiter $limiter) {}
 
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->isLoginRequest($request)) {
+        if (! $this->isLoginRequest($request)) {
             return $next($request);
         }
 
@@ -34,7 +34,7 @@ class ThrottleLoginAttempts
             );
 
             return response()->json([
-                'message' => 'Too many login attempts. Please try again in ' . $this->limiter->availableIn($key) . ' second(s).',
+                'message' => 'Too many login attempts. Please try again in '.$this->limiter->availableIn($key).' second(s).',
             ], 429);
         }
 

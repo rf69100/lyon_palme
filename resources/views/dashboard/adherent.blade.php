@@ -104,14 +104,13 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Mes Adhésions</h2>
-                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($adhesions->isEmpty())
                         <div class="text-center py-8">
                             <p class="text-slate-600 mb-4">Aucune adhésion enregistrée</p>
-                            <a href="#subscribe" class="inline-block bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700">
-                                S'adhérer maintenant
+                            <a href="{{ route('support.index') }}" class="inline-block bg-purple-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-purple-700">
+                                Contacter le secrétariat
                             </a>
                         </div>
                     @else
@@ -148,7 +147,6 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Sorties à venir</h2>
-                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($upcomingOutings->isEmpty())
@@ -180,7 +178,6 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Compétitions à venir</h2>
-                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($upcomingCompetitions->isEmpty())

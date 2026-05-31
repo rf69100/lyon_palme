@@ -2,14 +2,15 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\RepresentantLegal;
 use App\Models\Adherent;
+use App\Models\RepresentantLegal;
+use Tests\TestCase;
 
 class RepresentantLegalTest extends TestCase
 {
     /**
      * Test 1: Vérifier qu'un représentant légal peut être créé
+     *
      * @test
      */
     public function test_representant_legal_can_be_created()
@@ -31,6 +32,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 2: Vérifier que le représentant légal utilise le trait EncryptsAttributes
+     *
      * @test
      */
     public function test_representant_legal_encrypts_sensitive_attributes()
@@ -50,6 +52,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 3: Vérifier la relation avec Adherent
+     *
      * @test
      */
     public function test_representant_legal_belongs_to_adherent()
@@ -63,6 +66,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 4: Vérifier que le scope 'principal' retourne uniquement les représentants principaux
+     *
      * @test
      */
     public function test_scope_principal_returns_only_principal_representatives()
@@ -78,6 +82,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 5: Vérifier que estPrincipal() fonctionne correctement
+     *
      * @test
      */
     public function test_est_principal_method_returns_correct_value()
@@ -91,6 +96,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 6: Vérifier que peutRecuperer() fonctionne correctement
+     *
      * @test
      */
     public function test_peut_recuperer_method_returns_correct_value()
@@ -104,6 +110,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 7: Vérifier que autoriseSortie() fonctionne correctement
+     *
      * @test
      */
     public function test_autorise_sortie_method_returns_correct_value()
@@ -117,6 +124,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 8: Vérifier que autoriseTransport() fonctionne correctement
+     *
      * @test
      */
     public function test_autorise_transport_method_returns_correct_value()
@@ -130,6 +138,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 9: Vérifier que getNomCompletAttribute() retourne le nom complet
+     *
      * @test
      */
     public function test_get_nom_complet_attribute_returns_full_name()
@@ -145,6 +154,7 @@ class RepresentantLegalTest extends TestCase
 
     /**
      * Test 10: Vérifier que getAdresseCompleteAttribute() retourne l'adresse complète
+     *
      * @test
      */
     public function test_get_adresse_complete_attribute_returns_full_address()

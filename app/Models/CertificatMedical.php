@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CertificatMedical extends Model
 {
-    use HasFactory, EncryptsAttributes;
+    use EncryptsAttributes, HasFactory;
 
     protected $table = 'certificats_medicaux';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [
@@ -80,7 +81,7 @@ class CertificatMedical extends Model
      */
     public function expireBientot(int $jours = 30): bool
     {
-        if (!$this->expire_le) {
+        if (! $this->expire_le) {
             return false;
         }
 

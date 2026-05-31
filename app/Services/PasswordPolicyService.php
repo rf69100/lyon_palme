@@ -15,12 +15,13 @@ class PasswordPolicyService
      */
     public static function isPasswordExpired(Utilisateur $user): bool
     {
-        if (!$user->mot_de_passe_change_le) {
+        if (! $user->mot_de_passe_change_le) {
             // If password was never changed (old accounts), mark as expired
             return true;
         }
 
         $expirationDate = $user->mot_de_passe_change_le->addDays(self::PASSWORD_EXPIRATION_DAYS);
+
         return Carbon::now()->isAfter($expirationDate);
     }
 
@@ -52,7 +53,7 @@ class PasswordPolicyService
      */
     public static function getDaysUntilExpiration(Utilisateur $user): ?int
     {
-        if (!$user->mot_de_passe_change_le) {
+        if (! $user->mot_de_passe_change_le) {
             return 0; // Expired
         }
 

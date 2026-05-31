@@ -2,13 +2,14 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Utilisateur;
+use Tests\TestCase;
 
 class BladeViewsTest extends TestCase
 {
     /**
      * Test 1: Vérifier que la vue index se charge
+     *
      * @test
      */
     public function test_welcome_view_loads()
@@ -20,6 +21,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 2: Vérifier que le dashboard se charge pour utilisateur authentifié
+     *
      * @test
      */
     public function test_dashboard_view_loads_for_authenticated_user()
@@ -39,6 +41,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 3: Vérifier que le dashboard redirige vers login si non authentifié
+     *
      * @test
      */
     public function test_dashboard_redirects_to_login_if_not_authenticated()
@@ -50,6 +53,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 4: Vérifier que le layout app.blade.php existe
+     *
      * @test
      */
     public function test_app_layout_exists()
@@ -60,6 +64,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 5: Vérifier que le layout auth.blade.php existe
+     *
      * @test
      */
     public function test_auth_layout_exists()
@@ -70,6 +75,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 6: Vérifier que les utilisateurs non authentifiés voient la page welcome
+     *
      * @test
      */
     public function test_unauthenticated_users_see_welcome_page()
@@ -81,6 +87,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 7: Vérifier que la vue dashboard existe pour utilisateur authentifié
+     *
      * @test
      */
     public function test_dashboard_exists_and_is_accessible()
@@ -95,6 +102,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 8: Vérifier que les utilisateurs authentifiés ne sont pas redirigés
+     *
      * @test
      */
     public function test_authenticated_users_are_not_redirected_from_dashboard()
@@ -110,6 +118,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 9: Vérifier que la page d'accueil contient HTML
+     *
      * @test
      */
     public function test_welcome_page_contains_html()
@@ -122,6 +131,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 10: Vérifier que le middleware d'authentification fonctionne
+     *
      * @test
      */
     public function test_auth_middleware_redirects_unauthenticated_users()
@@ -133,6 +143,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 11: Vérifier que les utilisateurs vérifiés accèdent au dashboard
+     *
      * @test
      */
     public function test_verified_users_access_dashboard()
@@ -147,6 +158,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 12: Vérifier que la page welcome est publique
+     *
      * @test
      */
     public function test_welcome_page_is_public()
@@ -158,6 +170,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 13: Vérifier que le layout app existe
+     *
      * @test
      */
     public function test_app_layout_file_exists()
@@ -167,6 +180,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 14: Vérifier que le layout auth existe
+     *
      * @test
      */
     public function test_auth_layout_file_exists()
@@ -176,6 +190,7 @@ class BladeViewsTest extends TestCase
 
     /**
      * Test 15: Vérifier que la vue index existe
+     *
      * @test
      */
     public function test_welcome_view_file_exists()

@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Actions;
 
-use Tests\TestCase;
 use App\Actions\Fortify\PasswordValidationRules;
 use Illuminate\Validation\Rules\Password;
+use Tests\TestCase;
 
 class PasswordValidationRulesTest extends TestCase
 {
@@ -12,6 +12,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 1: Vérifier que passwordRules() retourne un array
+     *
      * @test
      */
     public function test_password_rules_returns_array()
@@ -23,6 +24,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 2: Vérifier que 'required' est dans les règles
+     *
      * @test
      */
     public function test_password_rules_includes_required()
@@ -34,6 +36,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 3: Vérifier que 'string' est dans les règles
+     *
      * @test
      */
     public function test_password_rules_includes_string()
@@ -45,6 +48,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 4: Vérifier que 'confirmed' est dans les règles
+     *
      * @test
      */
     public function test_password_rules_includes_confirmed()
@@ -56,6 +60,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 5: Vérifier que Password::default() est inclus
+     *
      * @test
      */
     public function test_password_rules_includes_password_default()
@@ -75,6 +80,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 6: Vérifier qu'un mot de passe valide passe la validation
+     *
      * @test
      */
     public function test_valid_password_passes_validation()
@@ -101,6 +107,7 @@ class PasswordValidationRulesTest extends TestCase
 
     /**
      * Test 7: Vérifier qu'un mot de passe faible échoue la validation
+     *
      * @test
      */
     public function test_weak_password_fails_validation()

@@ -6,7 +6,6 @@ use App\Models\AuditLog;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response;
 
 class LogAuditTrail
 {
@@ -46,7 +45,7 @@ class LogAuditTrail
     {
         // Only process state-changing requests (POST, PUT, PATCH, DELETE)
         // Skip GET requests entirely
-        if (!in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
+        if (! in_array($request->method(), ['POST', 'PUT', 'PATCH', 'DELETE'])) {
             return $next($request);
         }
 
@@ -56,7 +55,7 @@ class LogAuditTrail
         }
 
         // Skip untracked routes
-        if (!$this->shouldLog($request)) {
+        if (! $this->shouldLog($request)) {
             return $next($request);
         }
 
@@ -99,6 +98,7 @@ class LogAuditTrail
                 return true;
             }
         }
+
         return false;
     }
 
@@ -108,7 +108,7 @@ class LogAuditTrail
         $path = $request->path();
 
         // Check if this method has tracked routes
-        if (!isset($this->trackedRoutes[$method])) {
+        if (! isset($this->trackedRoutes[$method])) {
             return false;
         }
 
@@ -125,6 +125,7 @@ class LogAuditTrail
     private function matchRoute(string $path, string $pattern): bool
     {
         $pattern = str_replace('*', '.*', $pattern);
+
         return (bool) preg_match("~^{$pattern}$~", $path);
     }
 

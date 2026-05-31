@@ -10,14 +10,16 @@ class PreventApiAbuse
 {
     // Rate limits per endpoint type
     private const EXPORT_LIMIT_PER_HOUR = 10;
+
     private const DOWNLOAD_LIMIT_PER_HOUR = 20;
+
     private const LIST_LIMIT_PER_MINUTE = 60;
 
     public function __construct(private RateLimiter $limiter) {}
 
     public function handle(Request $request, Closure $next)
     {
-        if (!$this->shouldRateLimit($request)) {
+        if (! $this->shouldRateLimit($request)) {
             return $next($request);
         }
 

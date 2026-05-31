@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Exports\CertificatsMedicauxExport;
 use App\Models\CertificatMedical;
+use App\Services\AuditService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CertificatMedicalController extends Controller
 {
@@ -93,5 +96,26 @@ class CertificatMedicalController extends Controller
             new CertificatsMedicauxExport($statut, $questionnaire),
             $nomFichier
         );
+    }
+
+    /**
+     * Télécharge le PDF du certificat médical (stocké sur le disque privé).
+     */
+    public function download(CertificatMedical $certificat): StreamedResponse
+    {
+        $document = $certificat->document;
+
+        abort_if(! $document, 404, 'Aucun document associé à ce certificat.');
+
+        $chemin = $document->chemin_fichier;
+        abort_if(str_contains($chemin, '..') || ! Storage::disk('local')->exists($chemin), 404);
+
+        AuditService::log(
+            action: 'download',
+            resourceType: 'CertificatMedical',
+            resourceId: $certificat->id,
+        );
+
+        return Storage::disk('local')->download($chemin, $document->nom_fichier_original);
     }
 }

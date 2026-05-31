@@ -2,21 +2,22 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Hash;
+use Tests\TestCase;
 
 class UtilisateurTest extends TestCase
 {
     /**
      * Test 1: Vérifier qu'un Utilisateur peut être créé avec une password hashée
+     *
      * @test
      */
     public function test_utilisateur_can_be_created_with_hashed_password()
     {
         $user = Utilisateur::factory()->create([
             'nom' => 'Dupont Jean',
-            'email' => 'jean.dupont.' . uniqid() . '@example.com',
+            'email' => 'jean.dupont.'.uniqid().'@example.com',
             'mot_de_passe' => 'password123',
         ]);
 
@@ -32,6 +33,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 2: Vérifier que la cast 'hashed' s'applique automatiquement
+     *
      * @test
      */
     public function test_password_cast_automatically_hashes()
@@ -52,6 +54,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 3: Vérifier que getAuthPasswordName retourne 'mot_de_passe'
+     *
      * @test
      */
     public function test_get_auth_password_name_returns_mot_de_passe()
@@ -63,6 +66,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 4: Vérifier que getRememberTokenName retourne 'jeton_souvenir'
+     *
      * @test
      */
     public function test_get_remember_token_name_returns_jeton_souvenir()
@@ -74,6 +78,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 5: Vérifier que le jeton_souvenir est généré et sauvegardé
+     *
      * @test
      */
     public function test_remember_token_is_generated_and_saved()
@@ -94,6 +99,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 6: Vérifier que email_verifie_le peut être un timestamp ou null
+     *
      * @test
      */
     public function test_email_verified_at_can_be_timestamp_or_null()
@@ -116,6 +122,7 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 7: Vérifier que doit_changer_mdp est un booléen
+     *
      * @test
      */
     public function test_doit_changer_mdp_is_boolean()
@@ -137,13 +144,14 @@ class UtilisateurTest extends TestCase
 
     /**
      * Test 8: Vérifier que mot_de_passe est caché dans les arrays et JSON
+     *
      * @test
      */
     public function test_password_is_hidden_in_arrays_and_json()
     {
         $user = Utilisateur::factory()->create([
             'nom' => 'Test User',
-            'email' => 'test.' . uniqid() . '@example.com',
+            'email' => 'test.'.uniqid().'@example.com',
         ]);
 
         // Vérifier que mot_de_passe est caché dans toArray()

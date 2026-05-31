@@ -16,7 +16,7 @@ class EnforceAuthorization
     {
         // Check for unauthorized access attempts on protected resources
         if ($this->isProtectedResourceRequest($request)) {
-            if (!$this->isAuthorizedToAccessResource($request)) {
+            if (! $this->isAuthorizedToAccessResource($request)) {
                 AuditService::log(
                     action: 'unauthorized_access_attempt',
                     resourceType: $this->getResourceType($request),
@@ -45,7 +45,7 @@ class EnforceAuthorization
         // This is a helper - actual authorization logic should be in controllers/policies
         $user = auth()->user();
 
-        if (!$user) {
+        if (! $user) {
             return false;
         }
 
@@ -57,7 +57,7 @@ class EnforceAuthorization
         }
 
         // Regular users can only access their own profile
-        if (str_contains($request->path(), 'utilisateurs/' . $user->id)) {
+        if (str_contains($request->path(), 'utilisateurs/'.$user->id)) {
             return true;
         }
 

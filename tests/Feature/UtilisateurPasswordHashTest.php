@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Hash;
 test('le mot de passe est automatiquement hashé lors de la création', function () {
     $plainPassword = 'MotDePasseSecret123';
 
-    $utilisateur = new Utilisateur();
+    $utilisateur = new Utilisateur;
     $utilisateur->nom = 'Test User';
     $utilisateur->email = 'test@example.com';
     $utilisateur->mot_de_passe = $plainPassword;
@@ -19,7 +19,7 @@ test('le mot de passe est automatiquement hashé lors de la création', function
 });
 
 test('le mot de passe est automatiquement hashé lors de la modification', function () {
-    $utilisateur = new Utilisateur();
+    $utilisateur = new Utilisateur;
     $utilisateur->nom = 'Test User';
     $utilisateur->email = 'test2@example.com';
     $utilisateur->mot_de_passe = 'AncienMotDePasse';
@@ -35,7 +35,7 @@ test('le mot de passe est automatiquement hashé lors de la modification', funct
 });
 
 test('le mot de passe hashé ne change pas si on réassigne le même hash', function () {
-    $utilisateur = new Utilisateur();
+    $utilisateur = new Utilisateur;
     $utilisateur->nom = 'Test User';
     $utilisateur->email = 'test3@example.com';
     $utilisateur->mot_de_passe = 'MotDePasse123';

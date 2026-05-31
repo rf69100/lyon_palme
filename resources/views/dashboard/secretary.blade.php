@@ -127,7 +127,7 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-bold text-slate-900">Nouveaux adhérents (10 derniers)</h2>
-                        <a href="#view-all" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
+                        <a href="{{ route('admin.adherents.index') }}" class="text-purple-600 text-sm font-semibold hover:text-purple-700">Voir tout →</a>
                     </div>
 
                     @if($recentMembers->isEmpty())
@@ -176,19 +176,19 @@
                 <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
                     <h3 class="text-lg font-bold text-slate-900 mb-4">Actions rapides</h3>
                     <div class="space-y-2">
-                        <a href="#add-member" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
+                        <a href="{{ route('admin.adherents.create') }}" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
                             + Ajouter un adhérent
                         </a>
-                        <a href="#manage-adhesions" class="block w-full bg-green-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-green-700 transition">
-                            📋 Gérer les adhésions
+                        <a href="{{ route('admin.adherents.index') }}" class="block w-full bg-green-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-green-700 transition">
+                            📋 Gérer les adhérents
                         </a>
-                        <a href="#view-payments" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
-                            💳 Suivi des paiements
+                        <a href="{{ route('admin.cotisations.index') }}" class="block w-full bg-purple-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-purple-700 transition">
+                            💳 Cotisations & paiements
                         </a>
-                        <a href="#view-reports" class="block w-full bg-orange-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-orange-700 transition">
-                            📊 Rapports & stats
+                        <a href="{{ route('admin.certificats.index') }}" class="block w-full bg-orange-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-orange-700 transition">
+                            🩺 Certificats médicaux
                         </a>
-                        <a href="#audit-logs" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
+                        <a href="{{ route('admin.audit.index') }}" class="block w-full bg-slate-600 text-white text-center py-2 rounded-lg font-semibold hover:bg-slate-700 transition">
                             🔍 Journaux d'audit
                         </a>
                     </div>

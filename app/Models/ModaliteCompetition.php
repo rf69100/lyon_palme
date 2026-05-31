@@ -12,6 +12,7 @@ class ModaliteCompetition extends Model
     protected $table = 'modalites_competition';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

@@ -27,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'api.abuse' => \App\Http\Middleware\PreventApiAbuse::class,
             'auth.verify' => \App\Http\Middleware\EnforceAuthorization::class,
             'audit.trail' => \App\Http\Middleware\LogAuditTrail::class,
+            'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

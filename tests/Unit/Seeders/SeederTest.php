@@ -2,24 +2,25 @@
 
 namespace Tests\Unit\Seeders;
 
-use Tests\TestCase;
-use Illuminate\Database\Seeder;
-use Database\Seeders\UtilisateurSeeder;
-use Database\Seeders\SaisonSeeder;
-use Database\Seeders\TypeAdhesionSeeder;
-use Database\Seeders\TarifSeeder;
 use Database\Seeders\AdherentSeeder;
-use Database\Seeders\CertificatMedicalSeeder;
 use Database\Seeders\AdhesionSeeder;
-use Database\Seeders\SortieSeeder;
+use Database\Seeders\CertificatMedicalSeeder;
 use Database\Seeders\CompetitionSeeder;
+use Database\Seeders\SaisonSeeder;
+use Database\Seeders\SortieSeeder;
+use Database\Seeders\TarifSeeder;
+use Database\Seeders\TypeAdhesionSeeder;
 use Database\Seeders\TypeMaterielSeeder;
+use Database\Seeders\UtilisateurSeeder;
+use Illuminate\Database\Seeder;
 use ReflectionClass;
+use Tests\TestCase;
 
 class SeederTest extends TestCase
 {
     /**
      * Test 1: Vérifier que UtilisateurSeeder existe
+     *
      * @test
      */
     public function test_utilisateur_seeder_exists()
@@ -29,6 +30,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 2: Vérifier que SaisonSeeder existe
+     *
      * @test
      */
     public function test_saison_seeder_exists()
@@ -38,6 +40,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 3: Vérifier que TypeAdhesionSeeder existe
+     *
      * @test
      */
     public function test_type_adhesion_seeder_exists()
@@ -47,6 +50,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 4: Vérifier que TarifSeeder existe
+     *
      * @test
      */
     public function test_tarif_seeder_exists()
@@ -56,6 +60,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 5: Vérifier que AdherentSeeder existe
+     *
      * @test
      */
     public function test_adherent_seeder_exists()
@@ -65,6 +70,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 6: Vérifier que CertificatMedicalSeeder existe
+     *
      * @test
      */
     public function test_certificat_medical_seeder_exists()
@@ -74,6 +80,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 7: Vérifier que AdhesionSeeder existe
+     *
      * @test
      */
     public function test_adhesion_seeder_exists()
@@ -83,6 +90,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 8: Vérifier que SortieSeeder existe
+     *
      * @test
      */
     public function test_sortie_seeder_exists()
@@ -92,6 +100,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 9: Vérifier que CompetitionSeeder existe
+     *
      * @test
      */
     public function test_competition_seeder_exists()
@@ -101,6 +110,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 10: Vérifier que TypeMaterielSeeder existe
+     *
      * @test
      */
     public function test_type_materiel_seeder_exists()
@@ -110,6 +120,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 11: Vérifier que les seeders étendent Seeder
+     *
      * @test
      */
     public function test_seeders_extend_seeder_class()
@@ -131,6 +142,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 12: Vérifier que les seeders ont une méthode run()
+     *
      * @test
      */
     public function test_seeders_have_run_method()
@@ -143,7 +155,7 @@ class SeederTest extends TestCase
         ];
 
         foreach ($seederClasses as $seederClass) {
-            $seeder = new $seederClass();
+            $seeder = new $seederClass;
             $this->assertTrue(
                 method_exists($seeder, 'run'),
                 "$seederClass should have a run() method"
@@ -153,6 +165,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 13: Vérifier que tous les seeders sont instanciables
+     *
      * @test
      */
     public function test_all_seeders_are_instantiable()
@@ -177,6 +190,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 14: Vérifier que les seeders sont dans le bon répertoire
+     *
      * @test
      */
     public function test_seeders_are_in_correct_directory()
@@ -193,6 +207,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 15: Vérifier que DatabaseSeeder existe
+     *
      * @test
      */
     public function test_database_seeder_exists()
@@ -203,6 +218,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 16: Vérifier que le fichier UtilisateurSeeder existe
+     *
      * @test
      */
     public function test_utilisateur_seeder_file_exists()
@@ -213,6 +229,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 17: Vérifier que le fichier SaisonSeeder existe
+     *
      * @test
      */
     public function test_saison_seeder_file_exists()
@@ -223,6 +240,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 18: Vérifier que le fichier AdherentSeeder existe
+     *
      * @test
      */
     public function test_adherent_seeder_file_exists()
@@ -233,6 +251,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 19: Vérifier que tous les seeders majeurs existent
+     *
      * @test
      */
     public function test_all_major_seeders_exist()
@@ -256,6 +275,7 @@ class SeederTest extends TestCase
 
     /**
      * Test 20: Vérifier que les seeders contiennent du code
+     *
      * @test
      */
     public function test_seeders_have_implementation()
@@ -271,7 +291,7 @@ class SeederTest extends TestCase
             $reflection = new ReflectionClass($seederClass);
             $runMethod = $reflection->getMethod('run');
             $this->assertNotNull($runMethod, "$seederClass should have a run method");
-            $this->assertTrue($runMethod->isPublic(), "run() method should be public");
+            $this->assertTrue($runMethod->isPublic(), 'run() method should be public');
         }
     }
 }

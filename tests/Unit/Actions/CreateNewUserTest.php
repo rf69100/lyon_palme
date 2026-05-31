@@ -2,25 +2,26 @@
 
 namespace Tests\Unit\Actions;
 
-use Tests\TestCase;
-use App\Models\Utilisateur;
 use App\Actions\Fortify\CreateNewUser;
+use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Tests\TestCase;
 
 class CreateNewUserTest extends TestCase
 {
     /**
      * Test 1: Vérifier qu'un nouvel utilisateur peut être créé avec des données valides
+     *
      * @test
      */
     public function test_create_new_user_with_valid_data()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => 'Dupont Jean',
-            'email' => 'dupont.jean.' . uniqid() . '@example.com',
+            'email' => 'dupont.jean.'.uniqid().'@example.com',
             'password' => 'SecurePassword123!',
             'password_confirmation' => 'SecurePassword123!',
         ];
@@ -34,16 +35,17 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 2: Vérifier que le mot de passe est hashé correctement
+     *
      * @test
      */
     public function test_password_is_hashed_when_creating_user()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $plainPassword = 'TestPassword456!';
         $input = [
             'nom' => 'Test User',
-            'email' => 'test.hash.' . uniqid() . '@example.com',
+            'email' => 'test.hash.'.uniqid().'@example.com',
             'password' => $plainPassword,
             'password_confirmation' => $plainPassword,
         ];
@@ -59,14 +61,15 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 3: Vérifier que la validation échoue si nom est manquant
+     *
      * @test
      */
     public function test_validation_fails_if_nom_is_missing()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
-            'email' => 'test.' . uniqid() . '@example.com',
+            'email' => 'test.'.uniqid().'@example.com',
             'password' => 'SecurePassword123!',
             'password_confirmation' => 'SecurePassword123!',
         ];
@@ -78,11 +81,12 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 4: Vérifier que la validation échoue si email est manquant
+     *
      * @test
      */
     public function test_validation_fails_if_email_is_missing()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => 'Test User',
@@ -97,15 +101,16 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 5: Vérifier que la validation échoue si password est manquant
+     *
      * @test
      */
     public function test_validation_fails_if_password_is_missing()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => 'Test User',
-            'email' => 'test.' . uniqid() . '@example.com',
+            'email' => 'test.'.uniqid().'@example.com',
             'password_confirmation' => 'SomePassword!',
         ];
 
@@ -116,13 +121,14 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 6: Vérifier que la validation échoue si l'email n'est pas unique
+     *
      * @test
      */
     public function test_validation_fails_if_email_not_unique()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
-        $email = 'unique.test.' . uniqid() . '@example.com';
+        $email = 'unique.test.'.uniqid().'@example.com';
 
         // Créer le premier utilisateur
         $action->create([
@@ -145,15 +151,16 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 7: Vérifier que la validation échoue si password_confirmation ne correspond pas
+     *
      * @test
      */
     public function test_validation_fails_if_password_confirmation_does_not_match()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => 'Test User',
-            'email' => 'test.' . uniqid() . '@example.com',
+            'email' => 'test.'.uniqid().'@example.com',
             'password' => 'SecurePassword123!',
             'password_confirmation' => 'DifferentPassword!',
         ];
@@ -165,11 +172,12 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 8: Vérifier que la validation échoue si email n'est pas un format valide
+     *
      * @test
      */
     public function test_validation_fails_if_email_format_invalid()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => 'Test User',
@@ -185,15 +193,16 @@ class CreateNewUserTest extends TestCase
 
     /**
      * Test 9: Vérifier que la validation échoue si nom dépasse 255 caractères
+     *
      * @test
      */
     public function test_validation_fails_if_nom_exceeds_255_characters()
     {
-        $action = new CreateNewUser();
+        $action = new CreateNewUser;
 
         $input = [
             'nom' => str_repeat('a', 256),
-            'email' => 'test.' . uniqid() . '@example.com',
+            'email' => 'test.'.uniqid().'@example.com',
             'password' => 'SecurePassword123!',
             'password_confirmation' => 'SecurePassword123!',
         ];

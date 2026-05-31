@@ -18,7 +18,7 @@
         </div>
 
         <!-- Form -->
-        <form method="POST" action="{{ route('admin.adherents.update', $adherent) }}" class="space-y-6">
+        <form method="POST" action="{{ route('admin.adherents.update', $adherent) }}" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
@@ -178,6 +178,109 @@
                 </div>
             </div>
 
+            <!-- Bannière mineur -->
+            <div id="mineur-banner" class="hidden bg-amber-50 border border-amber-300 text-amber-800 rounded-xl p-4 font-semibold">
+                Cet adhérent est mineur : le représentant légal est obligatoire.
+            </div>
+
+            <!-- Rôles -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Rôles</h2>
+                <p class="text-slate-600 mb-6">Sélectionnez les rôles attribués à cet adhérent (cumulables).</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                    @foreach ($roles as $role)
+                        <label class="flex items-center gap-3 p-3 border border-slate-200 rounded-lg hover:bg-slate-50 cursor-pointer">
+                            <input type="checkbox" name="roles[]" value="{{ $role->id }}"
+                                {{ in_array($role->id, old('roles', $selectedRoles)) ? 'checked' : '' }}
+                                class="w-5 h-5 rounded text-purple-600 focus:ring-purple-500">
+                            <span class="text-slate-700">{{ $role->nom_affichage ?? $role->nom }}</span>
+                        </label>
+                    @endforeach
+                </div>
+            </div>
+
+            <!-- Certificat médical -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Nouveau certificat médical</h2>
+                <p class="text-slate-600 mb-6">Téléverser un nouveau PDF ajoute un certificat à l'historique (validité 3 ans).</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="certificat_pdf" class="block text-sm font-semibold text-slate-700 mb-2">Fichier PDF</label>
+                        <input type="file" id="certificat_pdf" name="certificat_pdf" accept="application/pdf"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('certificat_pdf') border-red-500 @enderror">
+                        @error('certificat_pdf')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="certificat_delivre_le" class="block text-sm font-semibold text-slate-700 mb-2">Date de délivrance</label>
+                        <input type="date" id="certificat_delivre_le" name="certificat_delivre_le" value="{{ old('certificat_delivre_le') }}" max="{{ date('Y-m-d') }}"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('certificat_delivre_le') border-red-500 @enderror">
+                        @error('certificat_delivre_le')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
+            <!-- Représentant légal -->
+            <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                <h2 class="text-2xl font-bold text-slate-900 mb-2">Représentant légal <span class="text-sm font-normal text-slate-500">(obligatoire pour un mineur)</span></h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label for="representant_civilite" class="block text-sm font-semibold text-slate-700 mb-2">Civilité</label>
+                        <select id="representant_civilite" name="representant_civilite" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                            @foreach (['M.', 'Mme', 'Autre'] as $civ)
+                                <option value="{{ $civ }}" {{ old('representant_civilite', $representant?->civilite) === $civ ? 'selected' : '' }}>{{ $civ }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div>
+                        <label for="representant_prenom" class="block text-sm font-semibold text-slate-700 mb-2">Prénom</label>
+                        <input type="text" id="representant_prenom" name="representant_prenom" value="{{ old('representant_prenom', $representant?->prenom) }}" maxlength="80"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('representant_prenom') border-red-500 @enderror">
+                        @error('representant_prenom')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="representant_nom" class="block text-sm font-semibold text-slate-700 mb-2">Nom</label>
+                        <input type="text" id="representant_nom" name="representant_nom" value="{{ old('representant_nom', $representant?->nom) }}" maxlength="80"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('representant_nom') border-red-500 @enderror">
+                        @error('representant_nom')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+                    <div>
+                        <label for="representant_lien_parente" class="block text-sm font-semibold text-slate-700 mb-2">Lien de parenté</label>
+                        <input type="text" id="representant_lien_parente" name="representant_lien_parente" value="{{ old('representant_lien_parente', $representant?->lien_parente) }}" maxlength="50" placeholder="Père, Mère, Tuteur..."
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('representant_lien_parente') border-red-500 @enderror">
+                        @error('representant_lien_parente')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                    <div>
+                        <label for="representant_telephone" class="block text-sm font-semibold text-slate-700 mb-2">Téléphone</label>
+                        <input type="tel" id="representant_telephone" name="representant_telephone" value="{{ old('representant_telephone', $representant?->telephone) }}" maxlength="20"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <label for="representant_email" class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
+                        <input type="email" id="representant_email" name="representant_email" value="{{ old('representant_email', $representant?->email) }}" maxlength="191"
+                            class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent @error('representant_email') border-red-500 @enderror">
+                        @error('representant_email')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+
             <!-- Actions -->
             <div class="flex gap-4">
                 <button type="submit" class="flex-1 bg-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition">
@@ -190,4 +293,34 @@
         </form>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    (function () {
+        const dateInput = document.getElementById('date_naissance');
+        const banner = document.getElementById('mineur-banner');
+
+        function ageFromDate(value) {
+            if (!value) return null;
+            const birth = new Date(value);
+            if (isNaN(birth)) return null;
+            const today = new Date();
+            let age = today.getFullYear() - birth.getFullYear();
+            const m = today.getMonth() - birth.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
+            return age;
+        }
+
+        function toggleMineur() {
+            const age = ageFromDate(dateInput.value);
+            banner.classList.toggle('hidden', !(age !== null && age < 18));
+        }
+
+        if (dateInput) {
+            dateInput.addEventListener('change', toggleMineur);
+            toggleMineur();
+        }
+    })();
+</script>
+@endpush
 @endsection

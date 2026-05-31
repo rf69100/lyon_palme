@@ -2,16 +2,18 @@
 
 namespace Tests\Unit\Traits;
 
-use Tests\TestCase;
-use Illuminate\Support\Facades\Crypt;
 use App\Models\Adherent;
-use App\Models\RepresentantLegal;
 use App\Models\CertificatMedical;
+use App\Models\RepresentantLegal;
+use Illuminate\Support\Facades\Crypt;
+use Tests\TestCase;
 
 class EncryptsAttributesTest extends TestCase
 {
     protected Adherent $adherent;
+
     protected RepresentantLegal $representantLegal;
+
     protected CertificatMedical $certificatMedical;
 
     protected function setUp(): void
@@ -39,6 +41,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 1: Vérifier que les attributs chiffrables sont bien chiffrés en base de données
+     *
      * @test
      */
     public function test_attributes_are_encrypted_in_database()
@@ -60,6 +63,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 2: Vérifier que les attributs sont déchiffrés lors de la lecture
+     *
      * @test
      */
     public function test_attributes_are_decrypted_on_read()
@@ -75,6 +79,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 3: Tester la détection d'attributs déjà chiffrés (prévention double chiffrement)
+     *
      * @test
      */
     public function test_already_encrypted_attributes_are_not_reencrypted()
@@ -103,6 +108,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 4: Vérifier que les valeurs nulles ne sont pas chiffrées
+     *
      * @test
      */
     public function test_null_values_are_not_encrypted()
@@ -121,6 +127,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 5: Vérifier que les chaînes vides restent vides
+     *
      * @test
      */
     public function test_empty_strings_are_not_encrypted()
@@ -136,6 +143,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 6: Tester la génération des champs de recherche hashés pour 'nom'
+     *
      * @test
      */
     public function test_search_field_generated_for_nom()
@@ -156,6 +164,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 7: Tester la génération des champs de recherche hashés pour 'prenom'
+     *
      * @test
      */
     public function test_search_field_generated_for_prenom()
@@ -176,6 +185,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 8: Tester la génération du champ nom_complet_recherche
+     *
      * @test
      */
     public function test_search_field_generated_for_nom_complet()
@@ -197,6 +207,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 9: Tester la compatibilité avec les anciennes données non chiffrées
+     *
      * @test
      */
     public function test_fallback_to_unencrypted_data()
@@ -222,6 +233,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 10: Vérifier que IV est aléatoire (deux chiffrements du même texte donnent des résultats différents)
+     *
      * @test
      */
     public function test_iv_is_random()
@@ -240,6 +252,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 11: Tester la conversion DateTime avant chiffrement
+     *
      * @test
      */
     public function test_datetime_conversion_before_encryption()
@@ -258,6 +271,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 12: Tester que les données de santé sont chiffrées (CertificatMedical - RGPD Art. 9)
+     *
      * @test
      */
     public function test_health_data_is_encrypted()
@@ -280,6 +294,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 13: Tester que les données des représentants légaux sont chiffrées
+     *
      * @test
      */
     public function test_representant_legal_data_is_encrypted()
@@ -304,6 +319,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 14: Tester que attributesToArray déchiffre les attributs
+     *
      * @test
      */
     public function test_attributes_to_array_decrypts_values()
@@ -323,6 +339,7 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 15: Tester la décryption via Crypt::decryptString
+     *
      * @test
      */
     public function test_encryption_is_compatible_with_crypt_facade()
@@ -346,11 +363,12 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 16: Tester shouldEncrypt() retourne true/false correct
+     *
      * @test
      */
     public function test_should_encrypt_method_works_correctly()
     {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
 
         // Les attributs chiffrables doivent retourner true
         // Utiliser la réflexion pour accéder à la méthode protected
@@ -366,11 +384,12 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 17: Tester getEncryptableAttributes() retourne le bon array
+     *
      * @test
      */
     public function test_get_encryptable_attributes_returns_array()
     {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
 
         // Utiliser la réflexion pour accéder à la méthode protected
         $reflection = new \ReflectionMethod($adherent, 'getEncryptableAttributes');
@@ -389,11 +408,12 @@ class EncryptsAttributesTest extends TestCase
 
     /**
      * Test 18: Tester isEncrypted() détecte correctement une valeur chiffrée
+     *
      * @test
      */
     public function test_is_encrypted_detects_encrypted_values()
     {
-        $adherent = new Adherent();
+        $adherent = new Adherent;
 
         // Utiliser la réflexion pour accéder à la méthode protected
         $reflection = new \ReflectionMethod($adherent, 'isEncrypted');

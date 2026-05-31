@@ -12,6 +12,7 @@ class InscriptionCompetition extends Model
     protected $table = 'inscriptions_competitions';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

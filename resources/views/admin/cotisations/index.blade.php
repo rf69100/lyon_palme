@@ -254,7 +254,7 @@
                                                     Paiement
                                                 </a>
                                             @endif
-                                            <a href="#"
+                                            <a href="{{ route('admin.adherents.show', $adhesion->adherent_id) }}"
                                                class="inline-flex items-center px-3 py-1.5 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors duration-150 font-medium"
                                                title="Voir l'adhérent">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

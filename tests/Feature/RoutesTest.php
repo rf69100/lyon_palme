@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
 use App\Models\Utilisateur;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class RoutesTest extends TestCase
 {
@@ -12,6 +12,7 @@ class RoutesTest extends TestCase
 
     /**
      * Test 1: Vérifier que la route '/' retourne 'welcome' view
+     *
      * @test
      */
     public function test_home_route_returns_welcome_view()
@@ -24,6 +25,7 @@ class RoutesTest extends TestCase
 
     /**
      * Test 2: Vérifier que la route '/dashboard' redirige vers login si non authentifié
+     *
      * @test
      */
     public function test_dashboard_route_redirects_to_login_if_not_authenticated()
@@ -36,6 +38,7 @@ class RoutesTest extends TestCase
 
     /**
      * Test 3: Vérifier que la route '/dashboard' retourne 200 avec un utilisateur vérifié
+     *
      * @test
      */
     public function test_dashboard_route_accessible_with_verified_user()
@@ -56,6 +59,7 @@ class RoutesTest extends TestCase
 
     /**
      * Test 4: Vérifier que la route '/dashboard' affiche une vue de dashboard pour un utilisateur authentifié et vérifié
+     *
      * @test
      */
     public function test_dashboard_route_returns_dashboard_view_for_authenticated_verified_user()
@@ -76,6 +80,7 @@ class RoutesTest extends TestCase
 
     /**
      * Test 5: Vérifier que la configuration Fortify est présente dans config/fortify.php
+     *
      * @test
      */
     public function test_fortify_is_configured_in_application()

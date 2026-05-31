@@ -2,17 +2,18 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\InscriptionCompetition;
-use App\Models\Competition;
 use App\Models\Adherent;
+use App\Models\Competition;
+use App\Models\InscriptionCompetition;
+use Tests\TestCase;
 
 class InscriptionCompetitionTest extends TestCase
 {
     private $competition;
+
     private $adherent;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         // Créer une compétition et un adhérent réutilisables
@@ -22,6 +23,7 @@ class InscriptionCompetitionTest extends TestCase
 
     /**
      * Test 1: Vérifier qu'une inscription compétition peut être créée
+     *
      * @test
      */
     public function test_inscription_competition_can_be_created()
@@ -38,6 +40,7 @@ class InscriptionCompetitionTest extends TestCase
 
     /**
      * Test 2: Vérifier que le statut par défaut est 'inscrit'
+     *
      * @test
      */
     public function test_inscription_default_status_is_inscrit()
@@ -53,6 +56,7 @@ class InscriptionCompetitionTest extends TestCase
 
     /**
      * Test 3: Vérifier que besoin_hebergement peut être true
+     *
      * @test
      */
     public function test_inscription_can_require_accommodation()

@@ -12,6 +12,7 @@ class InventaireMateriel extends Model
     protected $table = 'inventaire_materiel';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

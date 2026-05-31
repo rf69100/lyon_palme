@@ -2,16 +2,14 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
 use App\Models\Adherent;
-use App\Models\Utilisateur;
-use App\Models\RepresentantLegal;
-use App\Models\Adhesion;
+use Tests\TestCase;
 
 class AdherentTest extends TestCase
 {
     /**
      * Test 1: Vérifier qu'un adhérent peut être créé
+     *
      * @test
      */
     public function test_adherent_can_be_created()
@@ -19,7 +17,7 @@ class AdherentTest extends TestCase
         $adherent = Adherent::factory()->create([
             'nom' => 'Dupont',
             'prenom' => 'Jean',
-            'email' => 'dupont.jean.' . uniqid() . '@example.com',
+            'email' => 'dupont.jean.'.uniqid().'@example.com',
         ]);
 
         $this->assertNotNull($adherent->id);
@@ -29,13 +27,14 @@ class AdherentTest extends TestCase
 
     /**
      * Test 2: Vérifier que l'adhérent utilise le trait EncryptsAttributes
+     *
      * @test
      */
     public function test_adherent_encrypts_sensitive_attributes()
     {
         $adherent = Adherent::factory()->create([
             'nom' => 'Secret',
-            'email' => 'secret.' . uniqid() . '@example.com',
+            'email' => 'secret.'.uniqid().'@example.com',
         ]);
 
         // Vérifier que le nom est chiffré en base
@@ -45,6 +44,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 3: Vérifier que le scope 'actif' retourne uniquement les adhérents actifs
+     *
      * @test
      */
     public function test_scope_actif_returns_only_active_adherents()
@@ -60,6 +60,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 4: Vérifier que le scope 'archive' retourne uniquement les adhérents archivés
+     *
      * @test
      */
     public function test_scope_archive_returns_only_archived_adherents()
@@ -75,6 +76,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 5: Vérifier que le scope 'mineur' retourne uniquement les mineurs
+     *
      * @test
      */
     public function test_scope_mineur_returns_only_minors()
@@ -90,6 +92,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 6: Vérifier que le scope 'majeur' retourne uniquement les majeurs
+     *
      * @test
      */
     public function test_scope_majeur_returns_only_adults()
@@ -105,6 +108,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 7: Vérifier que la méthode estMineur() fonctionne correctement
+     *
      * @test
      */
     public function test_est_mineur_method_returns_correct_value()
@@ -118,6 +122,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 8: Vérifier que la méthode estActif() fonctionne correctement
+     *
      * @test
      */
     public function test_est_actif_method_returns_correct_value()
@@ -131,6 +136,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 9: Vérifier que la méthode archiver() change le statut et la date
+     *
      * @test
      */
     public function test_archiver_method_sets_status_and_date()
@@ -147,6 +153,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 10: Vérifier que la méthode reactiver() réactive un adhérent archivé
+     *
      * @test
      */
     public function test_reactiver_method_reactivates_archived_adherent()
@@ -163,6 +170,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 11: Vérifier que getNomCompletAttribute() retourne le nom complet
+     *
      * @test
      */
     public function test_get_nom_complet_attribute_returns_full_name()
@@ -178,6 +186,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 12: Vérifier que getAdresseCompleteAttribute() retourne l'adresse complète
+     *
      * @test
      */
     public function test_get_adresse_complete_attribute_returns_full_address()
@@ -202,6 +211,7 @@ class AdherentTest extends TestCase
 
     /**
      * Test 13: Vérifier la recherche par nom via rechercherParNom()
+     *
      * @test
      */
     public function test_rechercher_par_nom_finds_adherent()
@@ -216,11 +226,12 @@ class AdherentTest extends TestCase
 
     /**
      * Test 14: Vérifier la recherche par prénom via rechercherParPrenom()
+     *
      * @test
      */
     public function test_rechercher_par_prenom_finds_adherent()
     {
-        $adherent = Adherent::factory()->create(['prenom' => 'Unique' . uniqid()]);
+        $adherent = Adherent::factory()->create(['prenom' => 'Unique'.uniqid()]);
 
         $results = Adherent::rechercherParPrenom($adherent->prenom);
 
@@ -230,12 +241,13 @@ class AdherentTest extends TestCase
 
     /**
      * Test 15: Vérifier la recherche par nom complet via rechercherParNomComplet()
+     *
      * @test
      */
     public function test_rechercher_par_nom_complet_finds_adherent()
     {
-        $nom = 'Nom' . uniqid();
-        $prenom = 'Prenom' . uniqid();
+        $nom = 'Nom'.uniqid();
+        $prenom = 'Prenom'.uniqid();
         $adherent = Adherent::factory()->create([
             'nom' => $nom,
             'prenom' => $prenom,

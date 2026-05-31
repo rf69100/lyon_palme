@@ -2,30 +2,30 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\Adhesion;
 use App\Models\Adherent;
+use App\Models\Adhesion;
 use App\Models\Saison;
-use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Tests\TestCase;
 
 class AdhesionTest extends TestCase
 {
     private $saison;
+
     private $adherent;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         // Créer une saison réutilisable pour tous les tests
         $this->saison = Saison::factory()->create([
-            'nom' => '2024-2025-test-' . uniqid(),
+            'nom' => '2024-2025-test-'.uniqid(),
         ]);
         $this->adherent = Adherent::factory()->create();
     }
 
     /**
      * Test 1: Vérifier qu'une adhésion peut être créée
+     *
      * @test
      */
     public function test_adhesion_can_be_created()
@@ -43,6 +43,7 @@ class AdhesionTest extends TestCase
 
     /**
      * Test 2: Vérifier que le statut peut être défini à 'valide'
+     *
      * @test
      */
     public function test_adhesion_status_can_be_set_to_valide()
@@ -58,6 +59,7 @@ class AdhesionTest extends TestCase
 
     /**
      * Test 3: Vérifier que le montant_paye par défaut est 0.00
+     *
      * @test
      */
     public function test_adhesion_default_payment_is_zero()
@@ -73,6 +75,7 @@ class AdhesionTest extends TestCase
 
     /**
      * Test 4: Vérifier que montant_attendu est requis
+     *
      * @test
      */
     public function test_adhesion_montant_attendu_is_required()
@@ -89,11 +92,12 @@ class AdhesionTest extends TestCase
 
     /**
      * Test 5: Vérifier que le numéro de reçu doit être unique
+     *
      * @test
      */
     public function test_adhesion_receipt_number_must_be_unique()
     {
-        $numeroRecu = 'REC-2025-' . uniqid();
+        $numeroRecu = 'REC-2025-'.uniqid();
 
         Adhesion::factory()->create([
             'adherent_id' => $this->adherent->id,
@@ -115,6 +119,7 @@ class AdhesionTest extends TestCase
 
     /**
      * Test 6: Vérifier que valide_le est null pour une adhésion non validée
+     *
      * @test
      */
     public function test_adhesion_valide_le_is_null_when_not_validated()

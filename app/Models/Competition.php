@@ -12,6 +12,7 @@ class Competition extends Model
     protected $table = 'competitions';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

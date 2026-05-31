@@ -2,16 +2,17 @@
 
 namespace Tests\Unit\Actions;
 
-use Tests\TestCase;
-use App\Models\Utilisateur;
 use App\Actions\Fortify\ResetUserPassword;
+use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Tests\TestCase;
 
 class ResetUserPasswordTest extends TestCase
 {
     /**
      * Test 1: Vérifier que le mot de passe peut être réinitialisé avec un nouveau mot de passe valide
+     *
      * @test
      */
     public function test_user_password_can_be_reset_with_valid_password()
@@ -19,11 +20,11 @@ class ResetUserPasswordTest extends TestCase
         $newPassword = 'NewPassword456!';
 
         $user = Utilisateur::factory()->create([
-            'email' => 'reset.pwd.' . uniqid() . '@example.com',
+            'email' => 'reset.pwd.'.uniqid().'@example.com',
             'mot_de_passe' => 'OldPassword123!',
         ]);
 
-        $action = new ResetUserPassword();
+        $action = new ResetUserPassword;
 
         $action->reset($user, [
             'password' => $newPassword,
@@ -42,6 +43,7 @@ class ResetUserPasswordTest extends TestCase
 
     /**
      * Test 2: Vérifier que le nouveau mot de passe est haché correctement
+     *
      * @test
      */
     public function test_reset_password_is_hashed_correctly()
@@ -49,10 +51,10 @@ class ResetUserPasswordTest extends TestCase
         $plainPassword = 'ResetPassword789!';
 
         $user = Utilisateur::factory()->create([
-            'email' => 'reset.hash.' . uniqid() . '@example.com',
+            'email' => 'reset.hash.'.uniqid().'@example.com',
         ]);
 
-        $action = new ResetUserPassword();
+        $action = new ResetUserPassword;
 
         $action->reset($user, [
             'password' => $plainPassword,
@@ -70,15 +72,16 @@ class ResetUserPasswordTest extends TestCase
 
     /**
      * Test 3: Vérifier que la validation échoue si le mot de passe est manquant
+     *
      * @test
      */
     public function test_reset_fails_if_password_is_missing()
     {
         $user = Utilisateur::factory()->create([
-            'email' => 'missing.reset.' . uniqid() . '@example.com',
+            'email' => 'missing.reset.'.uniqid().'@example.com',
         ]);
 
-        $action = new ResetUserPassword();
+        $action = new ResetUserPassword;
 
         $this->expectException(ValidationException::class);
 
@@ -89,15 +92,16 @@ class ResetUserPasswordTest extends TestCase
 
     /**
      * Test 4: Vérifier que la validation échoue si password_confirmation ne correspond pas
+     *
      * @test
      */
     public function test_reset_fails_if_password_confirmation_does_not_match()
     {
         $user = Utilisateur::factory()->create([
-            'email' => 'mismatch.reset.' . uniqid() . '@example.com',
+            'email' => 'mismatch.reset.'.uniqid().'@example.com',
         ]);
 
-        $action = new ResetUserPassword();
+        $action = new ResetUserPassword;
 
         $this->expectException(ValidationException::class);
 
@@ -109,6 +113,7 @@ class ResetUserPasswordTest extends TestCase
 
     /**
      * Test 5: Vérifier que le mot de passe du utilisateur est modifié en forceFill et save
+     *
      * @test
      */
     public function test_reset_uses_force_fill_to_bypass_protections()
@@ -116,11 +121,11 @@ class ResetUserPasswordTest extends TestCase
         $newPassword = 'ResetForceFill123!';
 
         $user = Utilisateur::factory()->create([
-            'email' => 'forcefill.reset.' . uniqid() . '@example.com',
+            'email' => 'forcefill.reset.'.uniqid().'@example.com',
             'mot_de_passe' => 'OriginalPassword!',
         ]);
 
-        $action = new ResetUserPassword();
+        $action = new ResetUserPassword;
 
         // Vérifier que mot_de_passe est dans fillable avant reset
         $originalFillable = $user->getFillable();

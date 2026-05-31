@@ -2,8 +2,8 @@
 
 namespace App\Traits;
 
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Contracts\Encryption\DecryptException;
+use Illuminate\Support\Facades\Crypt;
 
 /**
  * Trait EncryptsAttributes
@@ -32,7 +32,7 @@ trait EncryptsAttributes
         $value = parent::getAttribute($key);
 
         // Si l'attribut doit être chiffré et a une valeur
-        if ($this->shouldEncrypt($key) && !is_null($value)) {
+        if ($this->shouldEncrypt($key) && ! is_null($value)) {
             try {
                 // Tenter de déchiffrer la valeur
                 return Crypt::decryptString($value);
@@ -59,7 +59,7 @@ trait EncryptsAttributes
         $originalValue = $value;
 
         // Si l'attribut doit être chiffré et a une valeur non nulle
-        if ($this->shouldEncrypt($key) && !is_null($value)) {
+        if ($this->shouldEncrypt($key) && ! is_null($value)) {
             // Convertir les objets DateTime en string avant chiffrement
             if ($value instanceof \DateTimeInterface) {
                 $value = $value->format('Y-m-d H:i:s');
@@ -67,7 +67,7 @@ trait EncryptsAttributes
             }
 
             // Ne chiffrer que si la valeur n'est pas déjà chiffrée
-            if (!$this->isEncrypted($value)) {
+            if (! $this->isEncrypted($value)) {
                 // Stocker la valeur en clair pour les hashes
                 $this->clearTextValues[$key] = $originalValue;
 
@@ -114,7 +114,7 @@ trait EncryptsAttributes
         $prenom = $this->clearTextValues['prenom'] ?? null;
 
         if ($nom && $prenom) {
-            $nomComplet = mb_strtolower($nom . ' ' . $prenom);
+            $nomComplet = mb_strtolower($nom.' '.$prenom);
             $this->attributes['nom_complet_recherche'] = hash('sha256', $nomComplet);
         }
     }
@@ -164,7 +164,7 @@ trait EncryptsAttributes
      */
     protected function isEncrypted($value): bool
     {
-        if (!is_string($value)) {
+        if (! is_string($value)) {
             return false;
         }
 
@@ -176,6 +176,7 @@ trait EncryptsAttributes
         // Tenter de déchiffrer pour vérifier
         try {
             Crypt::decryptString($value);
+
             return true;
         } catch (DecryptException $e) {
             return false;
@@ -191,7 +192,7 @@ trait EncryptsAttributes
      */
     public function scopeWhereEncrypted($query, string $attribute, $value)
     {
-        if (!$this->shouldEncrypt($attribute)) {
+        if (! $this->shouldEncrypt($attribute)) {
             return $query->where($attribute, $value);
         }
 

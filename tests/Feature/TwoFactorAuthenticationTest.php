@@ -2,9 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Models\Utilisateur;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PragmaRX\Google2FA\Google2FA;
 use Tests\TestCase;
 
 class TwoFactorAuthenticationTest extends TestCase

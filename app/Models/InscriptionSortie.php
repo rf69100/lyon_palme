@@ -12,6 +12,7 @@ class InscriptionSortie extends Model
     protected $table = 'inscriptions_sorties';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

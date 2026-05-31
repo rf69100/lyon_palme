@@ -12,6 +12,7 @@ class PretMateriel extends Model
     protected $table = 'prets_materiel';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

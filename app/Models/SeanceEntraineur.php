@@ -12,6 +12,7 @@ class SeanceEntraineur extends Model
     protected $table = 'seance_entraineurs';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

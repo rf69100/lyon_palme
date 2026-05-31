@@ -2,29 +2,30 @@
 
 namespace Tests\Unit\Models;
 
-use Tests\TestCase;
-use App\Models\Sortie;
 use App\Models\Adherent;
 use App\Models\Saison;
-use Carbon\Carbon;
+use App\Models\Sortie;
+use Tests\TestCase;
 
 class SortieTest extends TestCase
 {
     private $saison;
+
     private $adherent;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         // Créer une saison réutilisable pour tous les tests
         $this->saison = Saison::factory()->create([
-            'nom' => '2024-2025-sortie-' . uniqid(),
+            'nom' => '2024-2025-sortie-'.uniqid(),
         ]);
         $this->adherent = Adherent::factory()->create();
     }
 
     /**
      * Test 1: Vérifier qu'une sortie peut être créée
+     *
      * @test
      */
     public function test_sortie_can_be_created()
@@ -43,6 +44,7 @@ class SortieTest extends TestCase
 
     /**
      * Test 2: Vérifier que le statut peut être défini à 'planifie'
+     *
      * @test
      */
     public function test_sortie_status_can_be_set_to_planifie()
@@ -58,6 +60,7 @@ class SortieTest extends TestCase
 
     /**
      * Test 3: Vérifier que le type_sortie peut être défini à 'loisir'
+     *
      * @test
      */
     public function test_sortie_type_can_be_set_to_loisir()
@@ -73,6 +76,7 @@ class SortieTest extends TestCase
 
     /**
      * Test 4: Vérifier que le statut peut être changé à 'annule'
+     *
      * @test
      */
     public function test_sortie_status_can_be_changed_to_annule()
@@ -90,6 +94,7 @@ class SortieTest extends TestCase
 
     /**
      * Test 5: Vérifier que temperature_eau peut être null
+     *
      * @test
      */
     public function test_sortie_temperature_eau_can_be_null()

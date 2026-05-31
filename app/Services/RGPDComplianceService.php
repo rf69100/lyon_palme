@@ -62,7 +62,7 @@ class RGPDComplianceService
     {
         // Delete sensitive data, keep only legal requirements
         $user->update([
-            'email' => 'anonymized_' . $user->id . '@example.com',
+            'email' => 'anonymized_'.$user->id.'@example.com',
             'nom' => 'Anonymized',
             'email_verifie_le' => null,
             'modifie_le' => Carbon::now(),
@@ -82,7 +82,7 @@ class RGPDComplianceService
     {
         return [
             'utilisateur' => $user->only([
-                'id', 'nom', 'email', 'email_verifie_le', 'cree_le', 'modifie_le'
+                'id', 'nom', 'email', 'email_verifie_le', 'cree_le', 'modifie_le',
             ]),
             'consentements' => $user->consentements()->get()->toArray(),
             'audit_logs' => $user->auditLogs()->get()->toArray(),
@@ -97,7 +97,7 @@ class RGPDComplianceService
         return [
             'adherent' => $adherent->only([
                 'id', 'civilite', 'prenom', 'nom', 'date_naissance', 'email',
-                'telephone', 'mobile', 'adresse_complete', 'statut', 'cree_le'
+                'telephone', 'mobile', 'adresse_complete', 'statut', 'cree_le',
             ]),
             'representants_legaux' => $adherent->representantsLegaux()->get()->toArray(),
             'certificats_medicaux' => $adherent->certificatsMedicaux()->get()->toArray(),
@@ -112,7 +112,7 @@ class RGPDComplianceService
     {
         return [
             'purpose' => 'Management of swimming club members and activities',
-            'retention_period' => self::DATA_RETENTION_DAYS . ' days',
+            'retention_period' => self::DATA_RETENTION_DAYS.' days',
             'data_categories' => [
                 'Identity information (name, email)',
                 'Medical data (certificates)',

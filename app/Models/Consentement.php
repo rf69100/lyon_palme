@@ -12,6 +12,7 @@ class Consentement extends Model
     protected $table = 'consentements';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [

@@ -62,6 +62,33 @@
                 {{ session('success') }}
             </div>
         @endif
+        @if(session('error'))
+            <div class="mb-6 bg-red-50 border border-red-200 text-red-800 px-6 py-4 rounded-lg">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        <!-- Compte de connexion (US12) -->
+        <div class="mb-6 bg-white rounded-xl shadow-lg p-6 border border-slate-200 flex items-center justify-between gap-4">
+            <div>
+                <h3 class="font-bold text-slate-900">Compte de connexion</h3>
+                @if($adherent->utilisateur_id)
+                    <p class="text-sm text-green-700">Un compte de connexion existe pour cet adhérent.</p>
+                @elseif(! $adherent->email)
+                    <p class="text-sm text-slate-500">Renseignez une adresse email pour pouvoir créer un compte.</p>
+                @else
+                    <p class="text-sm text-slate-600">Crée un accès nageur (mot de passe initial : date de naissance AAAAMMJJ).</p>
+                @endif
+            </div>
+            @if(! $adherent->utilisateur_id && $adherent->email)
+                <form method="POST" action="{{ route('admin.adherents.create-account', $adherent) }}">
+                    @csrf
+                    <button type="submit" class="bg-cyan-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-cyan-700 transition whitespace-nowrap">
+                        Créer un compte
+                    </button>
+                </form>
+            @endif
+        </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             <!-- Main Info -->
@@ -115,6 +142,36 @@
                                     <span class="text-sm font-semibold {{ $adhesion->statut === 'valide' ? 'text-green-600' : 'text-orange-600' }}">
                                         {{ ucfirst($adhesion->statut) }}
                                     </span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <!-- Certificats médicaux -->
+                @if($adherent->certificatsMedicaux->count() > 0)
+                    <div class="bg-white rounded-xl shadow-lg p-8 border border-slate-200">
+                        <h2 class="text-2xl font-bold text-slate-900 mb-6">Certificats médicaux</h2>
+                        <div class="space-y-3">
+                            @foreach($adherent->certificatsMedicaux->sortByDesc('delivre_le') as $certificat)
+                                @php($expire = \Carbon\Carbon::parse($certificat->expire_le))
+                                <div class="flex justify-between items-center p-4 bg-slate-50 rounded-lg">
+                                    <div>
+                                        <div class="font-semibold text-slate-900">
+                                            Délivré le {{ \Carbon\Carbon::parse($certificat->delivre_le)->format('d/m/Y') }}
+                                        </div>
+                                        <div class="text-sm {{ $expire->isFuture() ? 'text-green-600' : 'text-red-600' }}">
+                                            {{ $expire->isFuture() ? 'Valide jusqu\'au' : 'Expiré le' }} {{ $expire->format('d/m/Y') }}
+                                        </div>
+                                    </div>
+                                    @if($certificat->document)
+                                        <a href="{{ route('admin.certificats.download', $certificat) }}" class="inline-flex items-center gap-2 text-purple-600 hover:text-purple-700 font-semibold">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                            </svg>
+                                            Télécharger
+                                        </a>
+                                    @endif
                                 </div>
                             @endforeach
                         </div>

@@ -28,7 +28,11 @@
                 </div>
 
                 <!-- Nav Actions -->
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 sm:gap-4">
+                    <a href="{{ route('dashboard') }}" class="hidden sm:inline px-3 py-2 text-slate-700 hover:text-purple-600 font-medium">Tableau de bord</a>
+                    <a href="{{ route('trombinoscope') }}" class="hidden sm:inline px-3 py-2 text-slate-700 hover:text-purple-600 font-medium">Trombinoscope</a>
+                    <a href="{{ route('annuaire') }}" class="hidden sm:inline px-3 py-2 text-slate-700 hover:text-purple-600 font-medium">Annuaire</a>
+                    <a href="{{ route('mon-profil.edit') }}" class="hidden sm:inline px-3 py-2 text-slate-700 hover:text-purple-600 font-medium">Mon profil</a>
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
                         <button type="submit" class="px-4 py-2 bg-gradient-to-r from-purple-600 to-cyan-500 text-white rounded-lg hover:from-purple-700 hover:to-cyan-600 font-medium transition duration-200">

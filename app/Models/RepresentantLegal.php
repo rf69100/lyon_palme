@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RepresentantLegal extends Model
 {
-    use HasFactory, EncryptsAttributes;
+    use EncryptsAttributes, HasFactory;
 
     protected $table = 'representants_legaux';
 
     const CREATED_AT = 'cree_le';
+
     const UPDATED_AT = 'modifie_le';
 
     protected $fillable = [
@@ -90,7 +91,7 @@ class RepresentantLegal extends Model
             $this->numero_rue,
             $this->rue,
             $this->complement_adresse,
-            $this->code_postal . ' ' . $this->ville,
+            $this->code_postal.' '.$this->ville,
             $this->pays !== 'France' ? $this->pays : null,
         ]);
 
@@ -102,7 +103,7 @@ class RepresentantLegal extends Model
      */
     public function getNomCompletAttribute(): string
     {
-        return trim($this->civilite . ' ' . $this->prenom . ' ' . $this->nom);
+        return trim($this->civilite.' '.$this->prenom.' '.$this->nom);
     }
 
     /**
@@ -151,6 +152,7 @@ class RepresentantLegal extends Model
     public static function rechercherParNom(string $nom)
     {
         $nomHash = hash('sha256', mb_strtolower($nom));
+
         return static::where('nom_recherche', $nomHash)->get();
     }
 
@@ -160,6 +162,7 @@ class RepresentantLegal extends Model
     public static function rechercherParPrenom(string $prenom)
     {
         $prenomHash = hash('sha256', mb_strtolower($prenom));
+
         return static::where('prenom_recherche', $prenomHash)->get();
     }
 
@@ -168,7 +171,8 @@ class RepresentantLegal extends Model
      */
     public static function rechercherParNomComplet(string $nom, string $prenom)
     {
-        $nomCompletHash = hash('sha256', mb_strtolower($nom . ' ' . $prenom));
+        $nomCompletHash = hash('sha256', mb_strtolower($nom.' '.$prenom));
+
         return static::where('nom_complet_recherche', $nomCompletHash)->get();
     }
 }
