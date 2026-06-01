@@ -78,3 +78,29 @@ Custom middleware in `app/Http/Middleware/`: `LogAuditTrail` (alias `audit.trail
 - Pest 4 for tests (`tests/Feature`, `tests/Unit`); Pint (PSR-12) before commits.
 - Tailwind 4 utility classes; club palette violet `#5B4B8A` + cyan `#5DD9D2`, gradients `from-purple-600 to-cyan-500`. Layouts: `layouts.public`, `layouts.app`, `layouts.auth`.
 - Never call `env()` outside `config/`. Validate input via Form Requests. Audit every sensitive mutation.
+
+### Middleware registration
+
+All middleware aliases are registered in `bootstrap/app.php` (Laravel 12 — no `Kernel.php`). The relevant aliases for this project:
+
+| Alias | Class | Purpose |
+|---|---|---|
+| `audit.trail` | `LogAuditTrail` | Logs every authenticated HTTP request |
+| `admin` | `EnsureUserIsAdmin` | Guards `admin.*` routes to administrative roles only |
+| `throttle.login` | `ThrottleLoginAttempts` | Brute-force protection on login |
+| `api.abuse` | `PreventApiAbuse` | Rate-limits Excel exports (10/hour) |
+
+### Route structure
+
+```
+/                          → public landing page
+/admin/*   (name: admin.)  → admin middleware + auth/verified/audit.trail
+  adherents                → AdherentController (resource + restore + createAccount)
+  certificats-medicaux     → CertificatMedicalController (index, export, download)
+  cotisations              → AdhesionController (index, export)
+  adhesions/{id}/paiements → PaiementController (create, store)
+  journaux-audit           → AuditLogController
+/mon-profil                → MonProfilController (nageur self-service)
+/trombinoscope             → TrombinoscopeController
+/annuaire                  → AnnuaireController
+```

@@ -1,128 +1,315 @@
-# Lyon Palme - Plateforme de Gestion Interne
+# Lyon Palme — Plateforme de Gestion Interne
 
-> **Application privée et exclusive** développée pour la gestion interne du club Lyon Palme, club de palmage et de plongée affilié à la FFESSM (Fédération Française d'Études et de Sports Sous-Marins) - Comité régional AURA.
+> Application privée développée pour la gestion interne du club Lyon Palme (palmage / nage avec palmes), affilié FFESSM — Comité régional AURA, basé à Vénissieux.
 
-## ⚠️ Important
+Projet BTS SIO — périmètre **US1–US18** entièrement livré.
 
-**Cette application est spécifiquement conçue pour le club Lyon Palme uniquement.** Elle n'est pas destinée à être utilisée par d'autres clubs ou organismes. Toutes les fonctionnalités, configurations et données sont adaptées aux besoins spécifiques de notre club.
-
-## À propos
-
-Lyon Palme est la plateforme de gestion interne du club Lyon Palme basé à Vénissieux. Développée dans le cadre d'un projet BTS SIO, l'application couvre le **backlog US1–US18** : sécurité/RGPD, gestion des adhérents par le secrétariat (adhésions, paiements, certificats médicaux) et espace self-service pour les nageurs.
-
-**Piscine d'entraînement principale :** Centre Nautique de Vénissieux
-**Affiliation :** FFESSM - Comité Régional AURA
-**Type :** Club de palmage, nage avec palmes et plongée
+---
 
 ## Périmètre livré (US1–US18)
 
-> ⚠️ **Hors-scope.** Les modules planning / séances d'entraînement / sorties / compétitions / matériel **ne font pas partie du livrable**. Leurs tables et modèles existent dans le schéma mais ne sont pas exposés dans l'application.
+> Les modules planning / séances / sorties / compétitions / matériel sont **hors-scope** — leurs tables existent mais ne sont pas exposés.
 
-### Sécurité & RGPD (US1–US3)
-- Politique de mot de passe CNIL (12+ caractères, complexité, expiration 90 jours)
-- Piste d'audit complète (`audit_logs`) sur chaque action sensible
-- Chiffrement des champs sensibles au repos (AES-256) via le trait `EncryptsAttributes`
-- Gestion des consentements RGPD (traçabilité IP / user-agent, révocation)
+| Domaine | User Stories | Fonctionnalités |
+|---|---|---|
+| Sécurité & RGPD | US1–US3 | Politique CNIL, piste d'audit, chiffrement AES-256, consentements |
+| Espace Secrétaire | US4–US11 | Login, CRUD adhérents (avec mineur + représentant légal), archivage, certificats médicaux, cotisations & paiements, exports Excel |
+| Espace Nageur | US12–US18 | Login / reset mdp (Fortify), profil self-service, opt-in trombinoscope / annuaire, listings |
 
-### Espace Secrétaire / Administration (US4–US11)
-- Authentification (Fortify) et changement de mot de passe
-- CRUD complet des adhérents : rôles, représentant légal pour les mineurs, consentements RGPD
-- Upload / téléchargement des certificats médicaux (PDF)
-- Archivage et restauration des adhérents (soft delete)
-- Tableau de bord des certificats médicaux (US10) avec export Excel
-- Cotisations & paiements (US11) : adhésions par saison, types d'adhésion, suivi des paiements (espèces, chèque, virement, carte, Hello Asso), solde calculé automatiquement, export Excel
+---
 
-### Espace Nageur / Adhérent (US12–US18)
-- Connexion (Fortify) ; compte créé par le secrétariat (mot de passe initial = date de naissance `AAAAMMJJ`)
-- Mot de passe oublié / réinitialisation (Fortify)
-- Profil self-service (`/mon-profil`)
-- Opt-in trombinoscope / annuaire et listings publics (`/trombinoscope`, `/annuaire`)
+## Diagramme de cas d'utilisation
 
-### Contrôle d'accès
-- Modèle utilisateur personnalisé `Utilisateur` (authentification Fortify sur mesure)
-- Rôles via Spatie Laravel Permission, portés par l'**adhérent** : `secretaire`, `president`, `tresorier` (= administrateurs) et `adherent`
-- Routes protégées par les middlewares `auth`, `verified`, `audit.trail`
+```mermaid
+graph TD
+    SEC([Secrétaire / Admin])
+    NAG([Nageur / Adhérent])
+
+    SEC --> UC1[Se connecter]
+    SEC --> UC2[Changer son mot de passe]
+    SEC --> UC3[Créer / modifier un adhérent]
+    SEC --> UC4[Archiver / restaurer un adhérent]
+    SEC --> UC5[Créer un compte nageur]
+    SEC --> UC6[Uploader un certificat médical]
+    SEC --> UC7[Consulter le tableau de bord certificats]
+    SEC --> UC8[Exporter les certificats Excel]
+    SEC --> UC9[Gérer les cotisations / adhésions]
+    SEC --> UC10[Enregistrer un paiement]
+    SEC --> UC11[Exporter les cotisations Excel]
+    SEC --> UC12[Consulter les journaux d'audit]
+
+    NAG --> UC13[Se connecter]
+    NAG --> UC14[Réinitialiser son mot de passe]
+    NAG --> UC15[Modifier son profil self-service]
+    NAG --> UC16[Activer / désactiver opt-in trombinoscope]
+    NAG --> UC17[Consulter le trombinoscope]
+    NAG --> UC18[Consulter l'annuaire]
+```
+
+---
+
+## Diagramme de classes
+
+```mermaid
+classDiagram
+    class Utilisateur {
+        +int id
+        +string nom
+        +string email
+        +string mot_de_passe
+        +bool doit_changer_mdp
+        +string jeton_souvenir
+        +adherent() HasOne
+        +estAdministrateur() bool
+    }
+
+    class Adherent {
+        +int id
+        +int utilisateur_id
+        +string civilite
+        +string nom  ⟨chiffré⟩
+        +string prenom  ⟨chiffré⟩
+        +string email  ⟨chiffré⟩
+        +string date_naissance  ⟨chiffré⟩
+        +string telephone  ⟨chiffré⟩
+        +string adresse  ⟨chiffré⟩
+        +bool est_mineur
+        +bool afficher_trombinoscope
+        +bool afficher_annuaire
+        +string statut
+        +estAdministrateur() bool
+        +hasRole(string) bool
+    }
+
+    class RepresentantLegal {
+        +int id
+        +int adherent_mineur_id
+        +string nom  ⟨chiffré⟩
+        +string prenom  ⟨chiffré⟩
+        +string telephone  ⟨chiffré⟩
+        +string lien_parente
+    }
+
+    class Role {
+        +int id
+        +string nom
+        +string libelle
+        SECRETAIRE$
+        PRESIDENT$
+        TRESORIER$
+        ADHERENT$
+    }
+
+    class AdherentRole {
+        +int adherent_id
+        +int role_id
+        +int saison_id
+        +bool est_actif
+        +date revoque_le
+    }
+
+    class Saison {
+        +int id
+        +string libelle
+        +date debut
+        +date fin
+        +bool est_active
+    }
+
+    class TypeAdhesion {
+        +int id
+        +string libelle
+        +string categorie
+    }
+
+    class Adhesion {
+        +int id
+        +int adherent_id
+        +int saison_id
+        +int type_adhesion_id
+        +decimal montant_attendu
+        +decimal montant_paye
+        +decimal solde  ⟨colonne générée⟩
+        +string statut
+        +getStatutPaiementAttribute() string
+    }
+
+    class Paiement {
+        +int id
+        +int adhesion_id
+        +decimal montant
+        +date paye_le
+        +string mode_paiement
+        +string reference
+    }
+
+    class CertificatMedical {
+        +int id
+        +int adherent_id
+        +date date_validite
+        +string chemin_fichier
+        +bool est_valide
+    }
+
+    class Consentement {
+        +int id
+        +int adherent_id
+        +string type_consentement
+        +bool accepte
+        +string ip_adresse
+        +datetime date_consentement
+    }
+
+    class AuditLog {
+        +int id
+        +int utilisateur_id
+        +string action
+        +string modele
+        +int modele_id
+        +json anciennes_valeurs
+        +json nouvelles_valeurs
+        +string ip_adresse
+    }
+
+    Utilisateur "1" --> "0..1" Adherent : utilisateur_id
+    Adherent "1" --> "0..*" RepresentantLegal : adherent_mineur_id
+    Adherent "1" --> "0..*" Adhesion
+    Adherent "1" --> "0..*" CertificatMedical
+    Adherent "1" --> "0..*" Consentement
+    Adherent "0..*" --> "0..*" Role : via AdherentRole
+    AdherentRole --> Adherent
+    AdherentRole --> Role
+    AdherentRole --> Saison
+    Adhesion "1" --> "0..*" Paiement
+    Adhesion --> Saison
+    Adhesion --> TypeAdhesion
+    AuditLog --> Utilisateur
+```
+
+---
+
+## Diagramme de séquence — Création d'un adhérent avec compte nageur
+
+```mermaid
+sequenceDiagram
+    actor SEC as Secrétaire
+    participant B as Navigateur
+    participant MW as Middleware<br/>(auth + audit.trail)
+    participant AC as AdherentController
+    participant AD as Adherent (Model)
+    participant US as Utilisateur (Model)
+    participant AUS as AuditService
+
+    SEC->>B: POST /admin/adherents
+    B->>MW: Requête HTTP
+    MW->>MW: Vérifie auth + email vérifié
+    MW->>MW: LogAuditTrail — enregistre la requête
+    MW->>AC: store(StoreAdherentRequest)
+
+    AC->>AC: Valide via StoreAdherentRequest
+    AC->>AD: Adherent::create(données chiffrées)
+    AD->>AD: EncryptsAttributes::setAttribute()<br/>chiffre les champs sensibles
+    AD-->>AC: $adherent
+
+    alt Adhérent mineur
+        AC->>AD: RepresentantLegal::create()
+    end
+
+    AC->>AUS: AuditService::logCreate($adherent)
+    AUS->>AUS: INSERT audit_logs
+
+    SEC->>B: POST /admin/adherents/{id}/compte
+    B->>AC: createAccount($adherent)
+    AC->>US: Utilisateur::create(mdp = date_naissance)
+    US-->>AC: $utilisateur
+    AC->>AD: adherent->update(utilisateur_id)
+    AC->>AUS: AuditService::log('compte_cree')
+    AC-->>B: Redirect + flash success
+    B-->>SEC: Dashboard avec confirmation
+```
+
+---
+
+## Arborescence
+
+```
+lyonpalme/
+├── app/
+│   ├── Actions/Fortify/          # Actions d'authentification (Fortify)
+│   ├── Exports/                  # Exports Excel (maatwebsite)
+│   │   ├── CertificatsMedicauxExport.php
+│   │   └── CotisationsExport.php
+│   ├── Http/
+│   │   ├── Controllers/          # Un contrôleur par domaine métier
+│   │   ├── Middleware/           # Middleware sécurité (audit, admin, throttle…)
+│   │   └── Requests/             # Form Requests (validation)
+│   ├── Models/                   # Modèles Eloquent (nommage français)
+│   ├── Providers/
+│   │   ├── AppServiceProvider.php
+│   │   └── FortifyServiceProvider.php   # Config auth custom
+│   ├── Services/                 # Services statiques réutilisables
+│   │   ├── AuditService.php
+│   │   ├── PasswordPolicyService.php
+│   │   ├── FileSecurityService.php
+│   │   ├── InputSanitizationService.php
+│   │   └── RGPDComplianceService.php
+│   └── Traits/
+│       └── EncryptsAttributes.php       # Chiffrement AES-256 transparent
+├── bootstrap/
+│   └── app.php                   # Registration middleware + providers (Laravel 12)
+├── database/
+│   ├── factories/
+│   ├── migrations/
+│   └── seeders/
+├── resources/
+│   ├── css/app.css               # Tailwind 4 (@import "tailwindcss" + @theme)
+│   ├── js/
+│   └── views/
+│       ├── layouts/              # app.blade, auth.blade, public.blade
+│       ├── admin/                # Vues secrétariat (adherents, certificats, cotisations…)
+│       ├── auth/                 # Vues Fortify (login, reset, verify…)
+│       ├── dashboard/            # secretary.blade / adherent.blade
+│       ├── mon-profil/           # Espace nageur self-service
+│       ├── trombinoscope/
+│       └── annuaire/
+├── routes/
+│   └── web.php                   # Toutes les routes (public + auth + admin)
+├── tests/
+│   ├── Feature/
+│   └── Unit/
+├── CLAUDE.md
+├── COMPTES_TEST.md               # Comptes de test après seeder
+└── init.txt                      # Document de planification initial (BTS SIO)
+```
+
+---
 
 ## Prérequis
 
 - PHP >= 8.4
 - Composer
 - Node.js & NPM
-- MariaDB (connexion `mariadb`, base `lyonpalme`)
-- Extensions PHP requises :
-  - BCMath
-  - Ctype
-  - Fileinfo
-  - JSON
-  - Mbstring
-  - OpenSSL
-  - PDO
-  - Tokenizer
-  - XML
+- MariaDB (base `lyonpalme`)
 
 ## Installation
 
-### 1. Cloner le projet
-
 ```bash
-git clone <url-du-repo>
-cd lyon_palme
-```
-
-### 2. Installation automatique
-
-La commande suivante va tout installer et configurer :
-
-```bash
+# Cloner puis installation complète
 composer setup
 ```
 
-Cette commande va :
-- Installer les dépendances PHP (composer install)
-- Créer le fichier .env à partir de .env.example
-- Générer la clé d'application
-- Exécuter les migrations de base de données
-- Installer les dépendances NPM
-- Compiler les assets
-
-### 3. Configuration manuelle (alternative)
-
-Si vous préférez installer manuellement :
+Ou manuellement :
 
 ```bash
-# Installer les dépendances PHP
 composer install
-
-# Copier le fichier de configuration
 cp .env.example .env
-
-# Générer la clé d'application
 php artisan key:generate
-
-# Configurer la base de données dans .env
-# DB_DATABASE=lyonpalme
-# DB_USERNAME=votre_utilisateur
-# DB_PASSWORD=votre_mot_de_passe
-
-# Exécuter les migrations
+# Configurer DB_* dans .env
 php artisan migrate
-
-# Installer les dépendances JavaScript
-npm install
-
-# Compiler les assets
-npm run build
+npm install && npm run build
 ```
 
-### 4. Configuration de la base de données
-
-Créez une base de données MySQL/MariaDB :
-
-```sql
-CREATE DATABASE lyonpalme CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-```
-
-Configurez vos variables d'environnement dans `.env` :
+Configuration `.env` minimale :
 
 ```env
 DB_CONNECTION=mariadb
@@ -133,270 +320,67 @@ DB_USERNAME=root
 DB_PASSWORD=votre_mot_de_passe
 ```
 
-### 5. Données de test (optionnel)
-
-Pour remplir la base de données avec des données de test :
+### Données de test
 
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-Cela génère un jeu de données connu (~100 adhérents, adhésions, paiements, certificats médicaux) ainsi que les comptes de test.
-
-### Comptes de test
-
-Mot de passe `password` pour tous (liste complète dans `COMPTES_TEST.md`) :
+Génère ~100 adhérents + les comptes de test (liste complète dans `COMPTES_TEST.md`). Mot de passe `password` pour tous :
 
 | Email | Rôle |
-| --- | --- |
+|---|---|
 | `admin@lyonpalme.fr` | Administration |
 | `president@lyonpalme.fr` | Président |
 | `secretaire@lyonpalme.fr` | Secrétaire |
 | `tresorier@lyonpalme.fr` | Trésorier |
 
+---
+
 ## Utilisation
 
-### Environnement de développement
-
-Pour lancer tous les services de développement en parallèle :
-
 ```bash
-composer dev
+composer dev      # Serveur + queue + logs + Vite (hot reload)
+npm run build     # Build assets production
 ```
-
-Cette commande lance simultanément :
-- **Serveur Laravel** (port 8000)
-- **Queue worker** (traitement des jobs en arrière-plan)
-- **Logs en temps réel** (via Laravel Pail)
-- **Vite dev server** (hot reload pour les assets)
-
-L'application sera accessible à : [http://localhost:8000](http://localhost:8000)
-
-### Commandes individuelles
-
-Si vous préférez lancer les services individuellement :
-
-```bash
-# Serveur de développement Laravel
-php artisan serve
-
-# File d'attente
-php artisan queue:listen
-
-# Logs en temps réel
-php artisan pail
-
-# Compilation des assets (hot reload)
-npm run dev
-
-# Compilation des assets (production)
-npm run build
-```
-
-### Autres commandes utiles
-
-```bash
-# Telescope (débogage)
-php artisan telescope:install
-
-# Générer l'aide IDE
-php artisan ide-helper:generate
-
-# Formater le code selon PSR-12
-./vendor/bin/pint
-
-# Exécuter les tests
-composer test
-# ou
-php artisan test
-```
-
-## Structure de la base de données
-
-### Tables du périmètre livré
-
-- **utilisateurs** : Authentification (modèle `Utilisateur`, colonnes `mot_de_passe` / `jeton_souvenir`)
-- **adherents** : Membres du club (données chiffrées + colonnes de hash de recherche)
-- **adhesions** : Adhésions avec solde calculé automatiquement (colonne générée)
-- **roles & adherent_roles** : Système de rôles (Spatie)
-- **saisons** : Saisons sportives
-- **types_adhesion & tarifs** : Types et tarification
-- **paiements** : Historique des paiements
-- **certificats_medicaux** : Certificats médicaux (PDF)
-- **representants_legaux** : Tuteurs légaux des mineurs (données chiffrées)
-- **documents** : Stockage polymorphique de fichiers
-- **consentements** : Consentements RGPD
-- **audit_logs** : Piste d'audit des actions sensibles
-
-> Les tables `seances_entrainement`, `programmes_entrainement`, `sorties`, `competitions`, `inventaire_materiel`, `prets_materiel`, `certifications`… existent dans le schéma mais relèvent des **modules hors-scope**.
-
-### Vues
-
-- **v_statut_adhesions** : Vue du statut des adhésions
-
-### Caractéristiques spéciales
-
-- Colonnes générées/calculées (solde dans adhesions)
-- Champs chiffrés pour données sensibles
-- Stratégie d'indexation complète
-- Contraintes de clés étrangères avec cascade/null on delete
-- Suivi des timestamps (cree_le/modifie_le)
-
-## Stack technologique
-
-### Backend
-
-- **Laravel 12** (dernière version)
-- **PHP 8.4+**
-- **MariaDB**
-
-### Frontend
-
-- **Vite 7.0.7** (build tool)
-- **Tailwind CSS 4.0.0** (framework CSS)
-- **Blade** (templating)
-- **Axios 1.11.0** (requêtes HTTP)
-
-### Packages principaux
-
-#### Production
-- **spatie/laravel-permission** : Gestion des rôles et permissions
-- **spatie/laravel-medialibrary** : Gestion des médias avec images responsive
-- **spatie/laravel-backup** : Système de sauvegarde automatisé
-- **maatwebsite/excel** : Export/import Excel
-- **laravel/scout** : Recherche full-text
-- **soved/laravel-gdpr** : Outils de conformité RGPD
-- **laravel-lang/lang** : Support multilingue
-
-#### Développement
-- **laravel/telescope** : Assistant de débogage
-- **barryvdh/laravel-debugbar** : Barre de débogage
-- **barryvdh/laravel-ide-helper** : Autocomplétion IDE
-- **laravel/pail** : Visualisation des logs
-- **laravel/pint** : Formatage du code (PSR-12)
-- **pestphp/pest** : Framework de tests moderne
-- **laravel/sail** : Environnement Docker
-
-## Sécurité
-
-### Chiffrement des données (RGPD)
-
-**Données chiffrées par modèle :**
-
-- **Adherent** (10 champs) : téléphone, mobile, adresse complète, contact d'urgence
-- **RepresentantLegal** (7 champs) : téléphone, mobile, adresse complète
-- **Algorithme** : AES-256-CBC avec clé APP_KEY
-- **Trait réutilisable** : `EncryptsAttributes` - chiffrage automatique transparent
-
-### Authentification et Mots de passe
-
-- **Politique CNIL** : 12+ caractères, majuscules, minuscules, chiffres, symboles requis
-- **Hashage** : BCRYPT avec 12+ rounds
-- **Expiration** : Les mots de passe expirent après 90 jours
-- **Service** : `PasswordPolicyService` pour la gestion de l'expiration
-- **Protection brute force** : Rate limiting (5 tentatives/min par email/IP)
-
-### Audit et Traçabilité
-
-- **Table `audit_logs`** : Enregistre toutes les actions critiques
-- **Traçage complet** : Utilisateur, action, IP, User-Agent, timestamp
-- **Middleware** : `LogAuditTrail` - trace les requêtes HTTP sensibles
-- **Non-répudiation** : Impossible de nier une action effectuée
-
-### Protection contre les attaques web
-
-- **SQL Injection** : Requêtes paramétrées (Eloquent ORM), validation des inputs
-- **XSS** : Blade escaping automatique, sanitization des entrées
-- **CSRF** : Token CSRF automatique, validation sur POST/PUT/DELETE
-- **Session hijacking** : Headers de sécurité (X-Frame-Options, X-Content-Type-Options, etc.)
-- **Session sécurisée** : HttpOnly cookies, Secure flag (prod), SameSite configuré
-
-### Contrôle d'accès
-
-- **Authentification Fortify** : Système personnalisé avec modèle Utilisateur
-- **Rôles et permissions** : rôles portés par l'adhérent via Spatie Laravel Permission (`secretaire`/`president`/`tresorier` = admin, `adherent`)
-- **Email verification** : Vérification obligatoire avant accès
-- **Middleware d'authentification** : Routes protégées par `auth`, `verified`, `audit.trail`
-
-### Gestion des données sensibles
-
-- **Validation des inputs** : Service `InputSanitizationService` centralisant les règles
-- **Pas de données en logs** : Exclusion des mots de passe, tokens, données chiffrées
-- **Exports sécurisés** : Limitation API (10 exports/heure), données échappées
-- **Conformité RGPD** : Support des consentements, droit à l'oubli
-
-### Sauvegardes
-
-- **Système Spatie Backup** : Automatisé, crypté
-- **Exclusions** : vendor et node_modules exclus
-
-## Localisation
-
-- Interface en français (noms de tables/champs en français)
-- Locale par défaut configurable
-- Packages Laravel Lang pour traductions
-
-## Sauvegarde
-
-- Système Spatie Backup configuré
-- Exclusion automatique de vendor et node_modules
-
-## Déploiement (VPS)
-
-L'application est déployée en production sous le **sous-chemin** `https://www.ryanfonseca.fr/lyonpalme`.
-
-- Le middleware `ForceSubpathUrl` réécrit les URLs générées pour fonctionner derrière ce préfixe.
-- Le déploiement s'effectue via le script `deploy-php.sh` du VPS :
-
-```bash
-sudo ./deploy-php.sh --project "Lyon Palme"
-```
-
-Le script enchaîne : `git pull --rebase`, `composer install --no-dev`, `php artisan migrate --force`, régénération des caches (`route:cache`, `config:cache`, `view:cache`), permissions `storage` / `bootstrap/cache` pour `www-data`, `storage:link`, puis reload nginx et test d'accessibilité HTTP.
-
-## Tests
-
-Le projet utilise Pest PHP pour les tests :
-
-```bash
-# Exécuter tous les tests
-php artisan test
-
-# Un seul fichier / nom de test
-php artisan test --filter=AdherentControllerTest
-
-# Ou via composer (vide le cache de config puis lance la suite)
-composer test
-```
-
-> ⚠️ **Les tests tournent sur la vraie base MariaDB `lyonpalme`** (`RefreshDatabase` est désactivé). Ils s'appuient sur les données seedées et ne sont pas hermétiques : un `migrate:fresh --seed` restaure un état connu.
-
-## Scripts Composer
-
-```bash
-composer setup    # Installation complète du projet
-composer dev      # Lance tous les services de développement
-composer test     # Exécute les tests
-```
-
-## Contribution
-
-Ce projet est développé pour le club Lyon Palme. Pour toute contribution :
-
-1. Fork le projet
-2. Créez votre branche (`git checkout -b feature/AmazingFeature`)
-3. Committez vos changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrez une Pull Request
-
-## Licence
-
-MIT License
-
-## Support
-
-Pour toute question ou support, contactez l'équipe de développement.
 
 ---
 
-**Développé avec Laravel 12 et Tailwind CSS 4** | **FFESSM - Comité Régional AURA**
+## Tests
+
+```bash
+composer test                                      # Suite complète
+php artisan test --filter=AdherentControllerTest   # Un seul test
+php artisan test tests/Feature/EncryptionTest.php  # Un seul fichier
+```
+
+> Les tests tournent sur la vraie base MariaDB `lyonpalme` (`RefreshDatabase` désactivé). Ils s'appuient sur les données seedées — un `migrate:fresh --seed` restaure un état connu.
+
+---
+
+## Stack technique
+
+| Couche | Technologie |
+|---|---|
+| Backend | Laravel 12 / PHP 8.4 |
+| Auth | Laravel Fortify (modèle `Utilisateur` personnalisé) |
+| Rôles | Spatie Laravel Permission |
+| Frontend | Blade / Tailwind CSS 4 / Vite 7 |
+| Base de données | MariaDB |
+| Exports | maatwebsite/excel |
+| Médias | spatie/laravel-medialibrary |
+| Tests | Pest 4 |
+
+---
+
+## Sécurité
+
+- **Chiffrement at-rest** : AES-256 via `EncryptsAttributes` sur les champs sensibles (`nom`, `email`, `date_naissance`, adresse, contacts d'urgence). Les colonnes `*_recherche` contiennent le hash SHA-256 pour les lookups exacts.
+- **Politique CNIL** : 12+ caractères, complexité, expiration 90 jours (`PasswordPolicyService`).
+- **Piste d'audit** : toutes les mutations sensibles inscrites dans `audit_logs` via `AuditService`.
+- **RGPD** : consentements tracés (IP + user-agent + horodatage), droit à l'oubli.
+- **Rate limiting** : 5 tentatives/min sur le login ; 10 exports/heure.
+
+---
+
+**Développé avec Laravel 12 & Tailwind CSS 4** | **FFESSM — Comité Régional AURA**
